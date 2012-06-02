@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="button1text">Walk List</string>
+    <string name="button2text">Update Walk List</string>
+    <string name="button3text">About</string><string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="close">Close</string>
+    <string name="image_default">This is an image</string>
+    <string name="next_img">Next Image</string>
+    <string name="previous_img">Prev. Image</string>
+    <string name="hide_img">Hide Image</string>
+    <string name="main_no_items">Number of Walks</string>
+    <string name="updatemaplist">Update Walk List</string>
+
+</resources>

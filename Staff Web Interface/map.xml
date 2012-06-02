@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<walks>
+  <numberofwalks>3</numberofwalks>
+  <walklist>
+    <walk id="3359">
+      <id>3359</id>
+      <title>Aberystwyth Demo Map</title>
+      <desc>This is a Quick Demo Map</desc>
+    </walk>
+    <walk id="14444">
+      <id>14444</id>
+      <title>Aberystwyth Demo Map 2 Copy</title>
+      <desc>This is a Quick Demo Map 2 Copy</desc>
+    </walk>
+    <walk id="15628">
+      <id>15628</id>
+      <title>The walk</title>
+      <desc>New walk description.</desc>
+    </walk>
+    
+  </walklist>
+</walks>

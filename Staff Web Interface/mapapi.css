@@ -1,0 +1,54 @@
+
+html,body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+
+#map_canvas {
+	float: center;
+	padding: 1%;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 95%;
+}
+
+#top_bar {
+	float: center;
+	text-align: center;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+
+#hidden_frame {
+	display: none;
+}
+
+#upload_target{
+	display: none;
+	heigth: 1px;
+	width: 1px;
+}
+
+#overlay {
+	visibility: hidden;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	z-index: 1000;
+	background-image: url('images/background-trans.png');
+}
+
+#overlaybox {
+	width: 450px; 
+	margin: 100px auto;
+	background-image: url('images/background-white.png');
+	border: 1px solid #000;
+	padding: 15px;
+	text-align: center;
+}

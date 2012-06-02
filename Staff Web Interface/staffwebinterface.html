@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="mapapi.css" />
+		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCmV8V2zidGBB8h35IIkzgxkj3MD75ai9g&sensor=false"></script>
+		<script type="text/javascript" src="javascript/alertbox.js"></script>
+		<script type="text/javascript" src="javascript/apiscript.js"></script>
+		<script type="text/javascript" src="javascript/emptymap.js"></script>
+		<script type="text/javascript" src="javascript/image.js"></script>
+		<script type="text/javascript" src="javascript/infowindow.js"></script>
+		<script type="text/javascript" src="javascript/remove.js"></script>
+		<script type="text/javascript" src="javascript/sendload.js"></script>
+		<script type="text/javascript" src="javascript/sendsave.js"></script>
+	</head>
+	<body onload="initialize()">
+	<div id="top_bar">
+	<button id="walkdetailsbutton" type="button" onClick="walkDetailsBox();">Walk details</button>
+	<button id="loadXMLbutton" type="button" onClick="loadXMLMap();">Load a Walk</button>
+	<button id="loadXMLbutton" type="button" onClick="clearMap();">Clear Map</button>
+	<button id="clearuploadbutton" type="button" onClick="clearUploadedFiles();">Clear Uploads Folder</button> </div>
+		<div id="map_canvas"></div>
+		<div id="hidden_frame">
+		<iframe id="upload_target" name="upload_target" src="" ></iframe>
+		</div>
+		<div id="overlay">
+		     <div id="overlaybox">
+		     </div>
+		</div>
+	</body>
+</html>
