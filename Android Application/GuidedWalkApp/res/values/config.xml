@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+        <string name="url">http://users.aber.ac.uk/kdp8/</string>
+            <string name="app_name">Guided Walk Application</string>
+    <string name="company_name"> Menter Aberteifi\n Visit Cardigan</string>
+</resources>
