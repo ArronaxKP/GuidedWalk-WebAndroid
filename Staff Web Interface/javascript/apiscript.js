@@ -19,6 +19,7 @@ var route;
 var waypoints = null;
 var walktitle = "";
 var walkdesc = "";
+var walkdifficulty="1";
 
 /**
  * This function creates a waypoint object. It creates a new object by calling

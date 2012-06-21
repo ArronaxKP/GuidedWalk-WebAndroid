@@ -29,8 +29,7 @@ function saveWalktoServerNew(form) {
  *            the form that contains the walk details.
  */
 function saveWalktoServer(form) {
-	walktitle = form.title.value;
-	walkdesc = form.desc.value;
+	saveFormDetails(form);
 	if (0 == length) {
 		walkDetailsBox("The walk is empty. Unable to save");
 	} else if (walktitle.replace(/\s/g, "") == "") {
@@ -55,7 +54,7 @@ function sendSerializeObject() {
 				latlng.lat(), latlng.lng(), point.images, point.numberofimages);
 		listObj[index] = tm;
 	}
-	var walkDetailsObject = new walkDetails(uniqueid, walktitle, walkdesc,
+	var walkDetailsObject = new walkDetails(uniqueid, walktitle, walkdesc, walkdifficulty,
 			listObj, length);
 	serializeSaveSend(walkDetailsObject);
 }
@@ -109,11 +108,12 @@ function tokenWaypoint(index, title, description, latitude, longitude, images,
  *            number of waypoints in the walk
  * @returns the walk details object containing everything in the walk
  */
-function walkDetails(uniqueid, walktitle, walkdesc, route, walklength) {
+function walkDetails(uniqueid, walktitle, walkdesc, walkdifficulty, route, walklength) {
 	this.id = uniqueid;
 	this.walklength = walklength;
 	this.walktitle = walktitle;
 	this.walkdesc = walkdesc;
+	this.walkdifficulty = walkdifficulty;
 	this.route = route;
 }
 

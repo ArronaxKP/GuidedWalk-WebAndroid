@@ -54,8 +54,19 @@ function loadWalkList(object) {
 		string += '</select><div id="walk_desc_box" style="text-align:left;"><p><b>Title:</b><br />'
 				+ listofwalks[0].title
 				+ '<br /><b>Description:</b><br />'
-				+ listofwalks[0].desc
-				+ '</p></div>'
+				+ listofwalks[0].desc + '<br /><b>Difficulty: </b>';
+
+		if (listofwalks[0].difficulty == 0) {
+			string += 'Easy';
+		}
+		if (listofwalks[0].difficulty == 1) {
+			string += 'Normal';
+		}
+		if (listofwalks[0].difficulty == 2) {
+			string += 'Hard';
+		}
+
+		string += '</p></div>'
 				+ '<button id="loadselected" type="button" onClick="serializeLoadSend();">Load Walk</button>'
 				+ '<button id="deleteselected" type="button" onClick="deleteSend();">Delete Walk</button></form></div>';
 		alertbox(string);
@@ -73,10 +84,20 @@ function loadWalkList(object) {
 function updateDisplay() {
 	var index = document.getElementById("listofwalks").options[document
 			.getElementById("listofwalks").selectedIndex].value;
+	if (listofwalks[index].difficulty == 0) {
+		difficulty = 'Easy';
+	}
+	if (listofwalks[index].difficulty == 1) {
+		difficulty = 'Normal';
+	}
+	if (listofwalks[index].difficulty == 2) {
+		difficulty = 'Hard';
+	}
 	document.getElementById("walk_desc_box").innerHTML = '<p><b>Title:</b><br />'
 			+ listofwalks[index].title
 			+ '<br /><b>Description:</b><br />'
-			+ listofwalks[index].desc + '</p>';
+			+ listofwalks[index].desc +'<br /><b>Difficulty: </b>'+difficulty+'</p>';
+
 }
 
 /**
@@ -88,12 +109,13 @@ function updateDisplay() {
  *            loaded.
  */
 function dejson(jsonobj) {
-	
+
 	var myObject = eval('(' + jsonobj + ')');
 	clearMap();
 	uniqueid = myObject.id;
 	walkdesc = myObject.walk_desc;
 	walktitle = myObject.walk_title;
+	walkdifficulty = myObject.walk_difficulty;
 	var listofwaypoints = myObject.route;
 	var len = listofwaypoints.length;
 	var waypoint;
@@ -103,9 +125,9 @@ function dejson(jsonobj) {
 		var waypointDetails = listofwaypoints[i];
 		waypoint = new createWaypoint(waypointDetails.lat, waypointDetails.lng);
 		waypoint.title = waypointDetails.waypoint_title;
-		
+
 		waypoint.desc = waypointDetails.waypoint_desc;
-		
+
 		if ("" != waypoint.title || "" != waypoint.desc
 				|| 0 != waypointDetails.number_of_images) {
 			var infoWindow;

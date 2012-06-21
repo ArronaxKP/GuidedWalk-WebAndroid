@@ -15,6 +15,7 @@ function clearMap(){
 	uniqueid = 0;
 	walkdesc = "";
 	walktitle = "";
+	walkdifficulty = "1";
 }
 
 /**

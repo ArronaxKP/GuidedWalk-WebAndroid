@@ -19,45 +19,60 @@
  *            maessage "Type Walk Details below" appears.
  */
 function walkDetailsBox(text) {
-	var string;
+	var string = '';
+	if (text) {
+		string += '<p style="color:red;"><b>' + text + '</b></p>';
+	}
+	var difficultystring = walkDifficultyString();
+
+	string += '<p>Type Walk Details below</p>'
+			+ '<form id="walk_info" name="walk_info">'
+			+ '<p>Walk Title: <br /><textarea rows="1" cols="34" name="title" id="title">'
+			+ walktitle
+			+ '</textarea></p>'
+			+ '<p>Walk Description: <br /><textarea rows="3" cols="34" name="desc" id="desc">'
+			+ walkdesc
+			+ '</textarea></p> '
+			+ difficultystring
+			+ '<p>'
+			+ '<button id="send" type="button" onClick="saveWalktoServer(this.form);">Save</button>'
+			+ '<button id="send" type="button" onClick="saveWalktoServerNew(this.form);">Save As</button>'
+			+ '<button type="button" onClick="closeWalkDetailsBox(this.form);">Close</button></p>'
+			+ '</form>';
+	document.getElementById('overlaybox').innerHTML = string;
+
 	if (!text) {
-		string = '<p>Type Walk Details below</p>'
-				+ '<form id="walk_info" name="walk_info">'
-				+ '<p>Walk Title: <br /><textarea rows="1" cols="34" name="title" id="title">'
-				+ walktitle
-				+ '</textarea></p>'
-				+ '<p>Walk Description: <br /><textarea rows="3" cols="34" name="desc" id="desc">'
-				+ walkdesc
-				+ '</textarea></p> '
-				+ '<p>'
-				+ '<button id="send" type="button" onClick="saveWalktoServer(this.form);">Save</button>'
-				+ '<button id="send" type="button" onClick="saveWalktoServerNew(this.form);">Save As</button>'
-				+ '<button type="button" onClick="closeWalkDetailsBox(this.form);">Close</button></p>'
-				+ '</form>';
-		document.getElementById('overlaybox').innerHTML = string;
 		overlay();
-	} else {
-		string = '<p style="color:red;"><b>'
-				+ text
-				+ '</b></p>'
-				+ '<form id="map_info" name="map_info">'
-				+ '<p>Walk Title: <br /><textarea rows="1" cols="34" name="title" id="title">'
-				+ walktitle
-				+ '</textarea></p>'
-				+ '<p>Walk Description: <br /><textarea rows="3" cols="34" name="desc" id="desc">'
-				+ walkdesc
-				+ '</textarea></p> '
-				+ '<p>'
-				+ '<button id="send" type="button" onClick="saveWalktoServer(this.form);">Save</button>'
-				+ '<button id="send" type="button" onClick="saveWalktoServerNew(this.form);">Save As</button>'
-				+ '<button type="button" onClick="closeWalkDetailsBox(this.form);">Close</button></p>'
-				+ '</form>';
-		document.getElementById('overlaybox').innerHTML = string;
 	}
 }
 
 /**
- * This is the function that is called when the mapdetails dialog is closed and
+ * This function creates radio buttons as a string and returns the string with
+ * the correct difficulty selected. This string is then normally inserted in the
+ * alertbox.
+ */
+function walkDifficultyString() {
+	var tempstring = '';
+	if (walkdifficulty == 0) {
+		tempstring = '<input type="radio" name="difficulty" value="Easy" checked="checked"/> Easy'
+				+ '<input type="radio" name="difficulty" value="Normal" /> Normal'
+				+ '<input type="radio" name="difficulty" value="Hard" /> Hard <br />';
+	}
+	if (walkdifficulty == 1) {
+		tempstring = '<input type="radio" name="difficulty" value="Easy" /> Easy'
+				+ '<input type="radio" name="difficulty" value="Normal" checked="checked"/> Normal'
+				+ '<input type="radio" name="difficulty" value="Hard" /> Hard <br />';
+	}
+	if (walkdifficulty == 2) {
+		tempstring = '<input type="radio" name="difficulty" value="Easy"/> Easy'
+				+ '<input type="radio" name="difficulty" value="Normal" /> Normal'
+				+ '<input type="radio" name="difficulty" value="Hard" checked="checked"/> Hard <br />';
+	}
+	return tempstring;
+}
+
+/**
+ * This is the function that is called when the map details dialog is closed and
  * saves the walk description and walk title.
  * 
  * @param form
@@ -66,9 +81,41 @@ function walkDetailsBox(text) {
  *            it
  */
 function closeWalkDetailsBox(form) {
+	saveFormDetails(form);
+	overlay();
+}
+
+/**
+ * This is the function that saves the walk description and walk title and
+ * difficulty.
+ * 
+ * @param form
+ *            is the linked form which is passed when the function is called. It
+ *            is passed so the function can get the title and description out of
+ *            it
+ */
+function saveFormDetails(form) {
 	walktitle = form.title.value;
 	walkdesc = form.desc.value;
-	overlay();
+	walkdifficulty = getDifficultyValue(form);
+}
+
+/**
+ * This function finds out which difficulty was chose by iterating through each
+ * radio button and checking if it is checked.
+ * 
+ * @param form
+ *            is the linked form which is passed when the function is called. It
+ *            is passed so the function can get the radio buttons out of it
+ */
+function getDifficultyValue(form) {
+	var difficulty = '';
+	for ( var i = 0; i < form.difficulty.length; i++) {
+		if (form.difficulty[i].checked) {
+			difficulty = '' + i;
+		}
+	}
+	return difficulty;
 }
 
 /**
@@ -124,8 +171,8 @@ function confirmbox(index) {
 function overridebox() {
 	var string;
 	string = '<p>Please wait while server works</p>'
-		+ '<img align="center" src="images/ajax-loader.gif" alt="Loading Icon" />';
-			
+			+ '<img align="center" src="images/ajax-loader.gif" alt="Loading Icon" />';
+
 	document.getElementById('overlaybox').innerHTML = string;
 	overlay();
 }

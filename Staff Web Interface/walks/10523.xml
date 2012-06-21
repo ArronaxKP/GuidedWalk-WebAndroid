@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<walk id="10523">
+  <id>10523</id>
+  <walk_length>1</walk_length>
+  <walk_title>ede</walk_title>
+  <walk_desc>ee</walk_desc>
+  <walk_difficulty>1</walk_difficulty>
+  <route>
+    <waypoint>
+      <waypoint_index>0</waypoint_index>
+      <waypoint_title/>
+      <waypoint_desc/>
+      <lat>52.084206516749</lat>
+      <lng>-4.6562230873108</lng>
+      <number_of_images>0</number_of_images>
+    </waypoint>
+  </route>
+</walk>
