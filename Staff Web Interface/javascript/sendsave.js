@@ -54,7 +54,8 @@ function sendSerializeObject() {
 				latlng.lat(), latlng.lng(), point.images, point.numberofimages);
 		listObj[index] = tm;
 	}
-	var walkDetailsObject = new walkDetails(uniqueid, walktitle, walkdesc, walkdifficulty,
+	version++;
+	var walkDetailsObject = new walkDetails(uniqueid, walktitle, walkdesc, walkdifficulty, version,
 			listObj, length);
 	serializeSaveSend(walkDetailsObject);
 }
@@ -108,12 +109,13 @@ function tokenWaypoint(index, title, description, latitude, longitude, images,
  *            number of waypoints in the walk
  * @returns the walk details object containing everything in the walk
  */
-function walkDetails(uniqueid, walktitle, walkdesc, walkdifficulty, route, walklength) {
+function walkDetails(uniqueid, walktitle, walkdesc, walkdifficulty, version, route, walklength) {
 	this.id = uniqueid;
 	this.walklength = walklength;
 	this.walktitle = walktitle;
 	this.walkdesc = walkdesc;
 	this.walkdifficulty = walkdifficulty;
+	this.version = version;
 	this.route = route;
 }
 

@@ -116,6 +116,7 @@ function dejson(jsonobj) {
 	walkdesc = myObject.walk_desc;
 	walktitle = myObject.walk_title;
 	walkdifficulty = myObject.walk_difficulty;
+	version = myObject.version;
 	var listofwaypoints = myObject.route;
 	var len = listofwaypoints.length;
 	var waypoint;

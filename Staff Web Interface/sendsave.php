@@ -17,9 +17,10 @@ include 'loadandsavefunctions.php';
 		$walktitle = $myobject['walktitle'];
 		$walkdesc = $myobject['walkdesc'];
 		$walkdifficulty = $myobject['walkdifficulty'];
+		$version = $myobject['version'];
 		$route = $myobject['route'];
 		$instance = new LoadAndSaveFunctions();
-		$uniqueid = $instance->save($uniqueid,$walklength,$walktitle,$walkdesc,$walkdifficulty,$route);
+		$uniqueid = $instance->save($uniqueid,$walklength,$walktitle,$walkdesc,$walkdifficulty,$version,$route);
 		echo "".$uniqueid;//passed
 	}else{
 		echo "";//failed

@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<walk id="21653">
+  <id>21653</id>
+  <walk_length>3</walk_length>
+  <walk_title>tt</walk_title>
+  <walk_desc>tttsd fsdfsd fsd </walk_desc>
+  <walk_difficulty>0</walk_difficulty>
+  <version>0</version>
+  <route>
+    <waypoint>
+      <waypoint_index>0</waypoint_index>
+      <waypoint_title/>
+      <waypoint_desc/>
+      <lat>52.084661424432</lat>
+      <lng>-4.6547425079345</lng>
+      <number_of_images>0</number_of_images>
+    </waypoint>
+    <waypoint>
+      <waypoint_index>1</waypoint_index>
+      <waypoint_title/>
+      <waypoint_desc/>
+      <lat>52.084437267602</lat>
+      <lng>-4.6574461746216</lng>
+      <number_of_images>0</number_of_images>
+    </waypoint>
+    <waypoint>
+      <waypoint_index>2</waypoint_index>
+      <waypoint_title/>
+      <waypoint_desc/>
+      <lat>52.085755821022</lat>
+      <lng>-4.6523177909851</lng>
+      <number_of_images>0</number_of_images>
+    </waypoint>
+  </route>
+</walk>

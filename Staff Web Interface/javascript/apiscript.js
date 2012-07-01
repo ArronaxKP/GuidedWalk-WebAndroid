@@ -15,6 +15,7 @@
 var map;
 var uniqueid = 0;
 var length = 0;
+var version = "0";
 var route;
 var waypoints = null;
 var walktitle = "";

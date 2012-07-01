@@ -32,6 +32,7 @@ Class LoadAndSaveFunctions
 		$walktitle;
 		$walkdesc;
 		$walkdifficulty;
+		$version;
 		$route;
 		$id;
 		$index=0;
@@ -58,6 +59,9 @@ Class LoadAndSaveFunctions
 				break;
 				case "walk_difficulty";
 				$walkdifficulty = $item->nodeValue;
+				break;
+				case "version";
+				$version = $item->nodeValue;
 				break;
 				case "route";
 				foreach ($item->childNodes AS $waypoints)
@@ -116,7 +120,7 @@ Class LoadAndSaveFunctions
 				break;
 			}
 		}
-		$object = array('id' => $id, 'walk_length' => $walklength , 'walk_title' => $walktitle , 'walk_desc' => $walkdesc, 'walk_difficulty' => $walkdifficulty, 'route' => $route);
+		$object = array('id' => $id, 'walk_length' => $walklength , 'walk_title' => $walktitle , 'walk_desc' => $walkdesc, 'walk_difficulty' => $walkdifficulty, 'version' => $version, 'route' => $route);
 		$jsonobj = json_encode($object);
 		return $jsonobj;
 	}
@@ -139,16 +143,16 @@ Class LoadAndSaveFunctions
 	 * @param $route an array of waypoints with waypoint details
 	 * @return $uniqueid returns the walks unique ID.
 	 */
-	public function save($uniqueid, $walklength, $walktitle, $walkdesc, $walkdifficulty, $route)
+	public function save($uniqueid, $walklength, $walktitle, $walkdesc, $walkdifficulty, $version, $route)
 	{
 		if ($this->fileexists($uniqueid)){
-			$this->updateMap($uniqueid, $walktitle, $walkdesc, $walkdifficulty);
-			$this->saveWalk($uniqueid, $walklength, $walktitle, $walkdesc, $walkdifficulty, $route);
+			$this->updateMap($uniqueid, $walktitle, $walkdesc, $walkdifficulty, $version);
+			$this->saveWalk($uniqueid, $walklength, $walktitle, $walkdesc, $walkdifficulty, $version, $route);
 		} else {
 			$instance = new rename();
 			$uniqueid = $instance->newXMLFilename();
-			$this->saveWalk($uniqueid, $walklength, $walktitle, $walkdesc, $walkdifficulty, $route);
-			$this->addWalk($uniqueid, $walktitle, $walkdesc, $walkdifficulty);
+			$this->saveWalk($uniqueid, $walklength, $walktitle, $walkdesc, $walkdifficulty, $version, $route);
+			$this->addWalk($uniqueid, $walktitle, $walkdesc, $walkdifficulty, $version);
 		}
 		return $uniqueid;
 	}
@@ -223,7 +227,7 @@ Class LoadAndSaveFunctions
 	 * @param $walktitle the walk's new title
 	 * @param $walkdesc the walk's new description
 	 */
-	public function updateMap($uniqueid, $walktitle, $walkdesc, $walkdifficulty){
+	public function updateMap($uniqueid, $walktitle, $walkdesc, $walkdifficulty, $version){
 		unlink('walks/'.$uniqueid.'.xml');
 		$doc = new DOMDocument();
 		$doc->formatOutput = true;
@@ -251,6 +255,9 @@ Class LoadAndSaveFunctions
 									case "difficulty";
 									$item->replaceChild($doc->createTextNode($walkdifficulty),$item->firstChild);
 									break;
+									case "version";
+									$item->replaceChild($doc->createTextNode($version),$item->firstChild);
+									break;
 								}
 							}
 						}
@@ -275,7 +282,7 @@ Class LoadAndSaveFunctions
 	 * @param $walktitle the new walk's title
 	 * @param $walkdesc the new walk's description
 	 */
-	public function addWalk($uniqueid, $walktitle, $walkdesc, $walkdifficulty){
+	public function addWalk($uniqueid, $walktitle, $walkdesc, $walkdifficulty, $version){
 		$doc = new DOMDocument();
 		$doc->formatOutput = true;
 		$doc->load("map.xml");
@@ -306,6 +313,9 @@ Class LoadAndSaveFunctions
 			$difficulty = $doc->createElement('difficulty');
 			$walk->appendChild($difficulty);
 			$difficulty->appendChild($doc->createTextNode($walkdifficulty));
+			$ver = $doc->createElement('version');
+			$walk->appendChild($ver);
+			$ver->appendChild($doc->createTextNode($version));
 			
 			//fixes formatting in XML file
 			$xml_string = $doc->saveXML();
@@ -368,6 +378,9 @@ Class LoadAndSaveFunctions
 								case "difficulty";
 								$walk_list[$index][$item->nodeName] = $item->nodeValue;
 								break;
+								case "version";
+								$walk_list[$index][$item->nodeName] = $item->nodeValue;
+								break;
 							}
 						}
 						$index++;
@@ -394,7 +407,7 @@ Class LoadAndSaveFunctions
 	 * @param $walkdesc the walk's description
 	 * @param $route the waypoint array containing all the information about each waypoint
 	 */
-	public function saveWalk($uniqueid, $walklength, $walktitle, $walkdesc, $walkdifficulty, $route){
+	public function saveWalk($uniqueid, $walklength, $walktitle, $walkdesc, $walkdifficulty, $version, $route){
 		$doc = new DOMDocument();
 		$doc->formatOutput = true;
 
@@ -424,6 +437,10 @@ Class LoadAndSaveFunctions
 		$walk->appendChild($walk_difficulty);
 		$walk_difficulty->appendChild($doc->createTextNode($walkdifficulty));
 
+		$ver = $doc->createElement('version');
+		$walk->appendChild($ver);
+		$ver->appendChild($doc->createTextNode($version));
+		
 		//Start Route loop
 		$route_xml = $doc->createElement('route');
 		$walk->appendChild($route_xml);

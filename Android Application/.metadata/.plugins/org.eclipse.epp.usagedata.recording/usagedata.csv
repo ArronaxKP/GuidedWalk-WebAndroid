@@ -147,3 +147,28 @@ ws,sysinfo,,,"win32",1341135331093
 locale,sysinfo,,,"en_US",1341135331093
 processors,sysinfo,,,"2",1341135331093
 java.runtime.name,sysinfo,,,"Java(TM) SE Runtime Environment",1341135331093
+java.runtime.version,sysinfo,,,"1.7.0_02-b13",1341135331093
+java.specification.name,sysinfo,,,"Java Platform API Specification",1341135331093
+java.specification.vendor,sysinfo,,,"Oracle Corporation",1341135331093
+java.specification.version,sysinfo,,,"1.7",1341135331093
+java.vendor,sysinfo,,,"Oracle Corporation",1341135331093
+java.version,sysinfo,,,"1.7.0_02",1341135331093
+java.vm.info,sysinfo,,,"mixed mode",1341135331093
+java.vm.name,sysinfo,,,"Java HotSpot(TM) 64-Bit Server VM",1341135331093
+java.vm.specification.name,sysinfo,,,"Java Virtual Machine Specification",1341135331093
+java.vm.specification.vendor,sysinfo,,,"Oracle Corporation",1341135331093
+java.vm.specification.version,sysinfo,,,"1.7",1341135331093
+java.vm.vendor,sysinfo,,,"Oracle Corporation",1341135331093
+java.vm.version,sysinfo,,,"22.0-b10",1341135331093
+started,bundle,org.eclipse.m2e.usagedata,1.0.100.20110804-1717,"org.eclipse.m2e.usagedata",1341135331101
+started,bundle,org.eclipse.team.cvs.core,3.3.400.I20110510-0800,"org.eclipse.team.cvs.core",1341135331394
+started,bundle,org.eclipse.team.cvs.ui,3.3.400.I20110510-0800,"org.eclipse.team.cvs.ui",1341135331642
+deactivated,workbench,org.eclipse.ui.workbench,3.7.0.I20110519-0100,"",1341135740390
+activated,workbench,org.eclipse.ui.workbench,3.7.0.I20110519-0100,"",1341140074568
+deactivated,workbench,org.eclipse.ui.workbench,3.7.0.I20110519-0100,"",1341140075683
+activated,workbench,org.eclipse.ui.workbench,3.7.0.I20110519-0100,"",1341140689656
+deactivated,workbench,org.eclipse.ui.workbench,3.7.0.I20110519-0100,"",1341140692942
+activated,workbench,org.eclipse.ui.workbench,3.7.0.I20110519-0100,"",1341140822212
+activated,view,org.eclipse.jdt.ui,3.7.1.r371_v20110824-0800,"org.eclipse.jdt.ui.PackageExplorer",1341140824972
+started,bundle,org.eclipse.m2e.core,1.0.100.20110804-1717,"org.eclipse.m2e.core",1341140827992
+deactivated,workbench,org.eclipse.ui.workbench,3.7.0.I20110519-0100,"",1341140832713

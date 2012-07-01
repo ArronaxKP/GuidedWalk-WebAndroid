@@ -2,17 +2,19 @@
 <walks>
   <numberofwalks>2</numberofwalks>
   <walklist>
-    <walk id="1107">
-      <id>1107</id>
+    <walk id="21653">
+      <id>21653</id>
       <title>tt</title>
-      <desc>tt</desc>
+      <desc>tttsd fsdfsd fsd </desc>
       <difficulty>0</difficulty>
+      <version>0</version>
     </walk>
-    <walk id="10523">
-      <id>10523</id>
-      <title>ede</title>
-      <desc>ee</desc>
+    <walk id="6570">
+      <id>6570</id>
+      <title>dfb</title>
+      <desc>gb</desc>
       <difficulty>1</difficulty>
+      <version>2</version>
     </walk>
   </walklist>
 </walks>
