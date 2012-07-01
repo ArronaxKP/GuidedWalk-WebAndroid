@@ -13,5 +13,6 @@
     <string name="main_no_items">No walks Available</string>
     <string name="updatemaplist">Update Walk List</string>
     <string name="load_button_string">Download Walks</string>
+    <string name="start_walk">Start Walk</string>
 
 </resources>

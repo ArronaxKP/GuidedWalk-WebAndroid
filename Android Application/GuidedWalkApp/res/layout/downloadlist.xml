@@ -10,7 +10,7 @@
         android:id="@+id/android:list"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight=".85"
+        android:layout_weight=".90"
         android:textColor="@color/black" />
 
     <TextView
@@ -23,7 +23,7 @@
         android:id="@+id/download_button"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight=".15"
+        android:layout_weight=".10"
         android:text="@string/load_button_string" />
 
 </LinearLayout>

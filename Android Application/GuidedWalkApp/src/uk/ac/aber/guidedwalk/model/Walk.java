@@ -16,6 +16,8 @@ public class Walk {
 	private int walklength;
 	private ArrayList<Waypoint> route;
 	private boolean selected;
+	private int version;
+	private boolean update;
 
 
 	/**
@@ -27,6 +29,7 @@ public class Walk {
 		this.walkdesc = null;
 		this.walklength = 0;
 		this.route = new ArrayList<Waypoint>();
+		this.update = false;
 	}
 
 	/**
@@ -159,5 +162,40 @@ public class Walk {
 	 */
 	public void setSelected(boolean selected) {
 		this.selected = selected;
+	}
+
+	/**
+	 * This method gets the version of the walk
+	 * @return the version
+	 */
+	public int getVersion() {
+		return version;
+	}
+
+	/**
+	 * This methods sets the version number for the walk
+	 * 
+	 * @param version the version to set
+	 */
+	public void setVersion(int version) {
+		this.version = version;
+	}
+
+	/**
+	 * This method returns a boolean value if an update is available
+	 * 
+	 * @return the true if an update is avialable else false
+	 */
+	public boolean isUpdateAvailable() {
+		return update;
+	}
+
+	/**
+	 * This method allows you to set whether an update is available.
+	 * 
+	 * @param update the boolean value to be set. True means update available else false.
+	 */
+	public void hasUpdateAvailable(boolean update) {
+		this.update = update;
 	}
 }

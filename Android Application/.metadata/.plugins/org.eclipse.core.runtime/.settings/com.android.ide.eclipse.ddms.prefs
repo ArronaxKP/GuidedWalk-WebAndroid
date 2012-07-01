@@ -1,8 +1,8 @@
-#Tue Jun 26 19:26:13 BST 2012
+#Sun Jul 01 17:46:15 BST 2012
 logcat.view.colsize.Level=29
 eclipse.preferences.version=1
 logcat.view.colsize.Application=220
 logcat.view.colsize.Time=130
-logcat.view.colsize.Tag=112
+logcat.view.colsize.Tag=154
 logcat.view.colsize.Text=1015
 logcat.view.colsize.PID=50

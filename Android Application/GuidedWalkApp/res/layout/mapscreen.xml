@@ -4,6 +4,12 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
+<Button
+    android:id="@+id/start_button"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight=".10"
+    android:text="@string/start_walk" />
 
 <com.google.android.maps.MapView
     android:id="@+id/map_view"
@@ -12,6 +18,7 @@
     android:clickable="true"
     android:enabled="true"
     android:apiKey="0fGjuY_WpYooyK-S6UnURN8nozavJ-E_5SMy4zA"
+    android:layout_weight=".90"
     />
 
 </LinearLayout>

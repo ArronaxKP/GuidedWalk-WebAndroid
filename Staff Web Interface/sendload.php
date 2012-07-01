@@ -12,5 +12,6 @@ include 'loadandsavefunctions.php';
 	$selectedwalk = $_POST['selectedwalk'].'.xml';
 	$instance = new LoadAndSaveFunctions();
 	$jsonobj = $instance->load($selectedwalk);
+	sleep(1);
 	echo $jsonobj;
 ?>

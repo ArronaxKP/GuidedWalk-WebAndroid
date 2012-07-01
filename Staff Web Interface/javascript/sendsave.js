@@ -37,6 +37,8 @@ function saveWalktoServer(form) {
 	} else if (walkdesc.replace(/\s/g, "") == "") {
 		walkDetailsBox("Please enter a walk description");
 	} else {
+		overlay();
+		overridebox();
 		sendSerializeObject();
 	}
 }
@@ -141,11 +143,14 @@ function serializeSaveSend(walkDetailsObject) {
 			"application/x-www-form-urlencoded");
 	xmlhttp.onreadystatechange = function() {
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			overridebox();
 			if (0 == xmlhttp.responseText) {
 				walkDetailsBox('Walk file failed to be saved due to server error');
+				overlay();
 			} else {
 				uniqueid = xmlhttp.responseText;
 				walkDetailsBox('Walk file saved');
+				overlay();
 			}
 		}
 	};

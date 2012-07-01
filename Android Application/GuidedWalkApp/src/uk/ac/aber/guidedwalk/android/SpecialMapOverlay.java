@@ -147,6 +147,10 @@ public class SpecialMapOverlay extends ItemizedOverlay<OverlayItem> {
 			close.setOnClickListener(new Button.OnClickListener() {
 				public void onClick(View v) {
 					dialog.dismiss();
+					Button startButton = (Button) mapscreen.findViewById(R.id.start_button);
+					startButton.setText("Continue walk");
+	            	startButton.setVisibility(View.VISIBLE);
+	            	mapscreen.setLastWaypoint(index);
 				}
 			});
 
@@ -315,6 +319,10 @@ public class SpecialMapOverlay extends ItemizedOverlay<OverlayItem> {
 									public void onClick(DialogInterface dialog,
 											int whichButton) {
 										dialog.cancel();
+										Button startButton = (Button) mapscreen.findViewById(R.id.start_button);
+										startButton.setText("Start again walk");
+						            	startButton.setVisibility(View.VISIBLE);
+						            	mapscreen.setLastWaypoint(0);
 									}
 								}).show();
 			} else {
@@ -335,6 +343,10 @@ public class SpecialMapOverlay extends ItemizedOverlay<OverlayItem> {
 									public void onClick(DialogInterface dialog,
 											int whichButton) {
 										dialog.cancel();
+										Button startButton = (Button) mapscreen.findViewById(R.id.start_button);
+										startButton.setText("Continue walk");
+						            	startButton.setVisibility(View.VISIBLE);
+						            	mapscreen.setLastWaypoint(index);
 									}
 								}).show();
 			}

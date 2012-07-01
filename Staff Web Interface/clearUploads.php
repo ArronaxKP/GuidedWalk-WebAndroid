@@ -25,5 +25,4 @@ function recursiveDelete($str){
 }
 
 recursiveDelete(getcwd()."/upload");
-	
 ?>

@@ -21,6 +21,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
@@ -96,22 +97,29 @@ public class DownloadList extends ListActivity {
 		if (lxml.downloadXML(this, "map.xml", null, true)) {
 			ArrayList<Walk> walk_all = lxml.readXMLMap(this, "temp.xml");
 			if (walk_excludes != null) {
+				boolean needs_to_be_downloaded;
 				for (int i = 0; i < walk_all.size(); i++) {
-					Boolean no_match = true;
+					needs_to_be_downloaded = true;
 					for (int j = 0; j < walk_excludes.size(); j++) {
 						if (walk_all.get(i).getId()
 								.equals(walk_excludes.get(j).getId())) {
-							no_match = false;
-							walk_excludes.remove(j);
-							j = walk_excludes.size();
+							if (walk_all.get(i).getVersion() > walk_excludes
+									.get(j).getVersion()) {
+								walk_all.get(i).hasUpdateAvailable(true);
+								needs_to_be_downloaded = true;
+								walk_excludes.remove(j);
+								j = walk_excludes.size();
+							} else {
+								needs_to_be_downloaded = false;
+							}
 						}
 					}
-					if (no_match) {
+					if (needs_to_be_downloaded) {
 						walk_list.add(walk_all.get(i));
 					}
 				}
 			} else {
-				for (Walk walk : walk_all){
+				for (Walk walk : walk_all) {
 					walk_list.add(walk);
 				}
 			}
@@ -188,41 +196,22 @@ public class DownloadList extends ListActivity {
 
 				nl = dom.getElementsByTagName("walklist");
 				Element walklist = (Element) nl.item(0);
-				for (Walk walk : walk_list) {
+				for (int i = 0; i < walk_list.size(); i++) {
+					Walk walk = walk_list.get(i);
 					if (walk.isSelected()) {
 						LoadXML lxml = new LoadXML();
 						Boolean success = lxml.downloadXML(context,
 								walk.getId() + ".xml", "walks/");
 						if (success) {
-							Element walkdom = dom.createElement("walk");
-							walkdom.setAttribute("id", walk.getId());
-							walklist.appendChild(walkdom);
-
-							Element id = dom.createElement("id");
-							id.appendChild(dom.createTextNode(walk.getId()));
-							walkdom.appendChild(id);
-
-							Element title = dom.createElement("title");
-							title.appendChild(dom.createTextNode(walk
-									.getWalkTitle()));
-							walkdom.appendChild(title);
-
-							Element desc = dom.createElement("desc");
-							desc.appendChild(dom.createTextNode(walk
-									.getWalkDesc()));
-							walkdom.appendChild(desc);
-
-							Element difficulty = dom
-									.createElement("difficulty");
-							difficulty.appendChild(dom.createTextNode(""
-									+ walk.getWalkDifficulty()));
-							walkdom.appendChild(difficulty);
-							lxml.downloadXML(context, walk.getId(), "walks/");
-							nows++;
+							if (walk.isUpdateAvailable()) {
+								this.update(dom, walklist, walk);
+							} else {
+								this.write(dom, walklist, walk);
+								nows++;
+							}
 						}
-						walk_list.remove(walk);
 					}
-					
+
 				}
 
 				numberofwalks.replaceChild(dom.createTextNode("" + nows),
@@ -241,36 +230,14 @@ public class DownloadList extends ListActivity {
 				Element walklist = dom.createElement("walklist");
 
 				int nows = 0;
-				for (Walk walk : walk_list) {
+				for (int i = 0; i < walk_list.size(); i++) {
+					Walk walk = walk_list.get(i);
 					if (walk.isSelected()) {
 						LoadXML lxml = new LoadXML();
 						Boolean success = lxml.downloadXML(context,
 								walk.getId() + ".xml", "walks/");
 						if (success) {
-							Element walkdom = dom.createElement("walk");
-							walkdom.setAttribute("id", walk.getId());
-							walklist.appendChild(walkdom);
-
-							Element id = dom.createElement("id");
-							id.appendChild(dom.createTextNode(walk.getId()));
-							walkdom.appendChild(id);
-
-							Element title = dom.createElement("title");
-							title.appendChild(dom.createTextNode(walk
-									.getWalkTitle()));
-							walkdom.appendChild(title);
-
-							Element desc = dom.createElement("desc");
-							desc.appendChild(dom.createTextNode(walk
-									.getWalkDesc()));
-							walkdom.appendChild(desc);
-
-							Element difficulty = dom
-									.createElement("difficulty");
-							difficulty.appendChild(dom.createTextNode(""
-									+ walk.getWalkDifficulty()));
-							walkdom.appendChild(difficulty);
-							lxml.downloadXML(context, walk.getId(), "walks/");
+							this.write(dom, walklist, walk);
 							nows++;
 						}
 					}
@@ -297,6 +264,77 @@ public class DownloadList extends ListActivity {
 			Log.e("CREATE_XML_MAP", e.toString());
 			Log.e("CREATE_XML_MAP", Log.getStackTraceString(e));
 		}
+	}
+
+	private void update(Document dom, Element walklist, Walk walk){	
+		Element walkdom = dom.createElement("walk");
+		walkdom.setAttribute("id", walk.getId());
+		walklist.appendChild(walkdom);
+
+		Element id = dom.createElement("id");
+		id.appendChild(dom.createTextNode(walk.getId()));
+		walkdom.appendChild(id);
+
+		Element title = dom.createElement("title");
+		title.appendChild(dom.createTextNode(walk.getWalkTitle()));
+		walkdom.appendChild(title);
+
+		Element desc = dom.createElement("desc");
+		desc.appendChild(dom.createTextNode(walk.getWalkDesc()));
+		walkdom.appendChild(desc);
+
+		Element difficulty = dom.createElement("difficulty");
+		difficulty
+				.appendChild(dom.createTextNode("" + walk.getWalkDifficulty()));
+		walkdom.appendChild(difficulty);
+
+		Element ver = dom.createElement("version");
+		ver.appendChild(dom.createTextNode("" + walk.getVersion()));
+		walkdom.appendChild(ver);
+				
+		NodeList walk_list = walklist.getChildNodes();
+		for (int i = 0; i<walk_list.getLength();i++){
+			Node walk_selected = walk_list.item(i);
+			if(walk_selected.getNodeName().equalsIgnoreCase("walk")){
+				NodeList walk_details_list = walk_selected.getChildNodes();
+				for (int j = 0; j<walk_details_list.getLength();j++){
+					Node walk_detail = walk_details_list.item(j);
+					if(walk_detail.getNodeName().equalsIgnoreCase("id")){
+						String walk_id = walk_detail.getFirstChild().getNodeValue();
+						if(walk_id.equalsIgnoreCase(walk.getId())){
+							walk_list.item(i).getParentNode().replaceChild(walkdom, walk_list.item(i));
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	private void write(Document dom, Element walklist, Walk walk) {
+		Element walkdom = dom.createElement("walk");
+		walkdom.setAttribute("id", walk.getId());
+		walklist.appendChild(walkdom);
+
+		Element id = dom.createElement("id");
+		id.appendChild(dom.createTextNode(walk.getId()));
+		walkdom.appendChild(id);
+
+		Element title = dom.createElement("title");
+		title.appendChild(dom.createTextNode(walk.getWalkTitle()));
+		walkdom.appendChild(title);
+
+		Element desc = dom.createElement("desc");
+		desc.appendChild(dom.createTextNode(walk.getWalkDesc()));
+		walkdom.appendChild(desc);
+
+		Element difficulty = dom.createElement("difficulty");
+		difficulty
+				.appendChild(dom.createTextNode("" + walk.getWalkDifficulty()));
+		walkdom.appendChild(difficulty);
+
+		Element ver = dom.createElement("version");
+		ver.appendChild(dom.createTextNode("" + walk.getVersion()));
+		walkdom.appendChild(ver);
 	}
 
 	/**
@@ -334,16 +372,17 @@ public class DownloadList extends ListActivity {
 			m_ProgressDialog.dismiss();
 			m_adapter.notifyDataSetChanged();
 			new AlertDialog.Builder(context)
-			.setMessage("Selected Walks Downloaded.")
-			.setTitle("Notification")
-			.setCancelable(true)
-			.setNeutralButton(android.R.string.ok,
-					new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog,
-								int whichButton) {
-							dialog.dismiss();
-						}
-					}).show();
+					.setMessage("Selected walk(s) downloaded successfully.")
+					.setTitle("Notification")
+					.setCancelable(true)
+					.setNeutralButton(android.R.string.ok,
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int whichButton) {
+									dialog.dismiss();
+									context.finish();
+								}
+							}).show();
 		}
 	};
 

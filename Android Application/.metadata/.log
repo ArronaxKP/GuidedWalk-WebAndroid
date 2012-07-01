@@ -1600,3 +1600,163 @@ Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.e
 
 !ENTRY org.eclipse.m2e.logback.appender 4 0 2012-07-01 12:07:13.433
 !MESSAGE Unable to update index for central|http://repo1.maven.org/maven2
+
+!ENTRY org.eclipse.ui 4 0 2012-07-01 12:18:56.718
+!MESSAGE Unhandled event loop exception
+!STACK 0
+java.lang.NullPointerException
+	at com.android.ddmuilib.logcat.LogCatPanel$WrappingToolTipSupport.createViewerToolTipContentArea(LogCatPanel.java:904)
+	at org.eclipse.jface.viewers.ColumnViewerToolTipSupport.createToolTipContentArea(ColumnViewerToolTipSupport.java:104)
+	at org.eclipse.jface.window.ToolTip.toolTipShow(ToolTip.java:359)
+	at org.eclipse.jface.window.ToolTip.toolTipOpen(ToolTip.java:483)
+	at org.eclipse.jface.window.ToolTip.toolTipCreate(ToolTip.java:348)
+	at org.eclipse.jface.window.ToolTip.access$2(ToolTip.java:342)
+	at org.eclipse.jface.window.ToolTip$ToolTipOwnerControlListener.handleEvent(ToolTip.java:631)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:84)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1053)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:4165)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3754)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:2696)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2660)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2494)
+	at org.eclipse.ui.internal.Workbench$7.run(Workbench.java:674)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:667)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:123)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:344)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:622)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:577)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1410)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1386)
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2012-07-01 16:59:12.614
+!MESSAGE downloadwalkitem.xml: Couldn't resolve resource @color/Green
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-07-01 16:59:12.645
+!MESSAGE downloadwalkitem.xml: Color value '@color/Green' must start with #
+!STACK 0
+java.lang.NumberFormatException: Color value '@color/Green' must start with #
+	at com.android.layoutlib.bridge.impl.ResourceHelper.getColor(ResourceHelper.java:71)
+	at com.android.layoutlib.bridge.android.BridgeTypedArray.getColorStateList(BridgeTypedArray.java:357)
+	at android.widget.TextView.<init>(TextView.java:651)
+	at android.widget.TextView.<init>(TextView.java:343)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at android.view.LayoutInflater.createView(LayoutInflater.java:505)
+	at com.android.layoutlib.bridge.android.BridgeInflater.onCreateView(BridgeInflater.java:84)
+	at android.view.LayoutInflater.createViewFromTag(LayoutInflater.java:568)
+	at com.android.layoutlib.bridge.android.BridgeInflater.createViewFromTag(BridgeInflater.java:129)
+	at android.view.LayoutInflater.rInflate(LayoutInflater.java:623)
+	at android.view.LayoutInflater.rInflate(LayoutInflater.java:626)
+	at android.view.LayoutInflater.inflate(LayoutInflater.java:408)
+	at android.view.LayoutInflater.inflate(LayoutInflater.java:296)
+	at com.android.layoutlib.bridge.impl.RenderSessionImpl.inflate(RenderSessionImpl.java:279)
+	at com.android.layoutlib.bridge.Bridge.createSession(Bridge.java:318)
+	at com.android.ide.common.rendering.LayoutLibrary.createSession(LayoutLibrary.java:325)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.RenderService.createRenderSession(RenderService.java:372)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.GraphicalEditorPart.renderWithBridge(GraphicalEditorPart.java:1323)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.GraphicalEditorPart.recomputeLayout(GraphicalEditorPart.java:1077)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.GraphicalEditorPart$ConfigListener.onConfigurationChange(GraphicalEditorPart.java:497)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.GraphicalEditorPart.onTargetChange(GraphicalEditorPart.java:979)
+	at com.android.ide.eclipse.adt.internal.editors.layout.LayoutEditor.onDescriptorsChanged(LayoutEditor.java:583)
+	at com.android.ide.eclipse.adt.internal.editors.layout.LayoutEditor.initUiRootNode(LayoutEditor.java:505)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.GraphicalEditorPart$TargetListener.updateEditor(GraphicalEditorPart.java:791)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.GraphicalEditorPart$TargetListener.onTargetLoaded(GraphicalEditorPart.java:756)
+	at com.android.ide.eclipse.adt.AdtPlugin$11.run(AdtPlugin.java:1569)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:135)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:4140)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3757)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:2696)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2660)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2494)
+	at org.eclipse.ui.internal.Workbench$7.run(Workbench.java:674)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:667)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:123)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:344)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:622)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:577)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1410)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1386)
+
+!ENTRY org.eclipse.epp.usagedata.recording 1 0 2012-07-01 17:01:50.179
+!MESSAGE Usage data uploaded to http://udc.eclipse.org/upload.php in 6071 milliseconds.
+!SESSION 2012-07-01 17:58:50.304 -----------------------------------------------
+eclipse.buildId=M20110909-1335
+java.version=1.7.0_02
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-07-01 18:01:18.209
+!MESSAGE Unable to update index for central|http://repo1.maven.org/maven2
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-07-01 19:10:59.343
+!MESSAGE mapscreen.xml: Failed to find style 'mapViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-07-01 19:10:59.366
+!MESSAGE mapscreen.xml: Failed to find style 'mapViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-07-01 19:10:59.371
+!MESSAGE mapscreen.xml: Failed to find style 'mapViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-07-01 19:12:04.578
+!MESSAGE mapscreen.xml: Failed to find style 'mapViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-07-01 19:12:04.614
+!MESSAGE mapscreen.xml: Failed to find style 'mapViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-07-01 19:12:04.631
+!MESSAGE mapscreen.xml: Failed to find style 'mapViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-07-01 19:12:39.810
+!MESSAGE mapscreen.xml: Failed to find style 'mapViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-07-01 19:12:39.811
+!MESSAGE mapscreen.xml: Failed to find style 'mapViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-07-01 19:12:39.814
+!MESSAGE mapscreen.xml: Failed to find style 'mapViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2012-07-01 19:12:50.284
+!MESSAGE mapscreen.xml: "GONE" in attribute "visibility" is not a valid value
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-07-01 19:12:50.288
+!MESSAGE mapscreen.xml: Failed to find style 'mapViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-07-01 19:12:50.289
+!MESSAGE mapscreen.xml: Failed to find style 'mapViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-07-01 19:12:50.291
+!MESSAGE mapscreen.xml: Failed to find style 'mapViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-07-01 19:12:56.888
+!MESSAGE mapscreen.xml: Failed to find style 'mapViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-07-01 19:12:56.890
+!MESSAGE mapscreen.xml: Failed to find style 'mapViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-07-01 19:12:56.892
+!MESSAGE mapscreen.xml: Failed to find style 'mapViewStyle' in current theme

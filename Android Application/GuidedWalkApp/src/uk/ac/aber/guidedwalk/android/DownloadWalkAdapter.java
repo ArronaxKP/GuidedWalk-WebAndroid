@@ -89,6 +89,18 @@ public class DownloadWalkAdapter extends ArrayAdapter<Walk> {
 			if (2 == walk.getWalkDifficulty()) {
 				list_difficulty.setText("Hard");
 			}
+			if(walk.isUpdateAvailable()){
+				TextView list_text = (TextView) v
+						.findViewById(R.id.download_walk_item_text);
+				list_text.setText("UPDATE");
+				list_text.setVisibility(View.VISIBLE);
+			} else {
+				TextView list_text = (TextView) v
+						.findViewById(R.id.download_walk_item_text);
+				list_text.setText("");
+				list_text.setVisibility(View.GONE);
+			}
+			
 			final int pos = position;
 			CheckBox chkbox = (CheckBox) v.findViewById(R.id.checkbox);
 			chkbox.setOnCheckedChangeListener(new OnCheckedChangeListener() {

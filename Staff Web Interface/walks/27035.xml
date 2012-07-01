@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<walk id="27035">
+  <id>27035</id>
+  <walk_length>1</walk_length>
+  <walk_title>gfngf</walk_title>
+  <walk_desc>nfgnfg</walk_desc>
+  <walk_difficulty>1</walk_difficulty>
+  <version>1</version>
+  <route>
+    <waypoint>
+      <waypoint_index>0</waypoint_index>
+      <waypoint_title/>
+      <waypoint_desc/>
+      <lat>52.085241589822</lat>
+      <lng>-4.6556866455078</lng>
+      <number_of_images>0</number_of_images>
+    </waypoint>
+  </route>
+</walk>

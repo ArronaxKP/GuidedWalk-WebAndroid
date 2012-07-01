@@ -10,6 +10,7 @@ include 'loadandsavefunctions.php';
 
 $instance = new loadandsavefunctions();
 $jsonobj = $instance->getXMLMap();
+sleep(1);
 echo $jsonobj;
 
 ?>

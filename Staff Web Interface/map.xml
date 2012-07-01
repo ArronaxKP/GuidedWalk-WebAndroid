@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <walks>
-  <numberofwalks>2</numberofwalks>
+  <numberofwalks>7</numberofwalks>
   <walklist>
     <walk id="21653">
       <id>21653</id>
@@ -15,6 +15,42 @@
       <desc>gb</desc>
       <difficulty>1</difficulty>
       <version>2</version>
+    </walk>
+    <walk id="5060">
+      <id>5060</id>
+      <title>fdbdfvcvc</title>
+      <desc>bdfbdfbcvbvc</desc>
+      <difficulty>1</difficulty>
+      <version>1</version>
+    </walk>
+    <walk id="21165">
+      <id>21165</id>
+      <title>h</title>
+      <desc>fghfgsdv</desc>
+      <difficulty>1</difficulty>
+      <version>3</version>
+    </walk>
+    <walk id="6626">
+      <id>6626</id>
+      <title>vxcv</title>
+      <desc>cxvxc</desc>
+      <difficulty>1</difficulty>
+      <version>1</version>
+    </walk>
+    
+    <walk id="27035">
+      <id>27035</id>
+      <title>gfngf</title>
+      <desc>nfgnfg</desc>
+      <difficulty>1</difficulty>
+      <version>1</version>
+    </walk>
+    <walk id="4467">
+      <id>4467</id>
+      <title>db</title>
+      <desc>dfbdf</desc>
+      <difficulty>1</difficulty>
+      <version>1</version>
     </walk>
   </walklist>
 </walks>

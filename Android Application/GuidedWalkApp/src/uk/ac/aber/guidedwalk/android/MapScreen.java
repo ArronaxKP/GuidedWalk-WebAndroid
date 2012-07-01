@@ -12,6 +12,8 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
@@ -40,6 +42,7 @@ public class MapScreen extends MapActivity {
 	private SpecialMapOverlay specialOverlay;
 	private ProgressDialog m_ProgressDialog = null;
 	private Runnable viewWalk;
+	private int lastWaypoint;
 
 	/**
 	 * This is ran after the SpecialMapOverlay has finsihed being setup. The
@@ -49,6 +52,14 @@ public class MapScreen extends MapActivity {
 		public void run() {
 			m_ProgressDialog.dismiss();
 			if (null != specialOverlay) {
+				Button startButton = (Button) findViewById(R.id.start_button);
+				startButton.setOnClickListener(new View.OnClickListener() {
+		             public void onClick(View v) {
+		            	 specialOverlay.onTap(lastWaypoint);
+		            	 Button startButton = (Button) findViewById(R.id.start_button);
+		            	 startButton.setVisibility(View.GONE);
+		             }
+		         });
 				MapView mapView = (MapView) findViewById(R.id.map_view);
 				mapView.setBuiltInZoomControls(true);
 				mapView.setSatellite(true);
@@ -95,6 +106,7 @@ public class MapScreen extends MapActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		lastWaypoint = 0;
 		setContentView(R.layout.mapscreen);
 		Bundle extras = getIntent().getExtras();
 		walkid = null;
@@ -225,4 +237,11 @@ public class MapScreen extends MapActivity {
 	    finish();
 	}
 
+	public int getLastWaypoint() {
+		return lastWaypoint;
+	}
+
+	public void setLastWaypoint(int lastWaypoint) {
+		this.lastWaypoint = lastWaypoint;
+	}
 }
