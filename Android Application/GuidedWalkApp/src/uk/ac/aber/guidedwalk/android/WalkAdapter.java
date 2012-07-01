@@ -60,12 +60,21 @@ public class WalkAdapter extends ArrayAdapter<Walk> {
 			TextView list_title = (TextView) v
 					.findViewById(R.id.list_item_title);
 			TextView list_desc = (TextView) v.findViewById(R.id.list_item_desc);
+			TextView list_difficulty = (TextView) v
+					.findViewById(R.id.list_item_difficulty);
 			list_id.setText(walk.getId());
 			list_title.setText("Title: " + walk.getWalkTitle());
 			list_desc.setText("Desc: " + walk.getWalkDesc());
+			if (0 == walk.getWalkDifficulty()) {
+				list_difficulty.setText("Easy");
+			}
+			if (1 == walk.getWalkDifficulty()) {
+				list_difficulty.setText("Normal");
+			}
+			if (2 == walk.getWalkDifficulty()) {
+				list_difficulty.setText("Hard");
+			}
 		}
-		v.setFocusable(true);
-		v.setFocusableInTouchMode(true);
 		return v;
 	}
 

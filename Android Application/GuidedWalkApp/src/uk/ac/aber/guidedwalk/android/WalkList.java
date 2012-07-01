@@ -29,37 +29,7 @@ public class WalkList extends ListActivity {
 	private Runnable viewWalks;
 	private WalkList context = this;
 
-	/**
-	 * This variable contains a Runnable Thread that is run once it is called.
-	 * It is called once the getWalks method completes. This method passes the
-	 * walklist information onto the list adapter Class.
-	 */
-	private Runnable returnRes = new Runnable() {
-		public void run() {
-			if (walk_list != null && walk_list.size() > 0) {
-				m_adapter.notifyDataSetChanged();
-				for (int i = 0; i < walk_list.size(); i++){
-					m_adapter.add(walk_list.get(i));
-				}
-				m_ProgressDialog.dismiss();
-				m_adapter.notifyDataSetChanged();
-			}else{
-				m_ProgressDialog.dismiss();
-				m_adapter.notifyDataSetChanged();
-				new AlertDialog.Builder(context)
-			      .setMessage("An error occured loading the walk list. Please go to the menu and click update walk list.")
-			      .setTitle("Error")
-			      .setCancelable(true)
-			      .setNeutralButton(android.R.string.ok,
-			         new DialogInterface.OnClickListener() {
-				         public void onClick(DialogInterface dialog, int whichButton){
-				        	 context.finish();
-				         }
-				     })
-			      .show();
-			}
-		}
-	};
+	
 
 	/*
 	 * (non-Javadoc)
@@ -107,12 +77,13 @@ public class WalkList extends ListActivity {
 	 */
 	private void getWalks() {
 		LoadXML lxml = new LoadXML();
-		walk_list = lxml.readXMLMap(this);
+		walk_list = lxml.readXMLMap(this, "map.xml");
 		if (walk_list != null) {
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				Log.e("GETWALKS", e.toString());
+				Log.e("GETWALKS", Log.getStackTraceString(e));
 			}
 			Log.i("ARRAY", "" + walk_list.size());
 		} else {
@@ -120,5 +91,37 @@ public class WalkList extends ListActivity {
 		}
 		runOnUiThread(returnRes);
 	}
-
+	
+	/**
+	 * This variable contains a Runnable Thread that is run once it is called.
+	 * It is called once the getWalks method completes. This method passes the
+	 * walklist information onto the list adapter Class.
+	 */
+	private Runnable returnRes = new Runnable() {
+		public void run() {
+			if (walk_list != null && walk_list.size() > 0) {
+				m_adapter.notifyDataSetChanged();
+				for (Walk walk : walk_list) {
+					m_adapter.add(walk);
+				}
+				m_ProgressDialog.dismiss();
+				m_adapter.notifyDataSetChanged();
+			} else {
+				m_ProgressDialog.dismiss();
+				m_adapter.notifyDataSetChanged();
+				new AlertDialog.Builder(context)
+						.setMessage(
+								"No walks currently downloaded. Please go to the menu and click update walk list.")
+						.setTitle("Notigfication")
+						.setCancelable(true)
+						.setNeutralButton(android.R.string.ok,
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int whichButton) {
+										context.finish();
+									}
+								}).show();
+			}
+		}
+	};
 }

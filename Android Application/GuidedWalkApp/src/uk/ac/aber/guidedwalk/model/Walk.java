@@ -12,8 +12,11 @@ public class Walk {
 	private String id;
 	private String walktitle;
 	private String walkdesc;
+	private int walkdifficulty;
 	private int walklength;
 	private ArrayList<Waypoint> route;
+	private boolean selected;
+
 
 	/**
 	 * Basic constructor instantiating all variables to null or 0.
@@ -120,5 +123,41 @@ public class Walk {
 	 */
 	public void addWaypoint(Waypoint waypoint) {
 		route.add(waypoint);
+	}
+
+	/**
+	 * This method gets the difficulty of the walk. 0 = easy. 1 = normal. 2 = hard.
+	 * 
+	 * @return the walk difficulty. 0 = easy. 1 = normal. 2 = hard.
+	 */
+	public int getWalkDifficulty() {
+		return walkdifficulty;
+	}
+
+	/**
+	 * This method sets the difficulty of the walk. 0 = easy. 1 = normal. 2 = hard.
+	 * 
+	 * @param difficulty the walk difficulty to be set. 0 = easy. 1 = normal. 2 = hard.
+	 */
+	public void setWalkDifficulty(int difficulty) {
+		this.walkdifficulty = difficulty;
+	}
+	
+	/**
+	 * This method gets whether a walk is selected or not.
+	 * 
+	 * @return boolean value if walk is selected or not. True == selected.
+	 */
+	public boolean isSelected() {
+		return this.selected;
+	}
+
+	/**
+	 * This method sets whether the walk has been selected.
+	 * 
+	 * @param selected boolean value of whether item is selected. True == item selected.
+	 */
+	public void setSelected(boolean selected) {
+		this.selected = selected;
 	}
 }

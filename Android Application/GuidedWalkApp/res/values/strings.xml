@@ -10,7 +10,8 @@
     <string name="next_img">Next Image</string>
     <string name="previous_img">Prev. Image</string>
     <string name="hide_img">Hide Image</string>
-    <string name="main_no_items">Number of Walks</string>
+    <string name="main_no_items">No walks Available</string>
     <string name="updatemaplist">Update Walk List</string>
+    <string name="load_button_string">Download Walks</string>
 
 </resources>

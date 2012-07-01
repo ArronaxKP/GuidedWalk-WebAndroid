@@ -60,7 +60,7 @@ public class UpdateWalkList extends Activity {
 		         }
 		     });
 		if(successOrError){
-		  dialog.setTitle("Success");
+			dialog.setTitle("Success");
 		}else{
 			dialog.setTitle("Error");
 		}
@@ -102,7 +102,7 @@ public class UpdateWalkList extends Activity {
 		LoadXML lxml = new LoadXML();
 		if (lxml.downloadXML(this, "map.xml")) {
 			download_success = true;
-			ArrayList<Walk> walks = lxml.readXMLMap(this);
+			ArrayList<Walk> walks = lxml.readXMLMap(this, "map.xml");
 			if(walks!=null){
 				for (int i = 0; i < walks.size(); i++) {
 					String id = walks.get(i).getId();
