@@ -1,50 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" 
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="10dp"
     android:textColor="@color/black" >
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="match_parent"
+
+    <ScrollView
+        android:id="@+id/aboutlist"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/about_title"
-        android:textColor="@color/black"/>
-    <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="0dip"
+        android:layout_weight="1"
+        android:textColor="@color/black" >
+
+        <LinearLayout
+            android:id="@+id/aboutlist2"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/about_address" 
-            android:textColor="@color/black"
-            />
-		<LinearLayout
-		    android:layout_width="0dip"
-		    android:layout_height="wrap_content"
-		    android:orientation="vertical" 
-		    android:layout_weight="2">
-	        <TextView
-	            android:id="@+id/textView3"
-	            android:layout_height="wrap_content"
-	            android:layout_width="wrap_content"
-	            android:text="@string/about_phone"
-	            android:textColor="@color/black" 
-	            />
+            android:orientation="vertical"
+            android:textColor="@color/black" >
 
-	        <TextView
-	            android:id="@+id/textView4"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:text="@string/about_email" 
-	            android:textColor="@color/black"/>
+            <TextView
+                android:id="@+id/abouttextView1"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="@string/about_title"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
+            <View
+                android:id="@+id/aboutViewHR1"
+                android:layout_width="fill_parent"
+                android:layout_height="2dip"
+                android:background="@color/black" />
+
+            <View
+                android:id="@+id/aboutView1"
+                android:layout_width="fill_parent"
+                android:layout_height="5dp" />
+
+            <TextView
+                android:id="@+id/abouttextView2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/about_address"
+                android:textColor="@color/black" />
+
+            <View
+                android:id="@+id/aboutView2"
+                android:layout_width="fill_parent"
+                android:layout_height="5dp" />
+
+            <TextView
+                android:id="@+id/abouttextView3"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/about_phone"
+                android:textColor="@color/black" />
+
+            <View
+                android:id="@+id/aboutView3"
+                android:layout_width="fill_parent"
+                android:layout_height="5dp" />
+
+            <TextView
+                android:id="@+id/abouttextView4"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/about_email"
+                android:textColor="@color/black" />
+
+            <View
+                android:id="@+id/aboutView4"
+                android:layout_width="fill_parent"
+                android:layout_height="5dp" />
+
+            <TextView
+                android:id="@+id/abouttextView5"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/about_uni"
+                android:textColor="@color/black" />
+
+            <View
+                android:id="@+id/aboutView5"
+                android:layout_width="fill_parent"
+                android:layout_height="5dp" />
+
+            <View
+                android:id="@+id/aboutViewHR2"
+                android:layout_width="fill_parent"
+                android:layout_height="2dip"
+                android:background="@color/black" />
         </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
+
+    <ImageView
+        android:id="@+id/aboutimageView1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_weight="1"
+        android:contentDescription="@string/company_list"
+        android:src="@drawable/logo_list_menu" />
+
 </LinearLayout>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" 
+    android:background="@color/white"
+    android:textColor="@color/black">
+    <ImageView 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/main_logo"
+        android:layout_weight="1"/>
+
+   	<Button
+   	    android:id="@+id/button1"
+   	    android:text="@string/button1text"
+   	    android:layout_width="fill_parent"
+        android:layout_height="0dip"
+    	android:onClick="Refresh"
+    	android:layout_weight="1"      
+   	    />
+   	<Button
+   	    android:id="@+id/button2"
+   	    android:text="@string/button2text"
+   	    android:layout_width="fill_parent"
+        android:layout_height="0dip"
+    	android:onClick="Refresh"  
+    	android:layout_weight="1"    
+   	    />
+   	<Button
+   	    android:id="@+id/button3"
+   	    android:text="@string/button3text"
+   	    android:layout_width="fill_parent"
+        android:layout_height="0dip"
+    	android:onClick="Refresh"  
+    	android:layout_weight="1"  
+   	    />
+   	<ImageView 
+   	    android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:contentDescription="@string/company_name"
+        android:src="@drawable/logo_list"
+        android:layout_weight="1" 
+        />
+</LinearLayout>

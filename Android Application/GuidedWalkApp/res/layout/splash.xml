@@ -2,15 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" 
     android:background="@color/white"
-    android:textColor="@color/black">
+    android:orientation="vertical"
+    android:textColor="@color/black" >
 
     <ImageView
-        android:contentDescription="@string/company_name"
         android:id="@+id/bg_pic"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:src="@drawable/splash_pic_menter" />
+        android:contentDescription="@string/company_name"
+        android:src="@drawable/splash_pic_walk" />
 
 </LinearLayout>

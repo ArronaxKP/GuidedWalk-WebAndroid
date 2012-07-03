@@ -5,7 +5,7 @@
 		<item value="176" key="DIALOG_Y_ORIGIN"/>
 		<item value="928" key="DIALOG_X_ORIGIN"/>
 		<item value="380" key="DIALOG_HEIGHT"/>
-		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|5|0|Segoe UI" key="DIALOG_FONT_NAME"/>
+		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="true" key="wrap"/>
@@ -13,18 +13,20 @@
 		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="downloadXML" key="selection"/>
+		<item value="@+id/about" key="selection"/>
 		<list key="findhistory">
+			<item value="@+id/"/>
+			<item value="@+id/android:"/>
+			<item value="upda"/>
+			<item value="id"/>
 			<item value="downloadXML"/>
 			<item value="select"/>
 			<item value="readXMLMap"/>
 			<item value="walk_list"/>
-			<item value="runOnUiThread"/>
-			<item value="downloadSelectedWalks"/>
-			<item value="factory"/>
-			<item value="walk"/>
 		</list>
 		<list key="replacehistory">
+			<item value="@+id/about"/>
+			<item value="@+id/android:about"/>
 		</list>
 	</section>
 </section>
