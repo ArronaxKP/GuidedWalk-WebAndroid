@@ -4,15 +4,16 @@
     <string name="button1text">Walk List</string>
     <string name="button2text">Update Walk List</string>
     <string name="button3text">About</string><string name="next">Next</string>
-    <string name="previous">Previous</string>
-    <string name="close">Close</string>
+    <string name="previous">Back</string>
+    <string name="close">Exit</string>
     <string name="image_default">This is an image</string>
-    <string name="next_img">Next Image</string>
-    <string name="previous_img">Prev. Image</string>
-    <string name="hide_img">Hide Image</string>
+    <string name="next_img">Next</string>
+    <string name="previous_img">Back</string>
+    <string name="hide_img">Hide</string>
     <string name="main_no_items">No walks Available</string>
     <string name="updatemaplist">Update Walk List</string>
     <string name="load_button_string">Download Walks</string>
     <string name="start_walk">Start Walk</string>
+    <string name="text_default">This is text</string>
 
 </resources>

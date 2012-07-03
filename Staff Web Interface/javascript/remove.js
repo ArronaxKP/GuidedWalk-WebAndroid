@@ -52,18 +52,20 @@ function removePointForced(waypoint) {
 				new google.maps.Size(32, 32), new google.maps.Point(0, 0));
 		}
 		mktmp.marker.setIcon(tmpimage);
-	}else if (waypoint.index == 0) {
-		var mktmp = waypoints[1];
-		var tmpimage;
-		if (mktmp.title.replace(/\s/g, "") != "" || mktmp.desc.replace(/\s/g, "") != ""
-			|| mktmp.numberofimages != 0) {
-			tmpimage = new google.maps.MarkerImage('images/green-blue-dot.png',
+	} else if (waypoint.index == 0) {
+		if(length != 1){
+			var mktmp = waypoints[1];
+			var tmpimage;
+			if (mktmp.title.replace(/\s/g, "") != "" || mktmp.desc.replace(/\s/g, "") != ""
+				|| mktmp.numberofimages != 0) {
+				tmpimage = new google.maps.MarkerImage('images/green-blue-dot.png',
+						new google.maps.Size(32, 32), new google.maps.Point(0, 0));
+			}else{
+				tmpimage = new google.maps.MarkerImage('images/green-dot.png',
 					new google.maps.Size(32, 32), new google.maps.Point(0, 0));
-		}else{
-			tmpimage = new google.maps.MarkerImage('images/green-dot.png',
-				new google.maps.Size(32, 32), new google.maps.Point(0, 0));
+			}
+			mktmp.marker.setIcon(tmpimage);
 		}
-		mktmp.marker.setIcon(tmpimage);
 	} else if (1 < length) {
 		if (waypoint.index == length - 1) {
 			var mktmp = waypoints[length - 2];
@@ -78,8 +80,7 @@ function removePointForced(waypoint) {
 			}
 			mktmp.marker.setIcon(tmpimage);
 		}
-	} 
-	
+	}
 	this.removePathPoint(waypoint);
 	this.removePoints(waypoint);
 	this.clearLinkedImg(waypoint);

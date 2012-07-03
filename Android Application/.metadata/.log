@@ -2615,3 +2615,56 @@ java.lang.NumberFormatException: Color value '@drawable/main_logo_menu2' must st
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:577)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1410)
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1386)
+!SESSION 2012-07-03 17:55:06.775 -----------------------------------------------
+eclipse.buildId=M20110909-1335
+java.version=1.7.0_02
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-07-03 17:55:31.160
+!MESSAGE Unable to update index for central|http://repo1.maven.org/maven2
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2012-07-03 18:02:37.346
+!MESSAGE maindialog.xml: You must supply a layout_width attribute.
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2012-07-03 18:02:37.353
+!MESSAGE maindialog.xml: You must supply a layout_width attribute.
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2012-07-03 18:02:37.361
+!MESSAGE maindialog.xml: You must supply a layout_width attribute.
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2012-07-03 18:26:42.804
+!MESSAGE maindialog.xml: Unable to resolve id "dial_desc" for attribute "layout_below"
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2012-07-03 19:08:23.440
+!MESSAGE test.xml: "type_text_flag_multi_line" in attribute "inputType" is not a valid value
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2012-07-03 19:10:57.132
+!MESSAGE test.xml: Unable to resolve id "dial_ImageView" for attribute "layout_below"
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2012-07-03 19:52:01.123
+!MESSAGE test.xml: You must supply a layout_width attribute.
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2012-07-03 19:52:01.124
+!MESSAGE test.xml: You must supply a layout_height attribute.
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2012-07-03 19:52:51.678
+!MESSAGE test.xml: You must supply a layout_width attribute.
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2012-07-03 19:52:51.679
+!MESSAGE test.xml: You must supply a layout_height attribute.
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2012-07-03 19:53:46.536
+!MESSAGE test.xml: You must supply a layout_height attribute.
+!SESSION 2012-07-03 21:11:26.151 -----------------------------------------------
+eclipse.buildId=M20110909-1335
+java.version=1.7.0_02
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-07-03 21:11:44.370
+!MESSAGE Unable to update index for central|http://repo1.maven.org/maven2

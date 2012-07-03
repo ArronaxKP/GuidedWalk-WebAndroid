@@ -27,4 +27,5 @@
 <fullyQualifiedTypeName name="uk.ac.aber.guidedwalk.android.R.id"/>
 <fullyQualifiedTypeName name="android.widget.Button"/>
 <fullyQualifiedTypeName name="android.view.View"/>
+<fullyQualifiedTypeName name="android.text.method.ScrollingMovementMethod"/>
 </qualifiedTypeNameHistroy>

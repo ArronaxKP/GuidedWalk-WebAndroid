@@ -1,9 +1,9 @@
 <?php
 /**
- * This class deals with image resizing. It is heavily influenced from 
+ * This class deals with image resizing. It is heavily influenced from
  * the White Hat Web Design blog on resizing with PHP.
  * http://www.white-hat-web-design.co.uk/blog/resizing-images-with-php/
- * 
+ *
  * @author White Hat Web Design modified by Karl Parry (kdp8)
  *
  */
@@ -57,46 +57,27 @@ Class resize
 		$optimalWidth  = $optionArray['optimalWidth'];
 		$optimalHeight = $optionArray['optimalHeight'];
 
-		$optimalWidth  = $optionArray['optimalWidth'];
-		$optimalHeight = $optionArray['optimalHeight'];
-
 		// *** Resample - create image canvas of x, y size
 		$this->imageResized = imagecreatetruecolor($optimalWidth, $optimalHeight);
 		imagecopyresampled($this->imageResized, $this->image, 0, 0, 0, 0, $optimalWidth, $optimalHeight, $this->width, $this->height);
 
-		// *** if option is 'crop', then crop too
-		if ($option == 'crop') {
-			$this->crop($optimalWidth, $optimalHeight, $newWidth, $newHeight);
-		}
 	}
-	private function getDimensions($newWidth, $newHeight, $option)
+	public function getDimensions($newWidth, $newHeight, $option)
 	{
-
-		switch ($option)
-		{
-			case 'exact':
-				$optimalWidth = $newWidth;
-				$optimalHeight= $newHeight;
-				break;
-			case 'portrait':
-				$optimalWidth = $this->getSizeByFixedHeight($newHeight);
-				$optimalHeight= $newHeight;
-				break;
-			case 'landscape':
-				$optimalWidth = $newWidth;
-				$optimalHeight= $this->getSizeByFixedWidth($newWidth);
-				break;
-			case 'auto':
-				$optionArray = $this->getSizeByAuto($newWidth, $newHeight);
-				$optimalWidth = $optionArray['optimalWidth'];
-				$optimalHeight = $optionArray['optimalHeight'];
-				break;
-			case 'crop':
-				$optionArray = $this->getOptimalCrop($newWidth, $newHeight);
-				$optimalWidth = $optionArray['optimalWidth'];
-				$optimalHeight = $optionArray['optimalHeight'];
-				break;
+		if($this->width<$newWidth){
+			if($this->height<$newHeight){
+				$newHeight = $this->height;
+			}
+			$newWidth = $this->width;
+		} else if($this->height<$newHeight){
+			if($this->width<$newWidth){
+				$newWidth = $this->width;
+			}
+			$newHeight = $this->height;
 		}
+		$optionArray = $this->getSizeByAuto($newWidth, $newHeight);
+		$optimalWidth = $optionArray['optimalWidth'];
+		$optimalHeight = $optionArray['optimalHeight'];
 		return array('optimalWidth' => $optimalWidth, 'optimalHeight' => $optimalHeight);
 	}
 	private function getSizeByFixedHeight($newHeight)
@@ -146,36 +127,6 @@ Class resize
 		return array('optimalWidth' => $optimalWidth, 'optimalHeight' => $optimalHeight);
 	}
 
-	private function getOptimalCrop($newWidth, $newHeight)
-	{
-
-		$heightRatio = $this->height / $newHeight;
-		$widthRatio  = $this->width /  $newWidth;
-
-		if ($heightRatio < $widthRatio) {
-			$optimalRatio = $heightRatio;
-		} else {
-			$optimalRatio = $widthRatio;
-		}
-
-		$optimalHeight = $this->height / $optimalRatio;
-		$optimalWidth  = $this->width  / $optimalRatio;
-
-		return array('optimalWidth' => $optimalWidth, 'optimalHeight' => $optimalHeight);
-	}
-	private function crop($optimalWidth, $optimalHeight, $newWidth, $newHeight)
-	{
-		// *** Find center - this will be used for the crop
-		$cropStartX = ( $optimalWidth / 2) - ( $newWidth /2 );
-		$cropStartY = ( $optimalHeight/ 2) - ( $newHeight/2 );
-
-		$crop = $this->imageResized;
-		//imagedestroy($this->imageResized);
-
-		// *** Now crop from center to exact requested size
-		$this->imageResized = imagecreatetruecolor($newWidth , $newHeight);
-		imagecopyresampled($this->imageResized, $crop , 0, 0, $cropStartX, $cropStartY, $newWidth, $newHeight , $newWidth, $newHeight);
-	}
 	public function saveImage($savePath, $imageQuality="100")
 	{
 		// *** Scale quality from 0-100 to 0-9

@@ -13,6 +13,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -119,6 +120,8 @@ public class SpecialMapOverlay extends ItemizedOverlay<OverlayItem> {
 			 */
 			TextView dial_desc = (TextView) dialog
 					.findViewById(R.id.dial_desc);
+			
+			dial_desc.setMovementMethod(new ScrollingMovementMethod());
 
 			Button close = (Button) dialog.findViewById(R.id.dial_close);
 			Button next = (Button) dialog.findViewById(R.id.dial_next);
@@ -300,7 +303,9 @@ public class SpecialMapOverlay extends ItemizedOverlay<OverlayItem> {
 				imgprev.setVisibility(View.GONE);
 				imghide.setVisibility(View.GONE);
 			}
-			dialog.show();
+			if(dialog!=null){
+				dialog.show();
+			}
 		}
 		
 		else {
@@ -313,7 +318,7 @@ public class SpecialMapOverlay extends ItemizedOverlay<OverlayItem> {
 						.setMessage(
 								"You have reached the end of the walk. Click OK to go back to the map")
 						.setTitle("Waypoint Information")
-						.setCancelable(true)
+						.setCancelable(false)
 						.setNeutralButton(android.R.string.ok,
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,

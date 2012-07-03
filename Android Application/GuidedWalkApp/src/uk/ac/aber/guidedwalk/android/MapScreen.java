@@ -54,12 +54,12 @@ public class MapScreen extends MapActivity {
 			if (null != specialOverlay) {
 				Button startButton = (Button) findViewById(R.id.start_button);
 				startButton.setOnClickListener(new View.OnClickListener() {
-		             public void onClick(View v) {
-		            	 specialOverlay.onTap(lastWaypoint);
-		            	 Button startButton = (Button) findViewById(R.id.start_button);
-		            	 startButton.setVisibility(View.GONE);
-		             }
-		         });
+					public void onClick(View v) {
+						specialOverlay.onTap(lastWaypoint);
+						Button startButton = (Button) findViewById(R.id.start_button);
+						startButton.setVisibility(View.GONE);
+					}
+				});
 				MapView mapView = (MapView) findViewById(R.id.map_view);
 				mapView.setBuiltInZoomControls(true);
 				mapView.setSatellite(true);
@@ -178,10 +178,6 @@ public class MapScreen extends MapActivity {
 		}
 	}
 
-	
-
-
-	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -199,8 +195,10 @@ public class MapScreen extends MapActivity {
 	 */
 	@Override
 	protected void onPause() {
-		me.disableCompass();
-		me.disableMyLocation();
+		if (me != null) {
+			me.disableCompass();
+			me.disableMyLocation();
+		}
 		super.onPause();
 	}
 
@@ -211,18 +209,24 @@ public class MapScreen extends MapActivity {
 	 */
 	@Override
 	protected void onResume() {
-		if(me!= null){
+		if (me != null) {
 			me.enableMyLocation();
 			me.enableCompass();
 		}
 		super.onResume();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.google.android.maps.MapActivity#onDestroy()
 	 */
 	@Override
 	protected void onDestroy() {
+		if (me != null) {
+			me.disableCompass();
+			me.disableMyLocation();
+		}
 		super.onDestroy();
 	}
 
@@ -231,10 +235,10 @@ public class MapScreen extends MapActivity {
 		// TODO Auto-generated method stub
 		super.onStop();
 	}
-	
+
 	@Override
 	public void onBackPressed() {
-	    finish();
+		finish();
 	}
 
 	public int getLastWaypoint() {

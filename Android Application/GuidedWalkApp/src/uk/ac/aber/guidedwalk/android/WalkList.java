@@ -48,8 +48,10 @@ public class WalkList extends ListActivity {
 				getWalks();
 			}
 		};
+
 		m_ProgressDialog = ProgressDialog.show(this, "Please wait...",
 				"Retrieving data ...", true);
+		m_ProgressDialog.setCancelable(false);
 		Thread thread = new Thread(null, viewWalks, "MagentoBackground");
 		thread.start();
 	}
@@ -113,7 +115,7 @@ public class WalkList extends ListActivity {
 						.setMessage(
 								"No walks currently downloaded. Please go to the menu and click update walk list.")
 						.setTitle("Notigfication")
-						.setCancelable(true)
+						.setCancelable(false)
 						.setNeutralButton(android.R.string.ok,
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,

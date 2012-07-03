@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dial_imglayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <ImageView
+        android:id="@+id/dial_ImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/image_default" />
+
+    <Button
+        android:id="@+id/dial_img_prev"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/dial_img_hide"
+        android:layout_toLeftOf="@id/dial_img_hide"
+        android:text="@string/previous_img" />
+
+    <Button
+        android:id="@+id/dial_img_hide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/hide_img" />
+
+    <Button
+        android:id="@+id/dial_img_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/dial_img_hide"
+        android:layout_toRightOf="@id/dial_img_hide"
+        android:text="@string/next_img" />
+
+    <TextView
+        android:id="@+id/dial_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dial_img_hide"
+        android:maxLines="6"
+        android:scrollbars="vertical"
+        android:singleLine="false"
+        android:text="sajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjksajkhdjkas hkdhasjkdhjkashdashdjk" />
+    
+    <Button
+        android:id="@+id/dial_prev"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/dial_close"
+        android:layout_toLeftOf="@id/dial_close"
+        android:text="@string/previous" />
+
+    <Button
+        android:id="@+id/dial_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dial_desc"
+        android:layout_centerHorizontal="true"
+        android:text="@string/close" />
+
+    <Button
+        android:id="@+id/dial_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/dial_close"
+        android:layout_toRightOf="@id/dial_close"
+        android:text="@string/next" />
+
+
+
+</RelativeLayout>
