@@ -50,6 +50,7 @@
 		}
 		sleep(1);
 	}else{
+		sleep(1);
 		echo "<p>No Post</p>";
 	}
 	

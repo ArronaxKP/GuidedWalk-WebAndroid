@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="about_title">About Us</string>
-    <string name="about_address">Menter Aberteifi \nThe Guildhall, \nAberteifi, \nCeredigion, \nSA43 1JL</string>
-    <string name="about_phone">Telephone: 01239 615554</string>
-    <string name="about_email">Email: info@menter-aberteifi.co.uk</string>
-</resources>

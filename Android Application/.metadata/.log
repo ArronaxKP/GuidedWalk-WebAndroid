@@ -2668,3 +2668,26 @@ Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.e
 
 !ENTRY org.eclipse.m2e.logback.appender 4 0 2012-07-03 21:11:44.370
 !MESSAGE Unable to update index for central|http://repo1.maven.org/maven2
+!SESSION 2012-07-16 14:20:23.957 -----------------------------------------------
+eclipse.buildId=M20110909-1335
+java.version=1.7.0_02
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.epp.usagedata.recording 1 0 2012-07-16 14:21:07.577
+!MESSAGE Usage data uploaded to http://udc.eclipse.org/upload.php in 10889 milliseconds.
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-07-16 14:23:32.177
+!MESSAGE Unable to update index for central|http://repo1.maven.org/maven2
+!SESSION 2012-07-18 15:03:32.847 -----------------------------------------------
+eclipse.buildId=M20110909-1335
+java.version=1.7.0_02
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-07-18 15:04:43.953
+!MESSAGE Unable to update index for central|http://repo1.maven.org/maven2

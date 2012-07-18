@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="26" version="2.0">
+<workbench progressCount="33" version="2.0">
 <workbenchAdvisor/>
-<window height="1010" maximized="true" width="999" x="0" y="0">
+<window height="1010" maximized="true" width="994" x="694" y="15">
 <fastViewData fastViewLocation="1024"/>
 <perspectiveBar>
 <itemSize x="90"/>
@@ -19,12 +19,12 @@
 <coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="130" y="22"/>
 <coolItem id="org.eclipse.wst.xml.ui.perspective.NewFileToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="190" y="22"/>
-<coolItem id="org.eclipse.wst.xml.ui.design.DesignToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="org.eclipse.wst.xml.ui.design.DesignToolBar" itemType="typeToolBarContribution" x="61" y="22"/>
 <coolItem id="group.nav" itemType="typeGroupMarker"/>
 <coolItem id="group.editor" itemType="typeGroupMarker"/>
 <coolItem id="com.android.ide.eclipse.editors.layout.LayoutEditor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="org.eclipse.jdt.ui.ClassFileEditor" itemType="typePlaceholder" x="-1" y="-1"/>
-<coolItem id="org.eclipse.jdt.ui.CompilationUnitEditor" itemType="typePlaceholder" x="-1" y="-1"/>
+<coolItem id="org.eclipse.jdt.ui.CompilationUnitEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="group.help" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
 </coolbarLayout>
@@ -33,10 +33,35 @@
 <editorArea activeWorkbook="DefaultEditorWorkbook">
 <info part="DefaultEditorWorkbook">
 <folder appearance="1" expanded="2">
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+<part id="2"/>
+<part id="3"/>
+<part id="4"/>
+</presentation>
 </folder>
 </info>
 </editorArea>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DownloadList.java" partName="DownloadList.java" path="D:/My Documents/GitHub/GuidedWalk-WebAndroid/Android Application/GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/DownloadList.java" title="DownloadList.java" tooltip="GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/DownloadList.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/DownloadList.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="13" selectionOffset="13905" selectionTopPixel="5460"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DownloadWalkAdapter.java" partName="DownloadWalkAdapter.java" path="D:/My Documents/GitHub/GuidedWalk-WebAndroid/Android Application/GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/DownloadWalkAdapter.java" title="DownloadWalkAdapter.java" tooltip="GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/DownloadWalkAdapter.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/DownloadWalkAdapter.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="3428" selectionTopPixel="963"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="MapScreen.java" partName="MapScreen.java" path="D:/My Documents/GitHub/GuidedWalk-WebAndroid/Android Application/GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/MapScreen.java" title="MapScreen.java" tooltip="GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/MapScreen.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/MapScreen.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="47" selectionOffset="2537" selectionTopPixel="345"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="SpecialMapOverlay.java" partName="SpecialMapOverlay.java" path="D:/My Documents/GitHub/GuidedWalk-WebAndroid/Android Application/GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/SpecialMapOverlay.java" title="SpecialMapOverlay.java" tooltip="GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/SpecialMapOverlay.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/SpecialMapOverlay.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="3484" selectionTopPixel="1200"/>
+</editor>
+<editor activePart="true" focus="true" id="com.android.ide.eclipse.editors.resources.ResourcesEditor" name="about.xml" partName="about.xml" path="D:/My Documents/GitHub/GuidedWalk-WebAndroid/Android Application/GuidedWalkApp/res/values/about.xml" title="about.xml" tooltip="GuidedWalkApp/res/values/about.xml" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/GuidedWalkApp/res/values/about.xml"/>
+</editor>
 </editors>
 <views>
 <view id="com.android.ide.eclipse.ddms.views.LogCatView" partName="LogCat">
@@ -120,7 +145,7 @@
 </view>
 <view id="org.eclipse.jdt.ui.JavadocView" partName="Javadoc"/>
 </views>
-<perspectives activePart="org.eclipse.jdt.ui.PackageExplorer" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
+<perspectives activePart="com.android.ide.eclipse.editors.resources.ResourcesEditor" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="org.eclipse.jdt.internal.ui.JavaPerspectiveFactory" id="org.eclipse.jdt.ui.JavaPerspective" label="Java"/>
 <alwaysOnActionSet id="org.eclipse.egit.ui.navigation"/>
@@ -374,7 +399,165 @@
 </perspective>
 </perspectives>
 <workingSets/>
-<navigationHistory/>
+<navigationHistory>
+<editors>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/DownloadList.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/DownloadWalkAdapter.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/GuidedWalkApp/src/uk/ac/aber/guidedwalk/model/Walk.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/GuidedWalkApp/src/uk/ac/aber/guidedwalk/model/LoadXML.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/MapScreen.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/SpecialMapOverlay.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.resources.ResourcesEditor" path="/GuidedWalkApp/res/values/about.xml"/>
+</editors>
+<item historyLabel="DownloadList.java" index="0">
+<position info="not_deleted" x="6816" y="0"/>
+</item>
+<item historyLabel="DownloadList.java" index="0">
+<position info="not_deleted" x="12585" y="0"/>
+</item>
+<item historyLabel="DownloadWalkAdapter.java" index="1">
+<position info="not_deleted" x="2895" y="0"/>
+</item>
+<item historyLabel="DownloadList.java" index="0">
+<position info="not_deleted" x="12585" y="0"/>
+</item>
+<item historyLabel="LoadXML.java" index="3">
+<position/>
+</item>
+<item historyLabel="Walk.java" index="2">
+<position info="not_deleted" x="4944" y="0"/>
+</item>
+<item historyLabel="LoadXML.java" index="3">
+<position/>
+</item>
+<item historyLabel="DownloadList.java" index="0">
+<position info="not_deleted" x="11911" y="0"/>
+</item>
+<item historyLabel="DownloadWalkAdapter.java" index="1">
+<position info="not_deleted" x="2895" y="0"/>
+</item>
+<item historyLabel="DownloadWalkAdapter.java" index="1">
+<position info="not_deleted" x="3133" y="0"/>
+</item>
+<item historyLabel="DownloadList.java" index="0">
+<position info="not_deleted" x="3740" y="0"/>
+</item>
+<item historyLabel="LoadXML.java" index="3">
+<position info="not_deleted" x="3681" y="0"/>
+</item>
+<item historyLabel="DownloadWalkAdapter.java" index="1">
+<position info="not_deleted" x="3428" y="0"/>
+</item>
+<item historyLabel="LoadXML.java" index="3">
+<position info="not_deleted" x="3681" y="0"/>
+</item>
+<item historyLabel="DownloadWalkAdapter.java" index="1">
+<position info="not_deleted" x="3428" y="0"/>
+</item>
+<item historyLabel="DownloadList.java" index="0">
+<position info="not_deleted" x="3740" y="0"/>
+</item>
+<item historyLabel="DownloadList.java" index="0">
+<position info="not_deleted" x="6792" y="0"/>
+</item>
+<item historyLabel="DownloadList.java" index="0">
+<position info="not_deleted" x="6783" y="0"/>
+</item>
+<item historyLabel="DownloadList.java" index="0">
+<position info="not_deleted" x="6816" y="0"/>
+</item>
+<item historyLabel="DownloadList.java" index="0">
+<position info="not_deleted" x="11552" y="0"/>
+</item>
+<item historyLabel="DownloadList.java" index="0">
+<position info="not_deleted" x="11605" y="0"/>
+</item>
+<item historyLabel="DownloadList.java" index="0">
+<position info="not_deleted" x="11661" y="0"/>
+</item>
+<item historyLabel="DownloadList.java" index="0">
+<position info="not_deleted" x="11704" y="0"/>
+</item>
+<item historyLabel="DownloadList.java" index="0">
+<position info="not_deleted" x="11605" y="0"/>
+</item>
+<item historyLabel="DownloadList.java" index="0">
+<position info="not_deleted" x="11661" y="0"/>
+</item>
+<item historyLabel="DownloadList.java" index="0">
+<position info="not_deleted" x="11704" y="0"/>
+</item>
+<item historyLabel="DownloadList.java" index="0">
+<position info="not_deleted" x="11760" y="0"/>
+</item>
+<item historyLabel="DownloadList.java" index="0">
+<position info="not_deleted" x="11816" y="0"/>
+</item>
+<item historyLabel="DownloadList.java" index="0">
+<position info="not_deleted" x="11862" y="0"/>
+</item>
+<item historyLabel="DownloadList.java" index="0">
+<position info="not_deleted" x="11903" y="0"/>
+</item>
+<item historyLabel="DownloadList.java" index="0">
+<position info="not_deleted" x="11950" y="0"/>
+</item>
+<item historyLabel="DownloadList.java" index="0">
+<position info="not_deleted" x="12006" y="0"/>
+</item>
+<item historyLabel="DownloadList.java" index="0">
+<position info="not_deleted" x="11605" y="0"/>
+</item>
+<item historyLabel="DownloadList.java" index="0">
+<position info="not_deleted" x="12062" y="0"/>
+</item>
+<item historyLabel="DownloadList.java" index="0">
+<position info="not_deleted" x="12134" y="0"/>
+</item>
+<item historyLabel="DownloadList.java" index="0">
+<position info="not_deleted" x="12158" y="0"/>
+</item>
+<item historyLabel="DownloadList.java" index="0">
+<position info="not_deleted" x="12207" y="0"/>
+</item>
+<item historyLabel="DownloadList.java" index="0">
+<position info="not_deleted" x="12158" y="0"/>
+</item>
+<item historyLabel="DownloadList.java" index="0">
+<position info="not_deleted" x="13849" y="0"/>
+</item>
+<item historyLabel="MapScreen.java" index="4">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="SpecialMapOverlay.java" index="5">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="SpecialMapOverlay.java" index="5">
+<position info="not_deleted" x="3114" y="0"/>
+</item>
+<item historyLabel="DownloadList.java" index="0">
+<position info="not_deleted" x="13905" y="13"/>
+</item>
+<item historyLabel="MapScreen.java" index="4">
+<position info="not_deleted" x="3924" y="13"/>
+</item>
+<item historyLabel="SpecialMapOverlay.java" index="5">
+<position info="not_deleted" x="2625" y="0"/>
+</item>
+<item historyLabel="MapScreen.java" index="4">
+<position info="not_deleted" x="2537" y="47"/>
+</item>
+<item historyLabel="SpecialMapOverlay.java" index="5">
+<position info="not_deleted" x="2625" y="0"/>
+</item>
+<item historyLabel="SpecialMapOverlay.java" index="5">
+<position/>
+</item>
+<item historyLabel="SpecialMapOverlay.java" index="5">
+<position info="not_deleted" x="2625" y="0"/>
+</item>
+<item active="true" historyLabel="about.xml" index="6"/>
+</navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
 </page>
 <workbenchWindowAdvisor/>
@@ -396,14 +579,8 @@
 </trimLayout>
 </window>
 <mruList>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Splash.java" tooltip="GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/Splash.java">
-<persistable path="/GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/Splash.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="WalkList.java" tooltip="GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/WalkList.java">
-<persistable path="/GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/WalkList.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DownloadList.java" tooltip="GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/DownloadList.java">
-<persistable path="/GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/DownloadList.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.resources.ResourcesEditor" name="about.xml" tooltip="GuidedWalkApp/res/values/about.xml">
+<persistable path="/GuidedWalkApp/res/values/about.xml"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="SpecialMapOverlay.java" tooltip="GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/SpecialMapOverlay.java">
 <persistable path="/GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/SpecialMapOverlay.java"/>
@@ -411,20 +588,32 @@
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="MapScreen.java" tooltip="GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/MapScreen.java">
 <persistable path="/GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/MapScreen.java"/>
 </file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="LoadXML.java" tooltip="GuidedWalkApp/src/uk/ac/aber/guidedwalk/model/LoadXML.java">
+<persistable path="/GuidedWalkApp/src/uk/ac/aber/guidedwalk/model/LoadXML.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DownloadWalkAdapter.java" tooltip="GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/DownloadWalkAdapter.java">
+<persistable path="/GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/DownloadWalkAdapter.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Walk.java" tooltip="GuidedWalkApp/src/uk/ac/aber/guidedwalk/model/Walk.java">
+<persistable path="/GuidedWalkApp/src/uk/ac/aber/guidedwalk/model/Walk.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DownloadList.java" tooltip="GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/DownloadList.java">
+<persistable path="/GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/DownloadList.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Splash.java" tooltip="GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/Splash.java">
+<persistable path="/GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/Splash.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="WalkList.java" tooltip="GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/WalkList.java">
+<persistable path="/GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/WalkList.java"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.resources.ResourcesEditor" name="config.xml" tooltip="GuidedWalkApp/res/values/config.xml">
 <persistable path="/GuidedWalkApp/res/values/config.xml"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.resources.ResourcesEditor" name="about.xml" tooltip="GuidedWalkApp/res/values/about.xml">
-<persistable path="/GuidedWalkApp/res/values/about.xml"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.manifest.ManifestEditor" name="AndroidManifest.xml" tooltip="GuidedWalkApp/AndroidManifest.xml">
 <persistable path="/GuidedWalkApp/AndroidManifest.xml"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.systemExternalEditor" name="ic_launcher_cardigan.png" tooltip="GuidedWalkApp/res/drawable-mdpi/ic_launcher_cardigan.png">
 <persistable path="/GuidedWalkApp/res/drawable-mdpi/ic_launcher_cardigan.png"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="LoadXML.java" tooltip="GuidedWalkApp/src/uk/ac/aber/guidedwalk/model/LoadXML.java">
-<persistable path="/GuidedWalkApp/src/uk/ac/aber/guidedwalk/model/LoadXML.java"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="About.java" tooltip="GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/About.java">
 <persistable path="/GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/About.java"/>
@@ -434,12 +623,6 @@
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.resources.ResourcesEditor" name="strings.xml" tooltip="GuidedWalkApp/res/values/strings.xml">
 <persistable path="/GuidedWalkApp/res/values/strings.xml"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="walklistitem.xml" tooltip="GuidedWalkApp/res/layout/walklistitem.xml">
-<persistable path="/GuidedWalkApp/res/layout/walklistitem.xml"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="walklist.xml" tooltip="GuidedWalkApp/res/layout/walklist.xml">
-<persistable path="/GuidedWalkApp/res/layout/walklist.xml"/>
 </file>
 </mruList>
 </workbench>

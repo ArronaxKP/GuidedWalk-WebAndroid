@@ -12,5 +12,6 @@ include 'loadandsavefunctions.php';
 	$selectedwalk = $_POST['selectedwalk'];
 	$instance = new LoadAndSaveFunctions();
 	$instance->deleteWalk($selectedwalk);
+	sleep(1);
 	echo $selectedwalk;
 ?>

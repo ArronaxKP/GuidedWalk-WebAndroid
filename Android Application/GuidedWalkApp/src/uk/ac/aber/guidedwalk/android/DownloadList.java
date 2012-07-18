@@ -21,6 +21,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -94,33 +95,42 @@ public class DownloadList extends ListActivity {
 	 */
 	private void getWalkList() {
 		LoadXML lxml = new LoadXML();
-		ArrayList<Walk> walk_excludes = lxml.readXMLMap(this, "map.xml");
+		ArrayList<Walk> walk_local = lxml.readXMLMap(this, "map.xml");
 		if (lxml.downloadXML(this, "map.xml", null, true)) {
-			ArrayList<Walk> walk_all = lxml.readXMLMap(this, "temp.xml");
-			if (walk_excludes != null) {
+			ArrayList<Walk> walk_online = lxml.readXMLMap(this, "temp.xml");
+			if (walk_local != null) {
 				boolean needs_to_be_downloaded;
-				for (int i = 0; i < walk_all.size(); i++) {
+				for (int i = 0; i < walk_online.size(); i++) {
 					needs_to_be_downloaded = true;
-					for (int j = 0; j < walk_excludes.size(); j++) {
-						if (walk_all.get(i).getId()
-								.equals(walk_excludes.get(j).getId())) {
-							if (walk_all.get(i).getVersion() > walk_excludes
+					for (int j = 0; j < walk_local.size(); j++) {
+						if (walk_online.get(i).getId()
+								.equals(walk_local.get(j).getId())) {
+							if (walk_online.get(i).getVersion() > walk_local
 									.get(j).getVersion()) {
-								walk_all.get(i).hasUpdateAvailable(true);
+								walk_online.get(i).hasUpdateAvailable(true);
 								needs_to_be_downloaded = true;
-								walk_excludes.remove(j);
-								j = walk_excludes.size();
+								walk_local.remove(j);
+								j = walk_local.size();
 							} else {
+								walk_local.remove(j);
+								j = walk_local.size();
 								needs_to_be_downloaded = false;
 							}
 						}
 					}
 					if (needs_to_be_downloaded) {
-						walk_list.add(walk_all.get(i));
+						walk_list.add(walk_online.get(i));
+					}
+				}
+				if (walk_local.size() != 0) {
+					for (int i = 0; i < walk_local.size(); i++) {
+						Walk walk = walk_local.get(i);
+						walk.setToBeDeleted(true);
+						walk_list.add(walk);
 					}
 				}
 			} else {
-				for (Walk walk : walk_all) {
+				for (Walk walk : walk_online) {
 					walk_list.add(walk);
 				}
 			}
@@ -200,15 +210,21 @@ public class DownloadList extends ListActivity {
 				for (int i = 0; i < walk_list.size(); i++) {
 					Walk walk = walk_list.get(i);
 					if (walk.isSelected()) {
-						LoadXML lxml = new LoadXML();
-						Boolean success = lxml.downloadXML(context,
-								walk.getId() + ".xml", "walks/");
-						if (success) {
-							if (walk.isUpdateAvailable()) {
-								this.update(dom, walklist, walk);
-							} else {
-								this.write(dom, walklist, walk);
-								nows++;
+						if (walk.toBeDeleted()) {
+							this.delete(dom, walklist, walk, i);
+							nows--;
+							i--;
+						} else {
+							LoadXML lxml = new LoadXML();
+							Boolean success = lxml.downloadXML(context,
+									walk.getId() + ".xml", "walks/");
+							if (success) {
+								if (walk.isUpdateAvailable()) {
+									this.update(dom, walklist, walk);
+								} else {
+									this.write(dom, walklist, walk);
+									nows++;
+								}
 							}
 						}
 					}
@@ -267,7 +283,7 @@ public class DownloadList extends ListActivity {
 		}
 	}
 
-	private void update(Document dom, Element walklist, Walk walk){	
+	private void update(Document dom, Element walklist, Walk walk) {
 		Element walkdom = dom.createElement("walk");
 		walkdom.setAttribute("id", walk.getId());
 		walklist.appendChild(walkdom);
@@ -292,25 +308,27 @@ public class DownloadList extends ListActivity {
 		Element ver = dom.createElement("version");
 		ver.appendChild(dom.createTextNode("" + walk.getVersion()));
 		walkdom.appendChild(ver);
-				
+
 		NodeList walk_list = walklist.getChildNodes();
-		for (int i = 0; i<walk_list.getLength();i++){
+		for (int i = 0; i < walk_list.getLength(); i++) {
 			Node walk_selected = walk_list.item(i);
-			if(walk_selected.getNodeName().equalsIgnoreCase("walk")){
+			if (walk_selected.getNodeName().equalsIgnoreCase("walk")) {
 				NodeList walk_details_list = walk_selected.getChildNodes();
-				for (int j = 0; j<walk_details_list.getLength();j++){
+				for (int j = 0; j < walk_details_list.getLength(); j++) {
 					Node walk_detail = walk_details_list.item(j);
-					if(walk_detail.getNodeName().equalsIgnoreCase("id")){
-						String walk_id = walk_detail.getFirstChild().getNodeValue();
-						if(walk_id.equalsIgnoreCase(walk.getId())){
-							walk_list.item(i).getParentNode().replaceChild(walkdom, walk_list.item(i));
+					if (walk_detail.getNodeName().equalsIgnoreCase("id")) {
+						String walk_id = walk_detail.getFirstChild()
+								.getNodeValue();
+						if (walk_id.equalsIgnoreCase(walk.getId())) {
+							walk_list.item(i).getParentNode()
+									.replaceChild(walkdom, walk_list.item(i));
 						}
 					}
 				}
 			}
 		}
 	}
-	
+
 	private void write(Document dom, Element walklist, Walk walk) {
 		Element walkdom = dom.createElement("walk");
 		walkdom.setAttribute("id", walk.getId());
@@ -336,6 +354,33 @@ public class DownloadList extends ListActivity {
 		Element ver = dom.createElement("version");
 		ver.appendChild(dom.createTextNode("" + walk.getVersion()));
 		walkdom.appendChild(ver);
+	}
+
+	private void delete(Document dom, Element walklist, Walk walk, int i) {
+		NodeList walkNodeList = walklist.getChildNodes();
+		for (int j = 0; j < walkNodeList.getLength(); j++) {
+			Node childNode = walkNodeList.item(j);
+			if (childNode.getNodeType() == Node.ELEMENT_NODE) {
+				NamedNodeMap attrList = childNode.getAttributes();
+				Node node = attrList.getNamedItem("id");
+				String str = node.getTextContent();
+				if (str.equalsIgnoreCase(walk.getId())) {
+					childNode.getParentNode().removeChild(childNode);
+					j = walkNodeList.getLength();
+				}
+			}
+		}
+
+		File file = new File(context.getFilesDir() + walk.getId() + ".xml");
+		if (file.delete()) {
+			Log.i("DELETE_FILE", "File: " + walk.getId()
+					+ ".xml was deleted successfully.");
+		} else {
+			Log.e("DELETE_FILE", "File: " + walk.getId()
+					+ ".xml failed to be deleted.");
+		}
+
+		walk_list.remove(i);
 	}
 
 	/**
@@ -373,9 +418,9 @@ public class DownloadList extends ListActivity {
 			m_ProgressDialog.dismiss();
 			m_adapter.notifyDataSetChanged();
 			new AlertDialog.Builder(context)
-					.setMessage("Selected walk(s) downloaded successfully.")
+					.setMessage("Selected walk(s) downloaded/deleted successfully.")
 					.setTitle("Notification")
-					.setCancelable(true)
+					.setCancelable(false)
 					.setNeutralButton(android.R.string.ok,
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,

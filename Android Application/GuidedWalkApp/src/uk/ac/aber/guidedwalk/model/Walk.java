@@ -18,7 +18,7 @@ public class Walk {
 	private boolean selected;
 	private int version;
 	private boolean update;
-
+	private boolean toBeDeleted;
 
 	/**
 	 * Basic constructor instantiating all variables to null or 0.
@@ -30,6 +30,7 @@ public class Walk {
 		this.walklength = 0;
 		this.route = new ArrayList<Waypoint>();
 		this.update = false;
+		this.toBeDeleted = false;
 	}
 
 	/**
@@ -197,5 +198,21 @@ public class Walk {
 	 */
 	public void hasUpdateAvailable(boolean update) {
 		this.update = update;
+	}
+
+	/**
+	 * This metyhod retuerns true if this walk is meant to be deleted during the update stage.
+	 * @return the toBeDeleted boolean true if walk is to be deleted.
+	 */
+	public boolean toBeDeleted() {
+		return toBeDeleted;
+	}
+
+	/**
+	 * This sets the toBeDeleted variable. 
+	 * @param toBeDeleted the toBeDeleted to set. True means to be deleted else false
+	 */
+	public void setToBeDeleted(boolean toBeDeleted) {
+		this.toBeDeleted = toBeDeleted;
 	}
 }

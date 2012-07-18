@@ -82,7 +82,7 @@ public class MapScreen extends MapActivity {
 										+ "Please go to the menu and click "
 										+ "update walk list.")
 						.setTitle("ERROR")
-						.setCancelable(true)
+						.setCancelable(false)
 						.setNeutralButton(android.R.string.ok,
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,
@@ -119,7 +119,7 @@ public class MapScreen extends MapActivity {
 									+ "Please go to the menu and click "
 									+ "update walk list.")
 					.setTitle("ERROR")
-					.setCancelable(true)
+					.setCancelable(false)
 					.setNeutralButton(android.R.string.cancel,
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,

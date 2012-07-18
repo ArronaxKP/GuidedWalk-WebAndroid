@@ -187,11 +187,11 @@ Class LoadAndSaveFunctions
 		$doc->load("map.xml");
 		$x = $doc->documentElement;
 		$numberofwalks = $x->getElementsByTagName('numberofwalks');
-		foreach ($numberofwalks AS $noms)
+		foreach ($numberofwalks AS $nows)
 		{
-			$count = intval($noms->nodeValue);
+			$count = intval($nows->nodeValue);
 			$count--;
-			$noms->replaceChild($doc->createTextNode($count),$noms->firstChild);
+			$nows->replaceChild($doc->createTextNode($count),$nows->firstChild);
 		}
 		foreach ($x->childNodes AS $elements)
 		{

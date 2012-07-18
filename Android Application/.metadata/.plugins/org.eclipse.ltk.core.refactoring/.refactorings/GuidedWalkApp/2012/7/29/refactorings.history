@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Encapsulate field &apos;uk.ac.aber.guidedwalk.model.Walk.toBeDeleted&apos; in &apos;uk.ac.aber.guidedwalk.model.Walk&apos;&#x0D;&#x0A;- Original project: &apos;GuidedWalkApp&apos;&#x0D;&#x0A;- Original element: &apos;uk.ac.aber.guidedwalk.model.Walk.toBeDeleted&apos;&#x0D;&#x0A;- Getter method name: &apos;toBeDeleted&apos;&#x0D;&#x0A;- Setter method name: &apos;setToBeDeleted&apos;&#x0D;&#x0A;- Field visibility: &apos;public&apos;&#x0D;&#x0A;- Use getter and setter methods in declaring type&#x0D;&#x0A;- Generate method comments" comments="true" declaring="true" description="Encapsulate field &apos;toBeDeleted&apos;" flags="589830" getter="toBeDeleted" id="org.eclipse.jdt.ui.self.encapsulate" input="/src&lt;uk.ac.aber.guidedwalk.model{Walk.java[Walk^toBeDeleted" insertion="18" setter="setToBeDeleted" stamp="1342445648606" version="1.0" visibility="1"/>
+</session>

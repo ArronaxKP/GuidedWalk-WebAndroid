@@ -107,13 +107,14 @@ public class SpecialMapOverlay extends ItemizedOverlay<OverlayItem> {
 	 * @return the boolean value true if method succeeded.
 	 */
 	private boolean markerClicked(final int index) {
+		mControl.animateTo(mapOverlays.get(index).getPoint());
 		if (this.checkWaypoint(index)) {
-			mControl.animateTo(mapOverlays.get(index).getPoint());
 			OverlayItem item = mapOverlays.get(index);
 			dialog = new Dialog(mapscreen);
 			dialog.setTitle(item.getTitle());
 			dialog.setContentView(R.layout.maindialog);
-
+			dialog.setCancelable(false);
+			//dialog.setCanceledOnTouchOutside(false);
 			/**
 			 * The final items listed below creates a reference to each item in
 			 * the dialog view to allow for listeners to be created.
@@ -335,7 +336,7 @@ public class SpecialMapOverlay extends ItemizedOverlay<OverlayItem> {
 						.setMessage(
 								"The next waypoint is empty. Click OK to go to the one after or cancel to go back to the map")
 						.setTitle("Waypoint Information")
-						.setCancelable(true)
+						.setCancelable(false)
 						.setPositiveButton(android.R.string.ok,
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,

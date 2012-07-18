@@ -24,7 +24,6 @@ public class DownloadWalkAdapter extends ArrayAdapter<Walk> {
 
 	private ArrayList<Walk> items;
 
-	
 	/**
 	 * The constructor creates a reference to the Activity Class instantiating
 	 * the adapter. This is done as the context is required in order to create
@@ -43,7 +42,6 @@ public class DownloadWalkAdapter extends ArrayAdapter<Walk> {
 		super(context, textViewResourceId, items);
 		this.items = items;
 	}
-	
 
 	/*
 	 * (non-Javadoc)
@@ -59,7 +57,7 @@ public class DownloadWalkAdapter extends ArrayAdapter<Walk> {
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			v = vi.inflate(R.layout.downloadwalkitem, null);
 		}
-		
+
 		Walk walk = items.get(position);
 		if (walk != null) {
 			TextView list_id = (TextView) v
@@ -89,10 +87,17 @@ public class DownloadWalkAdapter extends ArrayAdapter<Walk> {
 			if (2 == walk.getWalkDifficulty()) {
 				list_difficulty.setText("Hard");
 			}
-			if(walk.isUpdateAvailable()){
+			if (walk.isUpdateAvailable()) {
 				TextView list_text = (TextView) v
 						.findViewById(R.id.download_walk_item_text);
-				list_text.setText("UPDATE");
+				list_text.setText("UPDATE Available");
+				list_text.setTextColor(v.getResources().getColor(R.color.green));
+				list_text.setVisibility(View.VISIBLE);
+			} else if (walk.toBeDeleted()) {
+				TextView list_text = (TextView) v
+						.findViewById(R.id.download_walk_item_text);
+				list_text.setText("DELETE: No longer Supported");
+				list_text.setTextColor(v.getResources().getColor(R.color.red));
 				list_text.setVisibility(View.VISIBLE);
 			} else {
 				TextView list_text = (TextView) v
@@ -100,7 +105,7 @@ public class DownloadWalkAdapter extends ArrayAdapter<Walk> {
 				list_text.setText("");
 				list_text.setVisibility(View.GONE);
 			}
-			
+
 			final int pos = position;
 			CheckBox chkbox = (CheckBox) v.findViewById(R.id.checkbox);
 			chkbox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -112,6 +117,6 @@ public class DownloadWalkAdapter extends ArrayAdapter<Walk> {
 
 		}
 		return v;
-	} 
+	}
 
 }
