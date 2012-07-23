@@ -27,12 +27,25 @@ function walkDetailsBox(text) {
 
 	string += '<p>Type Walk Details below</p>'
 			+ '<form id="walk_info" name="walk_info">'
-			+ '<p>Walk Title: <br /><textarea rows="1" cols="34" name="title" id="title">'
+			+ '<table border="0" align="center"><tr>'
+			+ '<td><p>Walk Title: </p><textarea rows="4" cols="33" name="title" id="title">'
 			+ walktitle
-			+ '</textarea></p>'
-			+ '<p>Walk Description: <br /><textarea rows="3" cols="34" name="desc" id="desc">'
+			+ '</textarea></td>'
+			
+			+ '<td><p>Welsh Walk Title: </p><textarea rows="4" cols="33" name="welshtitle" id="welshtitle">'
+			+ welshwalktitle
+			+ '</textarea></td>'
+			
+			+ '</tr><tr>'
+			
+			+ '<td><p>Walk Description: </p><textarea rows="8" cols="33" name="desc" id="desc">'
 			+ walkdesc
-			+ '</textarea></p> '
+			+ '</textarea></td>'
+			
+			+ '<td><p>Welsh Walk Description: </p><textarea rows="8" cols="33" name="welshdesc" id="welshdesc">'
+			+ welshwalkdesc
+			+ '</textarea></td>'
+			+ '</tr></table>'
 			+ difficultystring
 			+ '<p>'
 			+ '<button id="send" type="button" onClick="saveWalktoServer(this.form);">Save</button>'
@@ -97,6 +110,8 @@ function closeWalkDetailsBox(form) {
 function saveFormDetails(form) {
 	walktitle = form.title.value;
 	walkdesc = form.desc.value;
+	welshwalktitle = form.welshtitle.value;
+	welshwalkdesc = form.welshdesc.value;
 	walkdifficulty = getDifficultyValue(form);
 }
 

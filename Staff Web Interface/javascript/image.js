@@ -16,11 +16,11 @@
  */
 function checkForm(form) {
 	var index = parseInt(form.id);
-	var title = form.title.value;
-	var desc = form.desc.value;
 	var waypoint = waypoints[index];
-	waypoint.desc = desc;
-	waypoint.title = title;
+	waypoint.title = form.title.value;
+	waypoint.desc = form.desc.value;
+	waypoint.welshtitle = form.welshtitle.value;
+	waypoint.welshdesc = form.welshdesc.value;
 	var filename = form.file.value;
 	var extension = filename.split('.').pop();
 	if ('JPG' === extension.toUpperCase() || 'GIF' === extension.toUpperCase()
@@ -32,6 +32,7 @@ function checkForm(form) {
 		alertbox('Please choose a image file with extension .jpg, .jpeg, .gif or .png');
 		return false;
 	}
+	updateSideBar();
 }
 
 /**
@@ -49,8 +50,12 @@ function removeImg(index, imgIndex) {
 	var waypoint = waypoints[index];
 	waypoint.images.splice(imageNo, 1);
 	waypoint.numberofimages--;
-	var newContent = assembleInfoWindow(waypoint);
-	waypoint.infoWindow.setContent(newContent);
+	var infoWindowContent = assembleInfoWindow(waypoint);
+	var div = document.createElement('div');
+	div.setAttribute("id", "infoForm" + waypoint.index);
+	div.setAttribute("style", "width:465px; display: block;text-align:center;");
+	div.innerHTML = infoWindowContent;
+	waypoint.infoWindow.setContent(div);
 }
 
 /**
@@ -65,8 +70,14 @@ function addImg(location, index) {
 	var waypoint = waypoints[index];
 	waypoint.images[waypoint.numberofimages] = location;
 	waypoint.numberofimages++;
-	var newContent = assembleInfoWindow(waypoint);
-	waypoint.infoWindow.setContent(newContent);
+	
+	var infoWindowContent = assembleInfoWindow(waypoint);
+	var div = document.createElement('div');
+	div.setAttribute("id", "infoForm" + waypoint.index);
+	div.setAttribute("style", "width:465px; display: block;text-align:center;");
+	div.innerHTML = infoWindowContent;
+	waypoint.infoWindow.setContent(div);
+	updateSideBar();
 }
 
 /**
@@ -118,8 +129,10 @@ function deleteFile(filename, index, imageIndex, form) {
 	var waypoint = waypoints[index];
 	if(null!=form){
 		overridebox();
-		waypoint.desc = form.desc.value;
 		waypoint.title = form.title.value;
+		waypoint.desc = form.desc.value;
+		waypoint.welshtitle = form.welshtitle.value;
+		waypoint.welshdesc = form.welshdesc.value;
 	}
 	if (((filename.indexOf("/")) == -1) && ((filename.indexOf("\\")) == -1)) {
 		var parms = "filename=" + filename;
@@ -155,6 +168,7 @@ function deleteFile(filename, index, imageIndex, form) {
 		};
 		xmlhttp.send(parms);
 	}
+	updateSideBar();
 }
 
 /**

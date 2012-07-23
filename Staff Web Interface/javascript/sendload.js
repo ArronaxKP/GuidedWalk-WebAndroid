@@ -49,12 +49,21 @@ function loadWalkList(object) {
 		var string = '<div><form><select id="listofwalks" onchange="updateDisplay()">';
 		for ( var i = 0; i < numberofwalks; i++) {
 			string += '<option  value="' + i + '">' + listofwalks[i].id
-					+ ' : Title: ' + listofwalks[i].title + '</option>';
+					+ ' : Title: ' + listofwalks[i].title.substring(0,50); + '</option>';
+			
 		}
-		string += '</select><div id="walk_desc_box" style="text-align:left;"><p><b>Title:</b><br />'
-				+ listofwalks[0].title
-				+ '<br /><b>Description:</b><br />'
-				+ listofwalks[0].desc + '<br /><b>Difficulty: </b>';
+		string += '</select><div id="walk_desc_box" style="text-align:left;">'
+				+ '<table border="0" align="center"><tr>'
+				+ '<td><p"><b>Title: </b></p><p">'
+				+ listofwalks[0].title.substring(0,200)
+				+ '</p><p"><b>Description: </b></p><p">'
+				+ listofwalks[0].desc.substring(0,500)
+				+ '</p></td>'
+				+ '<td><p"><b>Welsh Title: </b></p><p">'
+				+ listofwalks[0].welshtitle.substring(0,200)
+				+ '</p><p"><b>Welsh Description: </b></p><p">'
+				+ listofwalks[0].welshdesc.substring(0,500) + '</p></td>' + '</tr></table>'
+				+ '<p align="center"><b>Difficulty: </b>';
 
 		if (listofwalks[0].difficulty == 0) {
 			string += 'Easy';
@@ -93,11 +102,19 @@ function updateDisplay() {
 	if (listofwalks[index].difficulty == 2) {
 		difficulty = 'Hard';
 	}
-	document.getElementById("walk_desc_box").innerHTML = '<p><b>Title:</b><br />'
-			+ listofwalks[index].title
-			+ '<br /><b>Description:</b><br />'
-			+ listofwalks[index].desc +'<br /><b>Difficulty: </b>'+difficulty+'</p>';
-
+	document.getElementById("walk_desc_box").innerHTML = '<table border="0" align="center"><tr>'
+			+ '<td><p "><b>Title: </b></p><p">'
+			+ listofwalks[index].title.substring(0,200)
+			+ '</p><p"><b>Description: </b></p><p">'
+			+ listofwalks[index].desc.substring(0,500)
+			+ '</p></td>'
+			+ '<td><p"><b>Welsh Title: </b></p><p">'
+			+ listofwalks[index].welshtitle.substring(0,200)
+			+ '</p><p"><b>Welsh Description: </b></p><p">'
+			+ listofwalks[index].welshdesc.substring(0,500)
+			+ '</p></td>'
+			+ '</tr></table>'
+			+ '<p align="center"><b>Difficulty: </b>' + difficulty + '</p>';
 }
 
 /**
@@ -113,8 +130,11 @@ function dejson(jsonobj) {
 	var myObject = eval('(' + jsonobj + ')');
 	clearMap();
 	uniqueid = myObject.id;
-	walkdesc = myObject.walk_desc;
 	walktitle = myObject.walk_title;
+	walkdesc = myObject.walk_desc;
+	welshwalktitle = myObject.welsh_walk_title;
+	welshwalkdesc = myObject.welsh_walk_desc;
+
 	walkdifficulty = myObject.walk_difficulty;
 	version = myObject.version;
 	var listofwaypoints = myObject.route;
@@ -126,10 +146,13 @@ function dejson(jsonobj) {
 		var waypointDetails = listofwaypoints[i];
 		waypoint = new createWaypoint(waypointDetails.lat, waypointDetails.lng);
 		waypoint.title = waypointDetails.waypoint_title;
-
 		waypoint.desc = waypointDetails.waypoint_desc;
 
+		waypoint.welshtitle = waypointDetails.welsh_waypoint_title;
+		waypoint.welshdesc = waypointDetails.welsh_waypoint_desc;
+
 		if ("" != waypoint.title || "" != waypoint.desc
+				|| "" != waypoint.welshtitle || "" != waypoint.welshdesc
 				|| 0 != waypointDetails.number_of_images) {
 			var infoWindow;
 			var infoWindowContent = assembleInfoWindow(waypoint);
@@ -249,6 +272,7 @@ function serializeLoadSend() {
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 			dejson(xmlhttp.responseText);
 			overlay();
+			updateSideBar();
 			walkDetailsBox("Walk loaded successfully");
 		}
 	};

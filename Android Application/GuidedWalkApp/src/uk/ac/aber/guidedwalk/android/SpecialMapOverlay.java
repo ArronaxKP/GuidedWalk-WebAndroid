@@ -7,12 +7,14 @@ import uk.ac.aber.guidedwalk.model.Waypoint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
+import android.preference.PreferenceManager;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
@@ -108,32 +110,44 @@ public class SpecialMapOverlay extends ItemizedOverlay<OverlayItem> {
 	 */
 	private boolean markerClicked(final int index) {
 		mControl.animateTo(mapOverlays.get(index).getPoint());
+		SharedPreferences prefs = PreferenceManager
+				.getDefaultSharedPreferences(mapscreen);
+		Boolean wantEnglish = prefs.getBoolean("wantEnglish", true);
 		if (this.checkWaypoint(index)) {
-			OverlayItem item = mapOverlays.get(index);
+			Waypoint waypoint = walk.getRoute().get(index);
 			dialog = new Dialog(mapscreen);
-			dialog.setTitle(item.getTitle());
+			if (wantEnglish) {
+				dialog.setTitle(waypoint.getTitle());
+			} else {
+				dialog.setTitle(waypoint.getWelshTitle());
+			}
 			dialog.setContentView(R.layout.maindialog);
 			dialog.setCancelable(false);
-			//dialog.setCanceledOnTouchOutside(false);
 			/**
 			 * The final items listed below creates a reference to each item in
 			 * the dialog view to allow for listeners to be created.
 			 */
-			TextView dial_desc = (TextView) dialog
-					.findViewById(R.id.dial_desc);
-			
+			TextView dial_desc = (TextView) dialog.findViewById(R.id.dial_desc);
+
 			dial_desc.setMovementMethod(new ScrollingMovementMethod());
 
 			Button close = (Button) dialog.findViewById(R.id.dial_close);
 			Button next = (Button) dialog.findViewById(R.id.dial_next);
 			Button prev = (Button) dialog.findViewById(R.id.dial_prev);
 
-			Button imgnext = (Button) dialog
-					.findViewById(R.id.dial_img_next);
-			Button imgprev = (Button) dialog
-					.findViewById(R.id.dial_img_prev);
-			Button imghide = (Button) dialog
-					.findViewById(R.id.dial_img_hide);
+			Button imgnext = (Button) dialog.findViewById(R.id.dial_img_next);
+			Button imgprev = (Button) dialog.findViewById(R.id.dial_img_prev);
+			Button imghide = (Button) dialog.findViewById(R.id.dial_img_hide);
+
+			if (!wantEnglish) {
+				close.setText(R.string.welsh_close);
+				next.setText(R.string.welsh_next);
+				prev.setText(R.string.welsh_previous);
+
+				imgnext.setText(R.string.welsh_next_img);
+				imgprev.setText(R.string.welsh_previous_img);
+				imghide.setText(R.string.welsh_hide_img);
+			}
 
 			ImageView imgV = (ImageView) dialog
 					.findViewById(R.id.dial_ImageView);
@@ -141,8 +155,12 @@ public class SpecialMapOverlay extends ItemizedOverlay<OverlayItem> {
 			/**
 			 * Sets the waypoint description
 			 */
-			Waypoint waypoint = walk.getRoute().get(index);
-			dial_desc.setText(waypoint.getDescription());
+
+			if (wantEnglish) {
+				dial_desc.setText(waypoint.getDescription());
+			} else {
+				dial_desc.setText(waypoint.getWelshDescription());
+			}
 
 			/**
 			 * Sets the listener on the close button to close the dialog when
@@ -151,10 +169,18 @@ public class SpecialMapOverlay extends ItemizedOverlay<OverlayItem> {
 			close.setOnClickListener(new Button.OnClickListener() {
 				public void onClick(View v) {
 					dialog.dismiss();
-					Button startButton = (Button) mapscreen.findViewById(R.id.start_button);
-					startButton.setText("Continue walk");
-	            	startButton.setVisibility(View.VISIBLE);
-	            	mapscreen.setLastWaypoint(index);
+					Button startButton = (Button) mapscreen
+							.findViewById(R.id.start_button);
+					SharedPreferences prefs = PreferenceManager
+							.getDefaultSharedPreferences(mapscreen);
+					Boolean wantEnglish = prefs.getBoolean("wantEnglish", true);
+					if (wantEnglish) {
+						startButton.setText(R.string.continue_walk);
+					} else {
+						startButton.setText(R.string.welsh_continue_walk);
+					}
+					startButton.setVisibility(View.VISIBLE);
+					mapscreen.setLastWaypoint(index);
 				}
 			});
 
@@ -286,14 +312,8 @@ public class SpecialMapOverlay extends ItemizedOverlay<OverlayItem> {
 								.findViewById(R.id.dial_ImageView);
 						if (View.GONE == imgV.getVisibility()) {
 							imgV.setVisibility(View.VISIBLE);
-							Button hide = (Button) dialog
-									.findViewById(R.id.dial_img_hide);
-							hide.setText("Hide");
 						} else {
 							imgV.setVisibility(View.GONE);
-							Button hide = (Button) dialog
-									.findViewById(R.id.dial_img_hide);
-							hide.setText("Show");
 						}
 
 					}
@@ -304,38 +324,67 @@ public class SpecialMapOverlay extends ItemizedOverlay<OverlayItem> {
 				imgprev.setVisibility(View.GONE);
 				imghide.setVisibility(View.GONE);
 			}
-			if(dialog!=null){
+			if (dialog != null) {
 				dialog.show();
 			}
 		}
-		
+
 		else {
 			/**
 			 * This section shows a custom dialog saying waypoint is empty and
 			 * proceeding to the next waypoint if there is one.
 			 */
 			if (index == walk.getRoute().size() - 1) {
+				String message = "";
+				if (wantEnglish) {
+					message = mapscreen.getString(R.string.end_of_walk);
+				} else {
+					message = mapscreen.getString(R.string.welsh_end_of_walk);
+				}
+				String title = "";
+				if (wantEnglish) {
+					title = mapscreen.getString(R.string.information);
+				} else {
+					title = mapscreen.getString(R.string.welsh_information);
+				}
 				new AlertDialog.Builder(mapscreen)
-						.setMessage(
-								"You have reached the end of the walk. Click OK to go back to the map")
-						.setTitle("Waypoint Information")
+						.setMessage(message)
+						.setTitle(title)
 						.setCancelable(false)
 						.setNeutralButton(android.R.string.ok,
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,
 											int whichButton) {
 										dialog.cancel();
-										Button startButton = (Button) mapscreen.findViewById(R.id.start_button);
-										startButton.setText("Start again walk");
-						            	startButton.setVisibility(View.VISIBLE);
-						            	mapscreen.setLastWaypoint(0);
+										Button startButton = (Button) mapscreen
+												.findViewById(R.id.start_button);
+										SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mapscreen);
+										Boolean wantEnglish = prefs.getBoolean("wantEnglish", true);
+										if(wantEnglish){
+											startButton.setText(R.string.start_walk_again);
+										} else {
+											startButton.setText(R.string.welsh_start_walk_again);
+										}
+										startButton.setVisibility(View.VISIBLE);
+										mapscreen.setLastWaypoint(0);
 									}
 								}).show();
 			} else {
+				String message = "";
+				if (wantEnglish) {
+					message = mapscreen.getString(R.string.next_empty);
+				} else {
+					message = mapscreen.getString(R.string.welsh_next_empty);
+				}
+				String title = "";
+				if (wantEnglish) {
+					title = mapscreen.getString(R.string.information);
+				} else {
+					title = mapscreen.getString(R.string.welsh_information);
+				}
 				new AlertDialog.Builder(mapscreen)
-						.setMessage(
-								"The next waypoint is empty. Click OK to go to the one after or cancel to go back to the map")
-						.setTitle("Waypoint Information")
+						.setMessage(message)
+						.setTitle(title)
 						.setCancelable(false)
 						.setPositiveButton(android.R.string.ok,
 								new DialogInterface.OnClickListener() {
@@ -349,10 +398,17 @@ public class SpecialMapOverlay extends ItemizedOverlay<OverlayItem> {
 									public void onClick(DialogInterface dialog,
 											int whichButton) {
 										dialog.cancel();
-										Button startButton = (Button) mapscreen.findViewById(R.id.start_button);
-										startButton.setText("Continue walk");
-						            	startButton.setVisibility(View.VISIBLE);
-						            	mapscreen.setLastWaypoint(index);
+										Button startButton = (Button) mapscreen
+												.findViewById(R.id.start_button);
+										SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mapscreen);
+										Boolean wantEnglish = prefs.getBoolean("wantEnglish", true);
+										if(wantEnglish){
+											startButton.setText(R.string.continue_walk);
+										} else {
+											startButton.setText(R.string.welsh_continue_walk);
+										}
+										startButton.setVisibility(View.VISIBLE);
+										mapscreen.setLastWaypoint(index);
 									}
 								}).show();
 			}
@@ -375,21 +431,46 @@ public class SpecialMapOverlay extends ItemizedOverlay<OverlayItem> {
 		// if not working.
 		boolean bool = true;
 		if (0 == waypoint.getnumberOfImages()) {
-			if (waypoint.getTitle() == null) {
-				if (waypoint.getDescription() == null) {
-					bool = false;
-				} else {
-					if (waypoint.getDescription().equalsIgnoreCase("")) {
-						bool = false;
-					}
-				}
-			}else{
-				if (waypoint.getTitle().equalsIgnoreCase("")) {
+			SharedPreferences prefs = PreferenceManager
+					.getDefaultSharedPreferences(mapscreen);
+			Boolean wantEnglish = prefs.getBoolean("wantEnglish", true);
+			if (wantEnglish) {
+				if (waypoint.getTitle() == null) {
 					if (waypoint.getDescription() == null) {
 						bool = false;
 					} else {
 						if (waypoint.getDescription().equalsIgnoreCase("")) {
 							bool = false;
+						}
+					}
+				} else {
+					if (waypoint.getTitle().equalsIgnoreCase("")) {
+						if (waypoint.getDescription() == null) {
+							bool = false;
+						} else {
+							if (waypoint.getDescription().equalsIgnoreCase("")) {
+								bool = false;
+							}
+						}
+					}
+				}
+			} else {
+				if (waypoint.getWelshTitle() == null) {
+					if (waypoint.getWelshDescription() == null) {
+						bool = false;
+					} else {
+						if (waypoint.getWelshDescription().equalsIgnoreCase("")) {
+							bool = false;
+						}
+					}
+				} else {
+					if (waypoint.getWelshTitle().equalsIgnoreCase("")) {
+						if (waypoint.getWelshDescription() == null) {
+							bool = false;
+						} else {
+							if (waypoint.getWelshDescription().equalsIgnoreCase("")) {
+								bool = false;
+							}
 						}
 					}
 				}

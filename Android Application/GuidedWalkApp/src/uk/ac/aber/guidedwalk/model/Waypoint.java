@@ -11,6 +11,8 @@ import java.util.ArrayList;
 public class Waypoint {
 	private String title;
 	private String description;
+	private String welshtitle;
+	private String welshdescription;
 	private int index;
 	private double lat;
 	private double lng;
@@ -26,6 +28,8 @@ public class Waypoint {
 	public Waypoint() {
 		this.title = null;
 		this.description = null;
+		this.welshtitle = null;
+		this.welshdescription = null;
 		this.index = 0;
 		this.lat = 0;
 		this.lng = 0;
@@ -52,6 +56,25 @@ public class Waypoint {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	
+	/**
+	 * Returns a String object that contains the Welsh title for the waypoint.
+	 * 
+	 * @return the Welsh title for the waypoint.
+	 */
+	public String getWelshTitle() {
+		return welshtitle;
+	}
+
+	/**
+	 * This sets the Welsh title for the waypoint.
+	 * 
+	 * @param welshtitle
+	 *            the Welsh title for the waypoint.
+	 */
+	public void setWelshTitle(String welshtitle) {
+		this.welshtitle = welshtitle;
+	}
 
 	/**
 	 * Returns a String object that contains the description for the waypoint.
@@ -70,6 +93,25 @@ public class Waypoint {
 	 */
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	/**
+	 * Returns a String object that contains the Welsh description for the waypoint.
+	 * 
+	 * @return the Welsh description for the waypoint.
+	 */
+	public String getWelshDescription() {
+		return welshdescription;
+	}
+
+	/**
+	 * This sets the Welsh description for the waypoint.
+	 * 
+	 * @param welshdescription
+	 *            the Welsh description for the waypoint.
+	 */
+	public void setWelshDescription(String welshdescription) {
+		this.welshdescription = welshdescription;
 	}
 
 	/**

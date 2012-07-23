@@ -53,12 +53,14 @@ function sendSerializeObject() {
 		var point = waypoints[index];
 		var latlng = point.marker.getPosition();
 		var tm = new tokenWaypoint(index, point.title, point.desc,
-				latlng.lat(), latlng.lng(), point.images, point.numberofimages);
+				point.welshtitle, point.welshdesc, latlng.lat(), latlng.lng(),
+				point.images, point.numberofimages);
 		listObj[index] = tm;
 	}
 	version++;
-	var walkDetailsObject = new walkDetails(uniqueid, walktitle, walkdesc, walkdifficulty, version,
-			listObj, length);
+	var walkDetailsObject = new walkDetails(uniqueid, walktitle, walkdesc,
+			welshwalktitle, welshwalkdesc, walkdifficulty, version, listObj,
+			length);
 	serializeSaveSend(walkDetailsObject);
 }
 
@@ -83,11 +85,13 @@ function sendSerializeObject() {
  *            number of images
  * @returns a tokenwaypoint object.
  */
-function tokenWaypoint(index, title, description, latitude, longitude, images,
-		numberofimages) {
+function tokenWaypoint(index, title, description, welshtitle, welshdesc,
+		latitude, longitude, images, numberofimages) {
 	this.index = index;
 	this.title = title;
 	this.desc = description;
+	this.welshtitle = welshtitle;
+	this.welshdesc = welshdesc;
 	this.lat = latitude;
 	this.lng = longitude;
 	this.images = images;
@@ -111,11 +115,14 @@ function tokenWaypoint(index, title, description, latitude, longitude, images,
  *            number of waypoints in the walk
  * @returns the walk details object containing everything in the walk
  */
-function walkDetails(uniqueid, walktitle, walkdesc, walkdifficulty, version, route, walklength) {
+function walkDetails(uniqueid, walktitle, walkdesc, welshwalktitle,
+		welshwalkdesc, walkdifficulty, version, route, walklength) {
 	this.id = uniqueid;
 	this.walklength = walklength;
 	this.walktitle = walktitle;
 	this.walkdesc = walkdesc;
+	this.welshwalktitle = welshwalktitle;
+	this.welshwalkdesc = welshwalkdesc;
 	this.walkdifficulty = walkdifficulty;
 	this.version = version;
 	this.route = route;

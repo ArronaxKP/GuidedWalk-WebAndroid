@@ -2,7 +2,9 @@ package uk.ac.aber.guidedwalk.android;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -28,12 +30,21 @@ public class Menu extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.menu);
 
-		Button mapButton1 = (Button) findViewById(R.id.button1);
-		mapButton1.setOnClickListener(this);
-		Button mapButton2 = (Button) findViewById(R.id.button2);
-		mapButton2.setOnClickListener(this);
-		Button mapButton3 = (Button) findViewById(R.id.button3);
-		mapButton3.setOnClickListener(this);
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		Boolean wantEnglish = prefs.getBoolean("wantEnglish", true);
+		
+		
+			Button mapButton1 = (Button) findViewById(R.id.button1);
+			mapButton1.setOnClickListener(this);
+			Button mapButton2 = (Button) findViewById(R.id.button2);
+			mapButton2.setOnClickListener(this);
+			Button mapButton3 = (Button) findViewById(R.id.button3);
+			mapButton3.setOnClickListener(this);
+		if(!wantEnglish){
+			mapButton1.setText(R.string.welsh_button1text);
+			mapButton2.setText(R.string.welsh_button2text);
+			mapButton3.setText(R.string.welsh_button3text);
+		}
 	}
 
 	/* (non-Javadoc)

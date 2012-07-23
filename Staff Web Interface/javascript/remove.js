@@ -26,7 +26,9 @@ function removePoint(waypoint) {
 function removePointForcedIndex(index) {
 	var waypoint = waypoints[index]; 
 	removePointForced(waypoint);
+	updateSideBar();
 	overlay();
+	
 }
 
 /**

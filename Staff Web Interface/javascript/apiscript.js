@@ -20,7 +20,9 @@ var route;
 var waypoints = null;
 var walktitle = "";
 var walkdesc = "";
-var walkdifficulty="1";
+var walkdifficulty = "1";
+var welshwalktitle = "";
+var welshwalkdesc = "";
 
 /**
  * This function creates a waypoint object. It creates a new object by calling
@@ -38,6 +40,8 @@ function waypointObject(marker, index) {
 	this.index = index;
 	this.title = '';
 	this.desc = '';
+	this.welshtitle = '';
+	this.welshdesc = '';
 	this.numberofimages = 0;
 	this.images = [];
 }
@@ -92,13 +96,18 @@ function addMarker(event) {
 		if (1 < len) {
 			var mktmp = waypoints[length - 1];
 			var tmpimage;
-			if (mktmp.title.replace(/\s/g, "") != "" || mktmp.desc.replace(/\s/g, "") != ""
-				|| mktmp.numberofimages != 0) {
-			tmpimage = new google.maps.MarkerImage('images/blue-dot.png',
-					new google.maps.Size(32, 32), new google.maps.Point(0, 0));
-			}else{
-			tmpimage = new google.maps.MarkerImage('images/red-dot.png',
-					new google.maps.Size(32, 32), new google.maps.Point(0, 0));
+			if (mktmp.title.replace(/\s/g, "") != ""
+					|| mktmp.desc.replace(/\s/g, "") != ""
+					|| mktmp.welshtitle.replace(/\s/g, "") != ""
+					|| mktmp.welshdesc.replace(/\s/g, "") != ""
+						|| mktmp.numberofimages != 0) {
+				tmpimage = new google.maps.MarkerImage('images/blue-dot.png',
+						new google.maps.Size(32, 32), new google.maps.Point(0,
+								0));
+			} else {
+				tmpimage = new google.maps.MarkerImage('images/red-dot.png',
+						new google.maps.Size(32, 32), new google.maps.Point(0,
+								0));
 			}
 			mktmp.marker.setIcon(tmpimage);
 		}
@@ -137,6 +146,11 @@ function addMarker(event) {
 	google.maps.event.addListener(marker, 'click', function() {
 		openInfoWindow(waypoint);
 	});
+
+	/**
+	 * Side bar bit
+	 */
+	updateSideBar();
 };
 
 /**
@@ -152,7 +166,3 @@ function movePoint(waypoint) {
 	var path = route.getPath();
 	path.setAt(i, coords);
 }
-
-
-
-

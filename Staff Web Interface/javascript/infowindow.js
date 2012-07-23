@@ -16,9 +16,16 @@
 function createInfoWindow(waypoint) {
 	var infoWindow;
 	var infoWindowContent = assembleInfoWindow(waypoint);
+	var div = document.createElement('div');
+	div.setAttribute("id", "infoForm" + waypoint.index);
+	div.setAttribute("style", "width:465px; display: block;text-align:center;");
+	div.innerHTML = infoWindowContent;
 	infoWindow = new google.maps.InfoWindow({
 		maxWidth : 500,
-		content : infoWindowContent
+		content : div
+	});
+	google.maps.event.addListener(infoWindow, 'closeclick', function() {
+		closeSave(waypoint.index);
 	});
 	waypoints[waypoint.index].infoWindow = infoWindow;
 	if (waypoint.index == 0) {
@@ -63,19 +70,24 @@ function deleteInfoWindow(event, form) {
 	waypoint.infoWindow = null;
 	waypoint.title = '';
 	waypoint.desc = '';
-	if (waypoint.index == 0) {
-		var image = new google.maps.MarkerImage('images/green-dot.png',
-				new google.maps.Size(32, 32), new google.maps.Point(0, 0));
-		waypoints[waypoint.index].marker.setIcon(image);
-	} else if (waypoint.index == length - 1) {
-		var image = new google.maps.MarkerImage('images/final-dot.png',
-				new google.maps.Size(32, 32), new google.maps.Point(0, 0));
-		waypoints[waypoint.index].marker.setIcon(image);
-	} else {
-		var image = new google.maps.MarkerImage('images/red-dot.png',
-				new google.maps.Size(32, 32), new google.maps.Point(0, 0));
-		waypoints[waypoint.index].marker.setIcon(image);
+	waypoint.welshtitle = '';
+	waypoint.welshdesc = '';
+	if (waypoint.numberofimages == 0) {
+		if (waypoint.index == 0) {
+			var image = new google.maps.MarkerImage('images/green-dot.png',
+					new google.maps.Size(32, 32), new google.maps.Point(0, 0));
+			waypoints[waypoint.index].marker.setIcon(image);
+		} else if (waypoint.index == length - 1) {
+			var image = new google.maps.MarkerImage('images/final-dot.png',
+					new google.maps.Size(32, 32), new google.maps.Point(0, 0));
+			waypoints[waypoint.index].marker.setIcon(image);
+		} else {
+			var image = new google.maps.MarkerImage('images/red-dot.png',
+					new google.maps.Size(32, 32), new google.maps.Point(0, 0));
+			waypoints[waypoint.index].marker.setIcon(image);
+		}
 	}
+	updateSideBar();
 }
 
 /**
@@ -93,8 +105,14 @@ function openInfoWindow(waypoint) {
 		this.createInfoWindow(waypoint);
 	}
 	waypoint.infoWindow.open(map, waypoint.marker);
+
 }
 
+function closeSave(index) {
+	var div = document.getElementById("infoForm" + index);
+	var form = div.firstChild;
+	saveDetails(form);
+}
 /**
  * This create the the HTML syntax that is put into the information window's
  * contents. This is then rendered what an inforamtion window opens.
@@ -105,29 +123,43 @@ function openInfoWindow(waypoint) {
  */
 function assembleInfoWindow(waypoint) {
 	var imgLinks = assembleImgLinks(waypoint);
-	var newContent = '<div id="infoForm'
-			+ waypoint.index
-			+ '" style="width:400px; display: block;text-align:center;" id="formcontent">'
-			+ '<form id="'
+	var newContent = '<form id="'
 			+ waypoint.index
 			+ '" name="'
 			+ waypoint.index
 			+ '" method="post" enctype="multipart/form-data" action="uploadfile.php" target = '
 			+ '"upload_target" onSubmit="return checkForm(this)">'
-			+ '<p>Title: <br /><textarea rows="1" cols="40" name="title" id="title">'
+			+ '<table border="0"><tr>'
+
+			+ '<td><p>Title: <br /><textarea rows="2" cols="25" name="title" id="title">'
 			+ waypoint.title
-			+ '</textarea></p>'
-			+ '<p>Description: <br /><textarea rows="3" cols="40" name="desc" id="desc">'
+			+ '</textarea></p></td>'
+
+			+ '<td><p>Welsh Title: <br /><textarea rows="2" cols="25" name="welshtitle" id="welshtitle">'
+			+ waypoint.welshtitle
+			+ '</textarea></p></td>'
+
+			+ '</tr><tr>'
+
+			+ '<td><p>Description: <br /><textarea rows="5" cols="25" name="desc" id="desc">'
 			+ waypoint.desc
-			+ '</textarea></p>'
+			+ '</textarea></p></td>'
+
+			+ '<td><p>Welsh Description: <br /><textarea rows="5" cols="25" name="welshdesc" id="welshdesc">'
+			+ waypoint.welshdesc
+			+ '</textarea></p></td>'
+			+ '</tr></table>'
+
 			+ '<p><input type="button" value="Submit" onClick="getInfoDetails(event,this.form)">'
 			+ '</input><input type="button" value="Delete" onClick="deleteInfoWindow(event,this.form)">'
 			+ '</input></p>'
 			+ '<input type=hidden name="text" id="text" value="'
-			+ waypoint.index + '" style="visibility:hidden" />'
+			+ waypoint.index
+			+ '" style="visibility:hidden" />'
 			+ '<input name="file" id="file" size="10" type="file" />'
 			+ '<input type="submit" name="action" value="Upload Image" /> <br />'
 			+ imgLinks + '</form>' + '</div>';
+
 	return newContent;
 }
 
@@ -143,13 +175,59 @@ function assembleInfoWindow(waypoint) {
  *            the new waypoint description
  */
 
-function setInfoWindow(index, title, desc) {
+function setInfoWindow(index, title, desc, welshtitle, welshdesc) {
 	var waypoint = waypoints[index];
-	waypoint.desc = desc;
 	waypoint.title = title;
-	var newContent = assembleInfoWindow(waypoint);
-	waypoint.infoWindow.setContent(newContent);
+	waypoint.desc = desc;
+	waypoint.welshtitle = welshtitle;
+	waypoint.welshdesc = welshdesc;
+
+	var infoWindowContent = assembleInfoWindow(waypoint);
+	var div = document.createElement('div');
+	div.setAttribute("id", "infoForm" + waypoint.index);
+	div.setAttribute("style", "width:465px; display: block;text-align:center;");
+	div.innerHTML = infoWindowContent;
+
+	waypoint.infoWindow.setContent(div);
 	waypoint.infoWindow.close();
+	updateSideBar();
+}
+
+function saveDetails(form) {
+	var index = parseInt(form.id);
+	var title = form.elements["title"].value;
+	var desc = form.elements["desc"].value;
+	var welshtitle = form.elements["welshtitle"].value;
+	var welshdesc = form.elements["welshdesc"].value;
+	var waypoint = waypoints[index];
+	if (title.replace(/\s/g, "") == "" && desc.replace(/\s/g, "") == ""
+			&& welshtitle.replace(/\s/g, "") == ""
+			&& welshdesc.replace(/\s/g, "") == ""
+			&& waypoint.numberofimages == 0) {
+		infoWindow = waypoints[index].infoWindow;
+		infoWindow.close();
+		waypoint.infoWindow = null;
+		waypoint.title = '';
+		waypoint.desc = '';
+		waypoint.welshtitle = '';
+		waypoint.welshdesc = '';
+		if (waypoint.index == 0) {
+			var image = new google.maps.MarkerImage('images/green-dot.png',
+					new google.maps.Size(32, 32), new google.maps.Point(0, 0));
+			waypoints[waypoint.index].marker.setIcon(image);
+		} else if (waypoint.index == length - 1) {
+			var image = new google.maps.MarkerImage('images/final-dot.png',
+					new google.maps.Size(32, 32), new google.maps.Point(0, 0));
+			waypoints[waypoint.index].marker.setIcon(image);
+		} else {
+			var image = new google.maps.MarkerImage('images/red-dot.png',
+					new google.maps.Size(32, 32), new google.maps.Point(0, 0));
+			waypoints[waypoint.index].marker.setIcon(image);
+		}
+	} else {
+		setInfoWindow(index, title, desc, welshtitle, welshdesc);
+	}
+	updateSideBar();
 }
 
 /**
@@ -171,17 +249,25 @@ function getInfoDetails(event, form) {
 	}
 	// Next line is for IE
 	event.returnValue = false;
+
 	var index = parseInt(form.id);
+
 	var title = form.title.value;
 	var desc = form.desc.value;
+	var welshtitle = form.welshtitle.value;
+	var welshdesc = form.welshdesc.value;
 	var waypoint = waypoints[index];
 	if (title.replace(/\s/g, "") == "" && desc.replace(/\s/g, "") == ""
+			&& welshtitle.replace(/\s/g, "") == ""
+			&& welshdesc.replace(/\s/g, "") == ""
 			&& waypoint.numberofimages == 0) {
 		infoWindow = waypoints[index].infoWindow;
 		infoWindow.close();
 		waypoint.infoWindow = null;
 		waypoint.title = '';
 		waypoint.desc = '';
+		waypoint.welshtitle = '';
+		waypoint.welshdesc = '';
 		if (waypoint.index == 0) {
 			var image = new google.maps.MarkerImage('images/green-dot.png',
 					new google.maps.Size(32, 32), new google.maps.Point(0, 0));
@@ -196,8 +282,9 @@ function getInfoDetails(event, form) {
 			waypoints[waypoint.index].marker.setIcon(image);
 		}
 	} else {
-		setInfoWindow(index, title, desc);
+		setInfoWindow(index, title, desc, welshtitle, welshdesc);
 	}
+	updateSideBar();
 }
 
 /**
@@ -216,11 +303,18 @@ function assembleImgLinks(waypoint) {
 			if (i % 3 == 0) {
 				results += '<tr>';
 			}
-			results += '<td><a href=\"upload/' + filename
-					+ '\" target=\"_blank\"><img height=\"75px\" alt=\"' + i
-					+ '\"src=\"upload/' + filename
-					+ '\"></a></img><br /><button onClick=\"deleteFile(\'' + filename
-					+ '\',\'' + waypoint.index + '\',\'' + i
+			results += '<td><a href=\"upload/'
+					+ filename
+					+ '\" target=\"_blank\"><img height=\"75px\" alt=\"'
+					+ i
+					+ '\"src=\"upload/'
+					+ filename
+					+ '\"></a></img><br /><button onClick=\"deleteFile(\''
+					+ filename
+					+ '\',\''
+					+ waypoint.index
+					+ '\',\''
+					+ i
 					+ '\',this.form)\" type=\"button\" >Delete Image</button> </td>';
 			if (i % 3 == 2) {
 				results += '</tr>';

@@ -1,7 +1,9 @@
 package uk.ac.aber.guidedwalk.android;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 
 /**
  * This class extends the Activity Class.<!-- --> This Class implements the
@@ -20,7 +22,15 @@ public class About extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.about);
+		
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		Boolean wantEnglish = prefs.getBoolean("wantEnglish", true);
+		
+		if (wantEnglish) {
+			setContentView(R.layout.about);
+		} else {
+			setContentView(R.layout.welshabout);
+		}
 	}
 
 }

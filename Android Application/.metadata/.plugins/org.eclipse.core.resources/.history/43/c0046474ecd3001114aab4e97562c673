@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="welsh">Cymraeg</string>
+    <string name="welsh_button1text">Cerddwch Rhestr</string>
+    <string name="welsh_button2text">Diweddariad Cerddwch Rhestr</string>
+    <string name="welsh_button3text">Amdanom ni</string>
+    <string name="welsh_next">Nesaf</string>
+    <string name="welsh_previous">Yn ôl</string>
+    <string name="welsh_close">Gadewch</string>
+    <string name="welsh_image_default">Mae hwn yn ddelwedd</string>
+    <string name="welsh_next_img">nesaf</string>
+    <string name="welsh_previous_img">Yn ôl</string>
+    <string name="welsh_hide_img">Cuddio</string>
+    <string name="welsh_main_no_items">Dim teithiau cerdded sydd ar gael</string>
+    <string name="welsh_updatemaplist">Update Walk List</string>
+    <string name="welsh_load_button_string">Diweddariad Cerddwch Rhestr</string>
+    <string name="welsh_start_walk">Dechrau Cerdded</string>
+    <string name="welsh_text_default">Mae hyn yn destun</string>
+    <string name="welsh_continue_walk">Continue Walk</string>
+
+</resources>

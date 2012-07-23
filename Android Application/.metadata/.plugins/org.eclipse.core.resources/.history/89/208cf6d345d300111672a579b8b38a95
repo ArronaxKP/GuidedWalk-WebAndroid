@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+        <string name="url">http://users.aber.ac.uk/kdp8/</string>
+            <string name="app_name">Cardigan Guided Walk</string>
+    <string name="company_list">The following five logos are the funders of this project. They are as follows (right to left): Menter Aberteifi/Visit Cardigan, Cardigan TC, Ceredigion Shield, Heritage Lottery Fund and Welsh Government right.</string>
+    <string name="company_name">Over the Waves</string>
+    <string name="welsh_company_list">Ei fod yn dilyn pum logos yw'r arianwyr y prosiect hwn. Maent fel a ganlyn (dde i'r chwith): Menter Aberteifi / Ymweliad Aberteifi, Aberteifi TC, Ceredigion Tarian, Cronfa Dreftadaeth y Loteri ac i'r dde Llywodraeth Cymru.</string>
+</resources>

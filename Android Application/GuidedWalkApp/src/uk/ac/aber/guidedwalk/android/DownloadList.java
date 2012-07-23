@@ -32,7 +32,9 @@ import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -168,11 +170,25 @@ public class DownloadList extends ListActivity {
 				m_ProgressDialog.dismiss();
 				m_adapter.notifyDataSetChanged();
 			} else {
+				SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+				Boolean wantEnglish = prefs.getBoolean("wantEnglish", true);
+				String message = "";
+				if(wantEnglish){
+					message = "There are no new walks to update.";
+				} else {
+					message = "Nid oes unrhyw deithiau cerdded newydd i ddiweddaru.";
+				}
+				String title = "";
+				if(wantEnglish){
+					title = "Notification";
+				} else {
+					title = "Hysbysu";
+				}
 				m_ProgressDialog.dismiss();
 				m_adapter.notifyDataSetChanged();
 				new AlertDialog.Builder(context)
-						.setMessage("There are no new walks to update.")
-						.setTitle("Notification")
+						.setMessage(message)
+						.setTitle(title)
 						.setCancelable(false)
 						.setNeutralButton(android.R.string.ok,
 								new DialogInterface.OnClickListener() {
@@ -299,6 +315,14 @@ public class DownloadList extends ListActivity {
 		Element desc = dom.createElement("desc");
 		desc.appendChild(dom.createTextNode(walk.getWalkDesc()));
 		walkdom.appendChild(desc);
+		
+		Element welshtitle = dom.createElement("welshtitle");
+		welshtitle.appendChild(dom.createTextNode(walk.getWelshWalkTitle()));
+		walkdom.appendChild(welshtitle);
+
+		Element welshdesc = dom.createElement("welshdesc");
+		welshdesc.appendChild(dom.createTextNode(walk.getWelshWalkDesc()));
+		walkdom.appendChild(welshdesc);
 
 		Element difficulty = dom.createElement("difficulty");
 		difficulty
@@ -345,6 +369,14 @@ public class DownloadList extends ListActivity {
 		Element desc = dom.createElement("desc");
 		desc.appendChild(dom.createTextNode(walk.getWalkDesc()));
 		walkdom.appendChild(desc);
+		
+		Element welshtitle = dom.createElement("welshtitle");
+		welshtitle.appendChild(dom.createTextNode(walk.getWelshWalkTitle()));
+		walkdom.appendChild(welshtitle);
+
+		Element welshdesc = dom.createElement("welshdesc");
+		welshdesc.appendChild(dom.createTextNode(walk.getWelshWalkDesc()));
+		walkdom.appendChild(welshdesc);
 
 		Element difficulty = dom.createElement("difficulty");
 		difficulty
@@ -417,9 +449,23 @@ public class DownloadList extends ListActivity {
 		public void run() {
 			m_ProgressDialog.dismiss();
 			m_adapter.notifyDataSetChanged();
+			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+			Boolean wantEnglish = prefs.getBoolean("wantEnglish", true);
+			String message = "";
+			if(wantEnglish){
+				message = "Selected walk(s) downloaded/deleted successfully.";
+			} else {
+				message = "Teithiau cerdded a ddewiswyd lwytho i lawr / dileu yn llwyddiannus.";
+			}
+			String title = "";
+			if(wantEnglish){
+				title = "Notification";
+			} else {
+				title = "Hysbysu";
+			}
 			new AlertDialog.Builder(context)
-					.setMessage("Selected walk(s) downloaded/deleted successfully.")
-					.setTitle("Notification")
+					.setMessage(message)
+					.setTitle(title)
 					.setCancelable(false)
 					.setNeutralButton(android.R.string.ok,
 							new DialogInterface.OnClickListener() {

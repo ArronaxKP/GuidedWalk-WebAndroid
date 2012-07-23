@@ -192,6 +192,14 @@ public final class LoadXML {
 										each_walk.setWalkDesc(walk_item
 												.getFirstChild().getNodeValue());
 									} else if (walk_item.getNodeName()
+											.equalsIgnoreCase("welshtitle")) {
+										each_walk.setWelshWalkTitle(walk_item
+												.getFirstChild().getNodeValue());
+									} else if (walk_item.getNodeName()
+											.equalsIgnoreCase("welshdesc")) {
+										each_walk.setWelshWalkDesc(walk_item
+												.getFirstChild().getNodeValue());
+									}else if (walk_item.getNodeName()
 											.equalsIgnoreCase("difficulty")) {
 										each_walk.setWalkDifficulty(Integer
 												.parseInt(walk_item.getFirstChild()
@@ -280,6 +288,10 @@ public final class LoadXML {
 					walk.setWalkTitle(item.getFirstChild().getNodeValue());
 				} else if (name.equalsIgnoreCase("walk_desc")) {
 					walk.setWalkDesc(item.getFirstChild().getNodeValue());
+				} else if (name.equalsIgnoreCase("welsh_walk_title")) {
+					walk.setWelshWalkTitle(item.getFirstChild().getNodeValue());
+				} else if (name.equalsIgnoreCase("welsh_walk_desc")) {
+					walk.setWelshWalkDesc(item.getFirstChild().getNodeValue());
 				} else if (name.equalsIgnoreCase("walk_difficulty")) {
 					walk.setWalkDifficulty(Integer.parseInt(item
 							.getFirstChild().getNodeValue()));
@@ -317,6 +329,18 @@ public final class LoadXML {
 										.equalsIgnoreCase("waypoint_desc")) {
 									if (null != nodeMarker.getFirstChild()) {
 										waypoint.setDescription(nodeMarker
+												.getFirstChild().getNodeValue());
+									}
+								} else if (markerName
+										.equalsIgnoreCase("welsh_waypoint_title")) {
+									if (null != nodeMarker.getFirstChild()) {
+										waypoint.setWelshTitle(nodeMarker
+												.getFirstChild().getNodeValue());
+									}
+								} else if (markerName
+										.equalsIgnoreCase("welsh_waypoint_desc")) {
+									if (null != nodeMarker.getFirstChild()) {
+										waypoint.setWelshDescription(nodeMarker
 												.getFirstChild().getNodeValue());
 									}
 								} else if (markerName.equalsIgnoreCase("lat")) {

@@ -13,8 +13,10 @@ function clearMap(){
 		removePointForced2(waypoint);
 	}
 	uniqueid = 0;
-	walkdesc = "";
 	walktitle = "";
+	walkdesc = "";
+	welshwalktitle = "";
+	welshwalkdesc = "";
 	walkdifficulty = "1";
 	version = "0";
 }
@@ -31,6 +33,7 @@ function removePointForced2(waypoint) {
 	this.removePoints(waypoint);
 	this.clearLinkedImg2(waypoint);
 	length--;
+	updateSideBar();
 }
 
 /**

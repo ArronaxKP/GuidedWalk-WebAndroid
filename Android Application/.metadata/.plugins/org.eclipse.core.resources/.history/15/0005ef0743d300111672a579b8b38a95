@@ -1,0 +1,18 @@
+package uk.ac.aber.guidedwalk.android;
+
+import android.preference.PreferenceActivity;
+
+public class PrefsActivity extends PreferenceActivity {
+
+	@Override
+	4
+	protected void onCreate(Bundle savedInstanceState) {
+	5
+	   super.onCreate(savedInstanceState);
+	6
+	   addPreferencesFromResource(R.xml.prefs);
+	7
+	}
+
+	
+}

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="about_title">About Us</string>
+    <string name="about_address">Visit Cardigan \nThe Guildhall, \nCardigan, \nCeredigion, \nSA43 1JL</string>
+    <string name="about_phone">Telephone: 01239 615554</string>
+    <string name="about_email">Email: info@menter-aberteifi.co.uk</string>
+    <string name="about_uni">Application developed as a Software Alliance Wales Project with the support of Karl Parry BSc - Aberystwyth Universiry - Computer Science Department</string>
+</resources>

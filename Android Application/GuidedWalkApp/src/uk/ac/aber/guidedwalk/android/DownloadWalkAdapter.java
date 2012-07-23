@@ -2,6 +2,8 @@ package uk.ac.aber.guidedwalk.android;
 
 import java.util.ArrayList;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,35 +70,77 @@ public class DownloadWalkAdapter extends ArrayAdapter<Walk> {
 					.findViewById(R.id.download_walk_item_desc);
 			TextView list_difficulty = (TextView) v
 					.findViewById(R.id.download_walk_item_difficulty);
+
+			SharedPreferences prefs = PreferenceManager
+					.getDefaultSharedPreferences(v.getContext());
+			Boolean wantEnglish = prefs.getBoolean("wantEnglish", false);
+
 			list_id.setText(walk.getId());
-			list_title.setText("Title: " + walk.getWalkTitle());
+			if (wantEnglish) {
+				list_title.setText("Title: " + walk.getWalkTitle());
 
-			if (walk.getWalkDesc().length() >= 30) {
-				list_desc.setText("Desc: "
-						+ walk.getWalkDesc().substring(0, 29));
+				if (walk.getWalkDesc().length() >= 30) {
+					list_desc.setText("Desc: "
+							+ walk.getWalkDesc().substring(0, 29));
+				} else {
+					list_desc.setText("Desc: " + walk.getWalkDesc());
+				}
 			} else {
-				list_desc.setText("Desc: " + walk.getWalkDesc());
+				list_title.setText("Teitl: " + walk.getWelshWalkTitle());
+
+				if (walk.getWelshWalkDesc().length() >= 30) {
+					list_desc.setText("Disgrifiad: "
+							+ walk.getWelshWalkDesc().substring(0, 29));
+				} else {
+					list_desc.setText("Disgrifiad: " + walk.getWelshWalkDesc());
+				}
 			}
 
-			if (0 == walk.getWalkDifficulty()) {
-				list_difficulty.setText("Easy");
-			}
-			if (1 == walk.getWalkDifficulty()) {
-				list_difficulty.setText("Normal");
-			}
-			if (2 == walk.getWalkDifficulty()) {
-				list_difficulty.setText("Hard");
+			if (wantEnglish) {
+				switch (walk.getWalkDifficulty()) {
+				case 0:
+					list_difficulty.setText("Easy");
+					break;
+				case 1:
+					list_difficulty.setText("Normal");
+					break;
+				case 2:
+					list_difficulty.setText("Hard");
+					break;
+				}
+			} else {
+				switch (walk.getWalkDifficulty()) {
+				case 0:
+					list_difficulty.setText("Hawdd");
+					break;
+				case 1:
+					list_difficulty.setText("Areferol");
+					break;
+				case 2:
+					list_difficulty.setText("Caled");
+					break;
+				}
 			}
 			if (walk.isUpdateAvailable()) {
 				TextView list_text = (TextView) v
 						.findViewById(R.id.download_walk_item_text);
-				list_text.setText("UPDATE Available");
-				list_text.setTextColor(v.getResources().getColor(R.color.green));
+				if (wantEnglish) {
+					list_text.setText("UPDATE Available");
+				} else {
+					list_text.setText("Y NEWYDDION DIWEDDARAF Ar gael");
+				}
+				list_text
+						.setTextColor(v.getResources().getColor(R.color.green));
 				list_text.setVisibility(View.VISIBLE);
 			} else if (walk.toBeDeleted()) {
 				TextView list_text = (TextView) v
 						.findViewById(R.id.download_walk_item_text);
-				list_text.setText("DELETE: No longer Supported");
+
+				if (wantEnglish) {
+					list_text.setText("DELETE: No longer Supported");
+				} else {
+					list_text.setText("DILEU: Dim hwy â Chymorth");
+				}
 				list_text.setTextColor(v.getResources().getColor(R.color.red));
 				list_text.setVisibility(View.VISIBLE);
 			} else {

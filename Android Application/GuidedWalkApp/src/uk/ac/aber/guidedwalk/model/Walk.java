@@ -12,6 +12,8 @@ public class Walk {
 	private String id;
 	private String walktitle;
 	private String walkdesc;
+	private String welshwalktitle;
+	private String welshwalkdesc;
 	private int walkdifficulty;
 	private int walklength;
 	private ArrayList<Waypoint> route;
@@ -27,6 +29,8 @@ public class Walk {
 		this.id = null;
 		this.walktitle = null;
 		this.walkdesc = null;
+		this.welshwalktitle = null;
+		this.welshwalkdesc = null;
 		this.walklength = 0;
 		this.route = new ArrayList<Waypoint>();
 		this.update = false;
@@ -70,6 +74,25 @@ public class Walk {
 	public void setWalkTitle(String walktitle) {
 		this.walktitle = walktitle;
 	}
+	
+	/**
+	 * Returns a String object that contains the Welsh title for the walk.
+	 * 
+	 * @return the Welsh title for the walk.
+	 */
+	public String getWelshWalkTitle() {
+		return welshwalktitle;
+	}
+
+	/**
+	 * This sets the Welsh title for the walk.
+	 * 
+	 * @param welshwalktitle
+	 *            the Welsh title for the walk.
+	 */
+	public void setWelshWalkTitle(String welshwalktitle) {
+		this.welshwalktitle = welshwalktitle;
+	}
 
 	/**
 	 * Returns a String object that contains the description for the walk.
@@ -88,6 +111,25 @@ public class Walk {
 	 */
 	public void setWalkDesc(String walkdesc) {
 		this.walkdesc = walkdesc;
+	}
+	
+	/**
+	 * Returns a String object that contains the Welsh description for the walk.
+	 * 
+	 * @return the Welsh description for the walk.
+	 */
+	public String getWelshWalkDesc() {
+		return welshwalkdesc;
+	}
+
+	/**
+	 * This sets the Welsh description for the walk.
+	 * 
+	 * @param walkdesc
+	 *            the Welsh description for the walk.
+	 */
+	public void setWelshWalkDesc(String welshwalkdesc) {
+		this.welshwalkdesc = welshwalkdesc;
 	}
 
 	/**

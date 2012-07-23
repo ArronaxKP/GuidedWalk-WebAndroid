@@ -30,8 +30,15 @@ $password = "cardigan";  // Modify Password to suit for access, Max 10 Char.
 <script type="text/javascript" src="javascript/remove.js"></script>
 <script type="text/javascript" src="javascript/sendload.js"></script>
 <script type="text/javascript" src="javascript/sendsave.js"></script>
+<script type="text/javascript" src="javascript/sidebar.js"></script>
 </head>
 <body onload="initialize()">
+
+
+
+
+
+
 
 
 <?php
@@ -49,7 +56,22 @@ if (isset($_POST["password"]) && ($_POST["password"]=="$password")) {
 			Map</button>
 		<button id="clearuploadbutton" type="button"
 			onClick="clearUploadedFiles();">Clear Uploads Folder</button>
+		<button id="sidebarbutton" type="button" onClick="hideShowSideBar();">Side
+			Bar</button>
 	</div>
+	<div id="side_bar">
+		<table border='1px' align='center' style='text-align: center;'>
+			<tr>
+				<td><span>No</span></td>
+				<td><span>ET</span></td>
+				<td><span>ED</span></td>
+				<td><span>WT</span></td>
+				<td><span>WD</span></td>
+				<td><span>I</span></td>
+			</tr>
+		</table>
+	</div>
+
 	<div id="map_canvas"></div>
 	<div id="hidden_frame">
 		<iframe id="upload_target" name="upload_target" src=""></iframe>
@@ -59,6 +81,12 @@ if (isset($_POST["password"]) && ($_POST["password"]=="$password")) {
 	</div>
 
 	<!-- END OF HIDDEN HTML -->
+	
+	
+		
+		
+	
+	
 	
 	
 <?php 
@@ -73,5 +101,9 @@ if (isset($_POST['password']) || $password == "") {
 }
 ?>
 <BR>
+
+
+
+
 </body>
 </html>

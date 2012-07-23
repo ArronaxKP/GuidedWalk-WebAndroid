@@ -9,7 +9,9 @@ import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
@@ -111,10 +113,23 @@ public class WalkList extends ListActivity {
 			} else {
 				m_ProgressDialog.dismiss();
 				m_adapter.notifyDataSetChanged();
+				SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+				Boolean wantEnglish = prefs.getBoolean("wantEnglish", true);
+				String message = "";
+				if(wantEnglish){
+					message = "No walks currently downloaded. Please go to the menu and click update walk list.";
+				} else {
+					message = "Dim llwytho i lawr cerdded ar hyn o bryd. Ewch i'r ddewislen a chliciwch rhestr daith ddiweddaraf.";
+				}
+				String title = "";
+				if(wantEnglish){
+					title = "Notification";
+				} else {
+					title = "Hysbysu";
+				}
 				new AlertDialog.Builder(context)
-						.setMessage(
-								"No walks currently downloaded. Please go to the menu and click update walk list.")
-						.setTitle("Notigfication")
+						.setMessage(message)
+						.setTitle(title)
 						.setCancelable(false)
 						.setNeutralButton(android.R.string.ok,
 								new DialogInterface.OnClickListener() {

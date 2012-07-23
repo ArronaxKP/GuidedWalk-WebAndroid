@@ -2,6 +2,8 @@ package uk.ac.aber.guidedwalk.android;
 
 import java.util.ArrayList;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,6 +58,11 @@ public class WalkAdapter extends ArrayAdapter<Walk> {
 		}
 		Walk walk = items.get(position);
 		if (walk != null) {
+
+			SharedPreferences prefs = PreferenceManager
+					.getDefaultSharedPreferences(v.getContext());
+			Boolean wantEnglish = prefs.getBoolean("wantEnglish", false);
+
 			TextView list_id = (TextView) v.findViewById(R.id.list_item_id);
 			TextView list_title = (TextView) v
 					.findViewById(R.id.list_item_title);
@@ -63,17 +70,39 @@ public class WalkAdapter extends ArrayAdapter<Walk> {
 			TextView list_difficulty = (TextView) v
 					.findViewById(R.id.list_item_difficulty);
 			list_id.setText(walk.getId());
-			list_title.setText("Title: " + walk.getWalkTitle());
-			list_desc.setText("Desc: " + walk.getWalkDesc());
-			if (0 == walk.getWalkDifficulty()) {
-				list_difficulty.setText("Easy");
+			if (wantEnglish) {
+				list_title.setText("Title: " + walk.getWalkTitle());
+				list_desc.setText("Desc: " + walk.getWalkDesc());
+			} else {
+				list_title.setText("Title: " + walk.getWelshWalkTitle());
+				list_desc.setText("Desc: " + walk.getWelshWalkDesc());
 			}
-			if (1 == walk.getWalkDifficulty()) {
-				list_difficulty.setText("Normal");
+			if (wantEnglish) {
+				switch (walk.getWalkDifficulty()) {
+				case 0:
+					list_difficulty.setText("Easy");
+					break;
+				case 1:
+					list_difficulty.setText("Normal");
+					break;
+				case 2:
+					list_difficulty.setText("Hard");
+					break;
+				}
+			} else {
+				switch (walk.getWalkDifficulty()) {
+				case 0:
+					list_difficulty.setText("Hawdd");
+					break;
+				case 1:
+					list_difficulty.setText("Areferol");
+					break;
+				case 2:
+					list_difficulty.setText("Caled");
+					break;
+				}
 			}
-			if (2 == walk.getWalkDifficulty()) {
-				list_difficulty.setText("Hard");
-			}
+
 		}
 		return v;
 	}

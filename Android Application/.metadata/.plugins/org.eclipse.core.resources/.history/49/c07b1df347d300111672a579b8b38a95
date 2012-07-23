@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="10dip"
+    android:textColor="@color/black" >
+
+     <ImageView
+        android:id="@+id/menuimageview1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:contentDescription="@string/company_name"
+        android:src="@drawable/main_logo_menu2" />
+    <View
+        android:id="@+id/prefHR1"
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+		android:layout_weight="1"/>
+    
+    <Button 
+        android:id="@+id/buttonEnglish"
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:onClick="Refresh"
+        android:text="@string/english" />
+        <View
+        android:id="@+id/prefHR2"
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+		android:layout_weight="1"/>
+            <Button 
+        android:id="@+id/buttonWelsh"
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:onClick="Refresh"
+        android:text="@string/welsh" />
+            <View
+        android:id="@+id/prefHR3"
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+		android:layout_weight="1"/>
+
+</LinearLayout>

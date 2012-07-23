@@ -10,8 +10,10 @@ import uk.ac.aber.guidedwalk.model.Waypoint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 
@@ -53,6 +55,11 @@ public class MapScreen extends MapActivity {
 			m_ProgressDialog.dismiss();
 			if (null != specialOverlay) {
 				Button startButton = (Button) findViewById(R.id.start_button);
+				SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mapscreen);
+				Boolean wantEnglish = prefs.getBoolean("wantEnglish", true);
+				if(!wantEnglish){
+					startButton.setText(R.string.welsh_start_walk);
+				}
 				startButton.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						specialOverlay.onTap(lastWaypoint);
@@ -76,11 +83,16 @@ public class MapScreen extends MapActivity {
 				mControl.setZoom(17);
 				mapView.invalidate();
 			} else {
+				SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mapscreen);
+				Boolean wantEnglish = prefs.getBoolean("wantEnglish", true);
+				String message = "";
+				if(wantEnglish){
+					message = "An error occurred loading the walk file. Please go to the menu and click update walk list.";
+				}else{
+					message = "Gwall lwytho'r ffeil daith. Ewch i'r ddewislen a chliciwch rhestr daith ddiweddaraf.";
+				}
 				new AlertDialog.Builder(mapscreen)
-						.setMessage(
-								"An error occured loading the walk file. "
-										+ "Please go to the menu and click "
-										+ "update walk list.")
+						.setMessage(message)
 						.setTitle("ERROR")
 						.setCancelable(false)
 						.setNeutralButton(android.R.string.ok,
@@ -113,19 +125,24 @@ public class MapScreen extends MapActivity {
 		if (extras != null) {
 			walkid = extras.getString("walkid");
 		} else {
+			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+			Boolean wantEnglish = prefs.getBoolean("wantEnglish", true);
+			String message = "";
+			if(wantEnglish){
+				message = "An error occurred loading the walk file. Please go to the menu and click update walk list.";
+			}else{
+				message = "Gwall lwytho'r ffeil daith. Ewch i'r ddewislen a chliciwch rhestr daith ddiweddaraf.";
+			}
 			new AlertDialog.Builder(mapscreen)
-					.setMessage(
-							"An error occured loading the walk file. "
-									+ "Please go to the menu and click "
-									+ "update walk list.")
-					.setTitle("ERROR")
-					.setCancelable(false)
-					.setNeutralButton(android.R.string.cancel,
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int whichButton) {
-								}
-							}).show();
+			.setMessage(message)
+			.setTitle("ERROR")
+			.setCancelable(false)
+			.setNeutralButton(android.R.string.cancel,
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,
+								int whichButton) {
+						}
+					}).show();
 		}
 
 		viewWalk = new Runnable() {

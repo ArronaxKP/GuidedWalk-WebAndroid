@@ -23,10 +23,16 @@
 <fullyQualifiedTypeName name="java.io.FileReader"/>
 <fullyQualifiedTypeName name="java.io.FileWriter"/>
 <fullyQualifiedTypeName name="org.w3c.dom.NodeList"/>
-<fullyQualifiedTypeName name="uk.ac.aber.guidedwalk.android.R.id"/>
-<fullyQualifiedTypeName name="android.widget.Button"/>
 <fullyQualifiedTypeName name="android.view.View"/>
 <fullyQualifiedTypeName name="android.text.method.ScrollingMovementMethod"/>
 <fullyQualifiedTypeName name="org.w3c.dom.Node"/>
 <fullyQualifiedTypeName name="uk.ac.aber.guidedwalk.android.R.color"/>
+<fullyQualifiedTypeName name="android.preference.PreferenceActivity"/>
+<fullyQualifiedTypeName name="android.os.Bundle"/>
+<fullyQualifiedTypeName name="android.widget.Button"/>
+<fullyQualifiedTypeName name="android.content.SharedPreferences"/>
+<fullyQualifiedTypeName name="android.preference.PreferenceManager"/>
+<fullyQualifiedTypeName name="uk.ac.aber.guidedwalk.android.R.layout"/>
+<fullyQualifiedTypeName name="uk.ac.aber.guidedwalk.android.R.id"/>
+<fullyQualifiedTypeName name="uk.ac.aber.guidedwalk.android.R.string"/>
 </qualifiedTypeNameHistroy>
