@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 /**
  * This file deals with the loading of the XML Map file. 
  * It then echos the contents back to what ever called it.

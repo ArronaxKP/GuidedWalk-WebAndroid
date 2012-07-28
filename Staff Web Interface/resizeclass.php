@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 /**
  * This class deals with image resizing. It is heavily influenced from
  * the White Hat Web Design blog on resizing with PHP.

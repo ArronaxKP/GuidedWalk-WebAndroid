@@ -155,9 +155,15 @@ function dejson(jsonobj) {
 				|| "" != waypoint.welshtitle || "" != waypoint.welshdesc
 				|| 0 != waypointDetails.number_of_images) {
 			var infoWindow;
+			
 			var infoWindowContent = assembleInfoWindow(waypoint);
+			var div = document.createElement('div');
+			div.setAttribute("id", "infoForm" + waypoint.index);
+			div.setAttribute("style", "width:465px; display: block;text-align:center;");
+			div.innerHTML = infoWindowContent;
+
 			infoWindow = new google.maps.InfoWindow({
-				content : infoWindowContent
+				content : div
 			});
 			waypoint.infoWindow = infoWindow;
 			if (waypoint.index == 0) {

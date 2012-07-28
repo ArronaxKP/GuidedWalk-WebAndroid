@@ -22,15 +22,15 @@ $password = "cardigan";  // Modify Password to suit for access, Max 10 Char.
 <link rel="stylesheet" type="text/css" href="mapapi.css" />
 <script type="text/javascript"
 	src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCmV8V2zidGBB8h35IIkzgxkj3MD75ai9g&sensor=false"></script>
-<script type="text/javascript" src="javascript/alertbox.js"></script>
-<script type="text/javascript" src="javascript/apiscript.js"></script>
-<script type="text/javascript" src="javascript/emptymap.js"></script>
-<script type="text/javascript" src="javascript/image.js"></script>
-<script type="text/javascript" src="javascript/infowindow.js"></script>
-<script type="text/javascript" src="javascript/remove.js"></script>
-<script type="text/javascript" src="javascript/sendload.js"></script>
-<script type="text/javascript" src="javascript/sendsave.js"></script>
-<script type="text/javascript" src="javascript/sidebar.js"></script>
+<script type="text/javascript" src="alertbox.js"></script>
+<script type="text/javascript" src="apiscript.js"></script>
+<script type="text/javascript" src="emptymap.js"></script>
+<script type="text/javascript" src="image.js"></script>
+<script type="text/javascript" src="infowindow.js"></script>
+<script type="text/javascript" src="remove.js"></script>
+<script type="text/javascript" src="sendload.js"></script>
+<script type="text/javascript" src="sendsave.js"></script>
+<script type="text/javascript" src="sidebar.js"></script>
 </head>
 <body onload="initialize()">
 
@@ -42,6 +42,8 @@ $password = "cardigan";  // Modify Password to suit for access, Max 10 Char.
 
 
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 session_start();
 if (isset($_POST["password"]) && ($_POST["password"]=="$password")) {
 	?>

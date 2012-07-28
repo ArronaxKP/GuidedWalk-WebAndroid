@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 /**
  * This file deals with the deleting of a walk. 
  * It recieves a POST with the walk unique ID and 

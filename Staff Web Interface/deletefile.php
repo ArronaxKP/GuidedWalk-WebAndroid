@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 /**
  * This PHP file recieves a POST containing a filename.
  * PHP then deletes the file in the upload folder that 

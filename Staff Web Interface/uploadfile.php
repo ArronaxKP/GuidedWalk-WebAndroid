@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 /**
  * This file deals with the uplaoding of images. 
  * It recieves a file as a POST. PHP then checks 
