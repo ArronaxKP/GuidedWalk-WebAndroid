@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="welsh_about_title">Amdanom Ni</string>
-    <string name="welsh_about_address">Menter Aberteifi \nThe Guildhall, \nAberteifi, \nCeredigion, \nSA43 1JL</string>
-    <string name="welsh_about_phone">Rhif ffôn: 01239 615554</string>
-    <string name="welsh_about_email">E-bost: info@menter-aberteifi.co.uk</string>
-    <string name="welsh_about_uni">Cais datblygu fel Prosiect Meddalwedd Cynghrair Cymru gyda chefnogaeth Karl Parry BSc - Prifysgol Aberystwyth - Adran Cyfrifiadureg</string>
-</resources>

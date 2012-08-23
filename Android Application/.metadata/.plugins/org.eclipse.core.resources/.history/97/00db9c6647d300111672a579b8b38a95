@@ -1,8 +1,0 @@
-package uk.ac.aber.guidedwalk.android;
-
-import android.app.Activity;
-import android.view.View.OnClickListener;
-
-public class Prefences extends Activity implements OnClickListener {
-
-}

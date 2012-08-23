@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="welsh_about_title">Amdanom Ni</string>
-    <string name="welsh_about_address">Menter Aberteifi \nThe Guildhall, \nAberteifi, \nCeredigion, \nSA43 1JL</string>
-    <string name="welsh_about_phone">Telephone: 01239 615554</string>
-    <string name="welsh_about_email">Email: info@menter-aberteifi.co.uk</string>
-    <string name="welsh_about_uni">Application developed as a Software Alliance Wales Project with the support of Karl Parry BSc - Aberystwyth Universiry - Computer Science Department</string>
-</resources>
