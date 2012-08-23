@@ -10,10 +10,10 @@ ini_set('display_errors', '1');
  */
 $filename = $_POST['filename'];
 $results = '3';
-if (file_exists("upload/".$filename))
+if (file_exists(getcwd()."/upload/".$filename))
 {
 	//file found and deleted
-	if (!unlink("upload/".$filename))
+	if (!unlink(getcwd()."/upload/".$filename))
 	{
 		//Error deleting;
 		$results = '2';

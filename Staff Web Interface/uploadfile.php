@@ -14,47 +14,42 @@ ini_set('display_errors', '1');
  * @author Karl Parry (kdp8)
  */
 	include 'resizeclass.php';
-	if($_POST!=null){
-		$_FILES['file']['name'];
-		$textstuff = $_POST['text'];
-		$results = '';
-		if ((($_FILES["file"]["type"] == "image/gif")
-		|| ($_FILES["file"]["type"] == "image/jpeg")
-		|| ($_FILES["file"]["type"] == "image/pjpeg")
-		|| ($_FILES["file"]["type"] == "image/jpg")
-		|| ($_FILES["file"]["type"] == "image/png"))
-		//Files no larger than 16MB can be uploaded.
-		&& ($_FILES["file"]["size"] < 16777216))
+	$_FILES['file']['name'];
+	$textstuff = $_POST['text'];
+	$results = '';
+	if ((($_FILES["file"]["type"] == "image/gif")
+	|| ($_FILES["file"]["type"] == "image/jpeg")
+	|| ($_FILES["file"]["type"] == "image/pjpeg")
+	|| ($_FILES["file"]["type"] == "image/jpg")
+	|| ($_FILES["file"]["type"] == "image/png"))
+	//Files no larger than 16MB can be uploaded.
+	&& ($_FILES["file"]["size"] < 16777216))
+	{
+		if ($_FILES["file"]["error"] > 0)
 		{
-			if ($_FILES["file"]["error"] > 0)
-			{
-				$results  = "'0','0','0'"; //file error
-			}
-			else
-			{
-				$destination_path = "upload/".$_FILES["file"]["name"];
-				move_uploaded_file($_FILES["file"]["tmp_name"],$destination_path);
-				
-				$instance = new resize($destination_path);
-				$instance->resizeImage(320,480,"auto");
-				unlink($destination_path);
-				$instance->saveImage($destination_path , "100");
-				
-				$newfilename = $instance->newFilename();
-				$dirnew = "upload/".$newfilename;
-				rename($destination_path,$dirnew);
-				$results  = "'1','".$newfilename."','".$textstuff."'";
-			}
+			$results  = "'0','0','0'"; //file error
 		}
 		else
 		{
-		  $results  = "'0','2','Please select an image file (jpg, jpeg, pjpeg, gif, png only)'"; //Invalid file"
+			$destination_path = getcwd()."/upload/".$_FILES["file"]["name"];
+			move_uploaded_file($_FILES["file"]["tmp_name"],$destination_path);
+			
+			$instance = new resize($destination_path);
+			$instance->resizeImage(320,480,"auto");
+			unlink($destination_path);
+			$instance->saveImage($destination_path , "100");
+			
+			$newfilename = $instance->newFilename();
+			$dirnew = getcwd()."/upload/".$newfilename;
+			rename($destination_path,$dirnew);
+			$results  = "'1','".$newfilename."','".$textstuff."'";
 		}
-		sleep(1);
-	}else{
-		sleep(1);
-		echo "<p>No Post</p>";
 	}
+	else
+	{
+	  $results  = "'0','2','Please select an image file (jpg, jpeg, pjpeg, gif, png only)'"; //Invalid file"
+	}
+	sleep(1);
 	
 ?>
     <script language="javascript" type="text/javascript">

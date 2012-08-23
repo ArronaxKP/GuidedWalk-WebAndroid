@@ -12,23 +12,18 @@ ini_set('display_errors', '1');
 */
 
 include 'loadandsavefunctions.php';
-	if($_POST!=null){
-		$myobject = json_decode( $_POST['serialized'], true );
-		$uniqueid = $myobject['id'];
-		$walklength = $myobject['walklength'];
-		$walktitle = $myobject['walktitle'];
-		$walkdesc = $myobject['walkdesc'];
-		$welshwalktitle = $myobject['welshwalktitle'];
-		$welshwalkdesc = $myobject['welshwalkdesc'];
-		$walkdifficulty = $myobject['walkdifficulty'];
-		$version = $myobject['version'];
-		$route = $myobject['route'];
-		$instance = new LoadAndSaveFunctions();
-		$uniqueid = $instance->save($uniqueid,$walklength,$walktitle,$walkdesc,$welshwalktitle,$welshwalkdesc,$walkdifficulty,$version,$route);
-		sleep(1);
-		echo "".$uniqueid;//passed
-	}else{
-		sleep(1);
-		echo "";//failed
-	}
+	$myobject = json_decode( $_POST['serialized'], true );
+	$uniqueid = $myobject['id'];
+	$walklength = $myobject['walklength'];
+	$walktitle = $myobject['walktitle'];
+	$walkdesc = $myobject['walkdesc'];
+	$welshwalktitle = $myobject['welshwalktitle'];
+	$welshwalkdesc = $myobject['welshwalkdesc'];
+	$walkdifficulty = $myobject['walkdifficulty'];
+	$version = $myobject['version'];
+	$route = $myobject['route'];
+	$instance = new LoadAndSaveFunctions();
+	$uniqueid = $instance->save($uniqueid,$walklength,$walktitle,$walkdesc,$welshwalktitle,$welshwalkdesc,$walkdifficulty,$version,$route);
+	sleep(1);
+	echo "".$uniqueid;
 ?>

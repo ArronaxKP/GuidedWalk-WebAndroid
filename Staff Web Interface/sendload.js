@@ -26,7 +26,7 @@ function loadXMLMap() {
 	xmlhttp.onreadystatechange = function() {
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 			overridebox();
-			var myobject = eval('(' + xmlhttp.responseText + ')');
+			var myobject = eval('('+xmlhttp.responseText+')');
 			loadWalkList(myobject);
 		}
 	};
@@ -145,6 +145,7 @@ function dejson(jsonobj) {
 
 		var waypointDetails = listofwaypoints[i];
 		waypoint = new createWaypoint(waypointDetails.lat, waypointDetails.lng);
+		waypoint.index = i;
 		waypoint.title = waypointDetails.waypoint_title;
 		waypoint.desc = waypointDetails.waypoint_desc;
 
@@ -154,18 +155,7 @@ function dejson(jsonobj) {
 		if ("" != waypoint.title || "" != waypoint.desc
 				|| "" != waypoint.welshtitle || "" != waypoint.welshdesc
 				|| 0 != waypointDetails.number_of_images) {
-			var infoWindow;
-			
-			var infoWindowContent = assembleInfoWindow(waypoint);
-			var div = document.createElement('div');
-			div.setAttribute("id", "infoForm" + waypoint.index);
-			div.setAttribute("style", "width:465px; display: block;text-align:center;");
-			div.innerHTML = infoWindowContent;
 
-			infoWindow = new google.maps.InfoWindow({
-				content : div
-			});
-			waypoint.infoWindow = infoWindow;
 			if (waypoint.index == 0) {
 				var image = new google.maps.MarkerImage(
 						'images/green-blue-dot.png', new google.maps.Size(32,
@@ -188,8 +178,6 @@ function dejson(jsonobj) {
 					var filename = waypointDetails.images[j].image_base64;
 					waypoint.images[j] = filename;
 					waypoint.numberofimages++;
-					var newContent = assembleInfoWindow(waypoint);
-					waypoint.infoWindow.setContent(newContent);
 				}
 			}
 		} else {

@@ -10,7 +10,6 @@ ini_set('display_errors', '1');
 * @author Karl Parry (kdp8)
 */
 include 'loadandsavefunctions.php';
-
 	$selectedwalk = $_POST['selectedwalk'].'.xml';
 	$instance = new LoadAndSaveFunctions();
 	$jsonobj = $instance->load($selectedwalk);

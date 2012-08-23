@@ -44,7 +44,7 @@ Class LoadAndSaveFunctions
 
 		$instance = new rename();
 		$xmlDoc = new DOMDocument();
-		$xmlDoc->load("walks/".$selectedwalk);
+		$xmlDoc->load(getcwd()."/walks/".$selectedwalk);
 		$x = $xmlDoc->documentElement;
 		foreach ($x->childNodes AS $item)
 		{
@@ -119,7 +119,7 @@ Class LoadAndSaveFunctions
 												case "image_base64";
 												$img = base64_decode($image->nodeValue);
 												$filename = $instance->newFilename();
-												$dir = "upload/".$filename;
+												$dir = getcwd()."/upload/".$filename;
 												$ourFileHandle = fopen($dir, 'w');
 												fwrite($ourFileHandle,$img);
 												fclose($ourFileHandle);
@@ -183,7 +183,7 @@ Class LoadAndSaveFunctions
 	 */
 	public function fileexists($uniqueid)
 	{
-		$dirnew = "walks/".$uniqueid.".xml";
+		$dirnew = getcwd()."/walks/".$uniqueid.".xml";
 		if (file_exists($dirnew)){
 			return true;
 		}else{
@@ -197,10 +197,10 @@ Class LoadAndSaveFunctions
 	 * @param $uniqueid the uniqueid of the walk being deleted
 	 */
 	public function deleteWalk($uniqueid){
-		unlink('walks/'.$uniqueid.'.xml');
+		unlink(getcwd().'/walks/'.$uniqueid.'.xml');
 		$doc = new DOMDocument();
 		$doc->formatOutput = true;
-		$doc->load("map.xml");
+		$doc->load(getcwd()."/map.xml");
 		$x = $doc->documentElement;
 		$numberofwalks = $x->getElementsByTagName('numberofwalks');
 		foreach ($numberofwalks AS $nows)
@@ -226,7 +226,7 @@ Class LoadAndSaveFunctions
 			}
 		}
 		$xml_string = $doc->saveXML();
-		$fp = @fopen('map.xml','w');
+		$fp = @fopen(getcwd().'/map.xml','w');
 		if(!$fp) {
 			die('Error cannot create XML file');
 		}
@@ -244,10 +244,10 @@ Class LoadAndSaveFunctions
 	 * @param $walkdesc the walk's new description
 	 */
 	public function updateMap($uniqueid, $walktitle, $walkdesc, $welshwalktitle, $welshwalkdesc, $walkdifficulty, $version){
-		unlink('walks/'.$uniqueid.'.xml');
+		unlink(getcwd().'/walks/'.$uniqueid.'.xml');
 		$doc = new DOMDocument();
 		$doc->formatOutput = true;
-		$doc->load("map.xml");
+		$doc->load(getcwd()."/map.xml");
 		$x = $doc->documentElement;
 		foreach ($x->childNodes AS $elements)
 		{
@@ -289,7 +289,7 @@ Class LoadAndSaveFunctions
 		}
 
 		$xml_string = $doc->saveXML();
-		$fp = @fopen('map.xml','w');
+		$fp = @fopen(getcwd().'/map.xml','w');
 		if(!$fp) {
 			die('Error cannot create XML file');
 		}
@@ -307,7 +307,7 @@ Class LoadAndSaveFunctions
 	public function addWalk($uniqueid, $walktitle, $walkdesc, $welshwalktitle, $welshwalkdesc, $walkdifficulty, $version){
 		$doc = new DOMDocument();
 		$doc->formatOutput = true;
-		$doc->load("map.xml");
+		$doc->load(getcwd()."/map.xml");
 		$x = $doc->documentElement;
 		$numberofwalks = $x->getElementsByTagName('numberofwalks');
 		foreach ($numberofwalks AS $noms)
@@ -354,9 +354,9 @@ Class LoadAndSaveFunctions
 			$xml_string = $doc->saveXML();
 
 
-			$fp = @fopen('map.xml','w');
+			$fp = @fopen(getcwd()."/map.xml",'w');
 			if(!$fp) {
-				die('Error cannot create XML file');
+				die('Error cannot edit map XML file');
 			}
 			fwrite($fp,$xml_string);
 			fclose($fp);
@@ -378,7 +378,7 @@ Class LoadAndSaveFunctions
 		$walk_list = null;
 
 		$xmlDoc = new DOMDocument();
-		$xmlDoc->load("map.xml");
+		$xmlDoc->load(getcwd()."/map.xml");
 		$x = $xmlDoc->documentElement;
 		foreach ($x->childNodes AS $elements)
 		{
@@ -541,7 +541,7 @@ Class LoadAndSaveFunctions
 					if ($img) {
 						$image_xml = $doc->createElement('image');
 						$images_xml->appendChild($image_xml);
-						$imgbinary = fread(fopen('upload/'.$img, "r"), filesize('upload/'.$img));
+						$imgbinary = fread(fopen(getcwd().'/upload/'.$img, "r"), filesize(getcwd().'/upload/'.$img));
 						$img_base64 = base64_encode($imgbinary);
 						$image_base64 = $doc->createElement('image_base64');
 						$image_xml->appendChild($image_base64);
@@ -559,7 +559,7 @@ Class LoadAndSaveFunctions
 		$doc->loadXML($xml_string);
 		$xml_string = $doc->saveXML();
 
-		$fp = @fopen('walks/'.$uniqueid.'.xml','w');
+		$fp = @fopen(getcwd().'/walks/'.$uniqueid.'.xml','w');
 		if(!$fp) {
 			die('Error cannot create XML file');
 		}

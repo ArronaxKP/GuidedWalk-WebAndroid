@@ -23,7 +23,7 @@ Class rename
 	public function newFilename()
 	{
 		$newfilename = rand().".png";
-		$dirnew = "upload/".$newfilename;
+		$dirnew = getcwd()."/upload/".$newfilename;
 		if (file_exists($dirnew)){
 			$newfilename = newFilename();
 		}
@@ -37,7 +37,7 @@ Class rename
 	public function newXMLFilename()
 	{
 		$newfilename = rand(1,32767);
-		$dirnew = "walks/".$newfilename.".xml";
+		$dirnew = getcwd()."/walks/".$newfilename.".xml";
 		if (file_exists($dirnew)){
 			$newfilename = newFilename();
 		}
