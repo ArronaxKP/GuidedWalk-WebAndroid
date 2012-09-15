@@ -21,9 +21,10 @@ include 'loadandsavefunctions.php';
 	$welshwalkdesc = $myobject['welshwalkdesc'];
 	$walkdifficulty = $myobject['walkdifficulty'];
 	$version = $myobject['version'];
+	$publishversion = $myobject['publishversion'];
 	$route = $myobject['route'];
 	$instance = new LoadAndSaveFunctions();
-	$uniqueid = $instance->save($uniqueid,$walklength,$walktitle,$walkdesc,$welshwalktitle,$welshwalkdesc,$walkdifficulty,$version,$route);
+	$uniqueid = $instance->save($uniqueid,$walklength,$walktitle,$walkdesc,$welshwalktitle,$welshwalkdesc,$walkdifficulty,$version,$publishversion,$route);
 	sleep(1);
 	echo "".$uniqueid;
 ?>

@@ -13,16 +13,16 @@
 		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="wantEnglish" key="selection"/>
+		<item value="context" key="selection"/>
 		<list key="findhistory">
+			<item value="context"/>
+			<item value="map"/>
+			<item value="walk"/>
+			<item value="bug"/>
+			<item value="deb"/>
 			<item value="wantEnglish"/>
 			<item value="Walk"/>
 			<item value="start walk"/>
-			<item value="start"/>
-			<item value="setText"/>
-			<item value="onTap"/>
-			<item value="setCancelable"/>
-			<item value="returnNew"/>
 		</list>
 		<list key="replacehistory">
 			<item value="walk_online"/>

@@ -12,9 +12,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
+import uk.ac.aber.guidedwalk.log.Log;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 /**
  * This Class presents a list of available walks to the user where the user can
@@ -42,6 +43,14 @@ public class WalkList extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.walklist);
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+		Boolean wantEnglish = prefs.getBoolean("wantEnglish", true);
+		TextView txt = (TextView) context.findViewById(R.id.walklist_top_text);
+		if(wantEnglish){
+			txt.setText(R.string.walk_list_top_text);
+		}else{
+			txt.setText(R.string.welsh_walk_list_top_text);
+		}
 		walk_list = new ArrayList<Walk>();
 		this.m_adapter = new WalkAdapter(this, R.layout.walklistitem, walk_list);
 		this.setListAdapter(this.m_adapter);
@@ -81,7 +90,7 @@ public class WalkList extends ListActivity {
 	 */
 	private void getWalks() {
 		LoadXML lxml = new LoadXML();
-		walk_list = lxml.readXMLMap(this, "map.xml");
+		walk_list = lxml.readXMLMap(this, "publish.xml");
 		if (walk_list != null) {
 			try {
 				Thread.sleep(500);

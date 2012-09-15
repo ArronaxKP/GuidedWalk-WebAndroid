@@ -48,9 +48,13 @@ function loadWalkList(object) {
 		listofwalks = object.walklist;
 		var string = '<div><form><select id="listofwalks" onchange="updateDisplay()">';
 		for ( var i = 0; i < numberofwalks; i++) {
-			string += '<option  value="' + i + '">' + listofwalks[i].id
-					+ ' : Title: ' + listofwalks[i].title.substring(0,50); + '</option>';
-			
+			if(listofwalks[0].version>listofwalks[0].publishversion){
+				string += '<option  value="' + i + '">**' + listofwalks[i].id
+				+ ' : Title: ' + listofwalks[i].title.substring(0,50); + '</option>';
+			} else {
+				string += '<option  value="' + i + '">' + listofwalks[i].id
+				+ ' : Title: ' + listofwalks[i].title.substring(0,50); + '</option>';
+			}
 		}
 		string += '</select><div id="walk_desc_box" style="text-align:left;">'
 				+ '<table border="0" align="center"><tr>'
@@ -62,7 +66,9 @@ function loadWalkList(object) {
 				+ '<td><p"><b>Welsh Title: </b></p><p">'
 				+ listofwalks[0].welshtitle.substring(0,200)
 				+ '</p><p"><b>Welsh Description: </b></p><p">'
-				+ listofwalks[0].welshdesc.substring(0,500) + '</p></td>' + '</tr></table>'
+				+ listofwalks[0].welshdesc.substring(0,500) + '</p></td>' 
+				+ '</tr><tr><td> Version: '+listofwalks[0].version+' |</td>'
+				+ '<td>| Published Version: '+listofwalks[0].publishversion+' </td></tr></table>'
 				+ '<p align="center"><b>Difficulty: </b>';
 
 		if (listofwalks[0].difficulty == 0) {
@@ -113,7 +119,8 @@ function updateDisplay() {
 			+ '</p><p"><b>Welsh Description: </b></p><p">'
 			+ listofwalks[index].welshdesc.substring(0,500)
 			+ '</p></td>'
-			+ '</tr></table>'
+			+ '</tr><tr><td> Version: '+listofwalks[index].version+' |</td>'
+			+ '<td>| Published Version: '+listofwalks[index].publishversion+' </td></tr></table>'
 			+ '<p align="center"><b>Difficulty: </b>' + difficulty + '</p>';
 }
 
@@ -137,6 +144,7 @@ function dejson(jsonobj) {
 
 	walkdifficulty = myObject.walk_difficulty;
 	version = myObject.version;
+	publishversion = myObject.publishversion;
 	var listofwaypoints = myObject.route;
 	var len = listofwaypoints.length;
 	var waypoint;
@@ -295,6 +303,8 @@ function deleteSend() {
 			"application/x-www-form-urlencoded");
 	xmlhttp.onreadystatechange = function() {
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			version=0;
+			publishversion=0;
 			overridebox();
 			alertbox('Deleted walk with id: ' + xmlhttp.responseText);
 		}

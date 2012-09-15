@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="25" version="2.0">
+<workbench progressCount="47" version="2.0">
 <workbenchAdvisor/>
-<window height="1010" width="840" x="840" y="0">
+<window height="1010" width="1123" x="0" y="0">
 <fastViewData fastViewLocation="1024"/>
 <perspectiveBar>
 <itemSize x="90"/>
 </perspectiveBar>
 <coolbarLayout>
 <coolItem id="group.file" itemType="typeGroupMarker"/>
-<coolItem id="org.eclipse.ui.workbench.file" itemType="typeToolBarContribution" x="182" y="22"/>
+<coolItem id="org.eclipse.ui.workbench.file" itemType="typeToolBarContribution" x="160" y="22"/>
 <coolItem id="additions" itemType="typeGroupMarker"/>
 <coolItem id="adt.actionSet.avdManager" itemType="typeToolBarContribution" x="61" y="22"/>
 <coolItem id="adt.actionSet.lint" itemType="typeToolBarContribution" x="38" y="22"/>
@@ -16,10 +16,10 @@
 <coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="129" y="22"/>
 <coolItem id="org.eclipse.jdt.ui.JavaElementCreationActionSet" itemType="typeToolBarContribution" x="76" y="22"/>
 <coolItem id="org.eclipse.search.searchActionSet" itemType="typeToolBarContribution" x="122" y="22"/>
-<coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="130" y="22"/>
+<coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="61" y="22"/>
 <coolItem id="org.eclipse.wst.xml.ui.perspective.NewFileToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="190" y="22"/>
-<coolItem id="org.eclipse.wst.xml.ui.design.DesignToolBar" itemType="typeToolBarContribution" x="38" y="22"/>
+<coolItem id="org.eclipse.wst.xml.ui.design.DesignToolBar" itemType="typeToolBarContribution" x="61" y="22"/>
 <coolItem id="group.nav" itemType="typeGroupMarker"/>
 <coolItem id="group.editor" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart" itemType="typePlaceholder" x="-1" y="-1"/>
@@ -122,7 +122,7 @@
 </view>
 <view id="org.eclipse.jdt.ui.JavadocView" partName="Javadoc"/>
 </views>
-<perspectives activePart="org.eclipse.jdt.ui.PackageExplorer" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
+<perspectives activePart="org.eclipse.ui.console.ConsoleView" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="org.eclipse.jdt.internal.ui.JavaPerspectiveFactory" id="org.eclipse.jdt.ui.JavaPerspective" label="Java"/>
 <alwaysOnActionSet id="org.eclipse.egit.ui.navigation"/>
@@ -197,14 +197,14 @@
 <view id="com.android.ide.eclipse.ddms.views.LogCatView"/>
 <view id="org.eclipse.jdt.ui.PackageExplorer"/>
 <fastViewBars>
-<fastViewBar fastViewLocation="131072" id="right" orientation="512" selectedTabId="org.eclipse.ui.views.ContentOutline" style="0">
-<fastViews>
-<view id="org.eclipse.ui.views.ContentOutline" ratio="0.3"/>
-</fastViews>
-</fastViewBar>
 <fastViewBar fastViewLocation="131072" id="org.eclipse.ui.internal.ViewStack@21d62fe3" orientation="512" selectedTabId="org.eclipse.mylyn.tasks.ui.views.tasks" style="0">
 <fastViews>
 <view id="org.eclipse.mylyn.tasks.ui.views.tasks" ratio="0.3"/>
+</fastViews>
+</fastViewBar>
+<fastViewBar fastViewLocation="131072" id="right" orientation="512" selectedTabId="org.eclipse.ui.views.ContentOutline" style="0">
+<fastViews>
+<view id="org.eclipse.ui.views.ContentOutline" ratio="0.3"/>
 </fastViews>
 </fastViewBar>
 </fastViewBars>
@@ -398,23 +398,35 @@
 </trimLayout>
 </window>
 <mruList>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.resources.ResourcesEditor" name="config.xml" tooltip="GuidedWalkApp/res/values/config.xml">
-<persistable path="/GuidedWalkApp/res/values/config.xml"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="walklist.xml" tooltip="GuidedWalkApp/res/layout/walklist.xml">
+<persistable path="/GuidedWalkApp/res/layout/walklist.xml"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Preferences.java" tooltip="GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/Preferences.java">
-<persistable path="/GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/Preferences.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Menu.java" tooltip="GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/Menu.java">
+<persistable path="/GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/Menu.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="SpecialMapOverlay.java" tooltip="GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/SpecialMapOverlay.java">
-<persistable path="/GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/SpecialMapOverlay.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="About.java" tooltip="GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/About.java">
+<persistable path="/GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/About.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="WalkAdapter.java" tooltip="GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/WalkAdapter.java">
-<persistable path="/GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/WalkAdapter.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="about.xml" tooltip="GuidedWalkApp/res/layout/about.xml">
+<persistable path="/GuidedWalkApp/res/layout/about.xml"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DownloadList.java" tooltip="GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/DownloadList.java">
-<persistable path="/GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/DownloadList.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.resources.ResourcesEditor" name="welsh_strings.xml" tooltip="GuidedWalkApp/res/values/welsh_strings.xml">
+<persistable path="/GuidedWalkApp/res/values/welsh_strings.xml"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.resources.ResourcesEditor" name="strings.xml" tooltip="GuidedWalkApp/res/values/strings.xml">
+<persistable path="/GuidedWalkApp/res/values/strings.xml"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="menu.xml" tooltip="GuidedWalkApp/res/layout/menu.xml">
+<persistable path="/GuidedWalkApp/res/layout/menu.xml"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.resources.ResourcesEditor" name="welsh_about.xml" tooltip="GuidedWalkApp/res/values/welsh_about.xml">
+<persistable path="/GuidedWalkApp/res/values/welsh_about.xml"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="WalkList.java" tooltip="GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/WalkList.java">
 <persistable path="/GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/WalkList.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="WalkAdapter.java" tooltip="GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/WalkAdapter.java">
+<persistable path="/GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/WalkAdapter.java"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="MapScreen.java" tooltip="GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/MapScreen.java">
 <persistable path="/GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/MapScreen.java"/>
@@ -422,26 +434,14 @@
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DownloadWalkAdapter.java" tooltip="GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/DownloadWalkAdapter.java">
 <persistable path="/GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/DownloadWalkAdapter.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="About.java" tooltip="GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/About.java">
-<persistable path="/GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/About.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DownloadList.java" tooltip="GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/DownloadList.java">
+<persistable path="/GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/DownloadList.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.resources.ResourcesEditor" name="strings.xml" tooltip="GuidedWalkApp/res/values/strings.xml">
-<persistable path="/GuidedWalkApp/res/values/strings.xml"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="LoadXML.java" tooltip="GuidedWalkApp/src/uk/ac/aber/guidedwalk/model/LoadXML.java">
+<persistable path="/GuidedWalkApp/src/uk/ac/aber/guidedwalk/model/LoadXML.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.resources.ResourcesEditor" name="welsh_strings.xml" tooltip="GuidedWalkApp/res/values/welsh_strings.xml">
-<persistable path="/GuidedWalkApp/res/values/welsh_strings.xml"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="mapscreen.xml" tooltip="GuidedWalkApp/res/layout/mapscreen.xml">
-<persistable path="/GuidedWalkApp/res/layout/mapscreen.xml"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Menu.java" tooltip="GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/Menu.java">
-<persistable path="/GuidedWalkApp/src/uk/ac/aber/guidedwalk/android/Menu.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="welshabout.xml" tooltip="GuidedWalkApp/res/layout/welshabout.xml">
-<persistable path="/GuidedWalkApp/res/layout/welshabout.xml"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="about.xml" tooltip="GuidedWalkApp/res/layout/about.xml">
-<persistable path="/GuidedWalkApp/res/layout/about.xml"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.resources.ResourcesEditor" name="config.xml" tooltip="GuidedWalkApp/res/values/config.xml">
+<persistable path="/GuidedWalkApp/res/values/config.xml"/>
 </file>
 </mruList>
 </workbench>

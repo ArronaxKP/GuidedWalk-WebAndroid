@@ -47,9 +47,11 @@ function walkDetailsBox(text) {
 			+ '</textarea></td>'
 			+ '</tr></table>'
 			+ difficultystring
+			+ '<p>Version: '+ version +' || Published Version: '+ publishversion +'</p>'
 			+ '<p>'
 			+ '<button id="send" type="button" onClick="saveWalktoServer(this.form);">Save</button>'
 			+ '<button id="send" type="button" onClick="saveWalktoServerNew(this.form);">Save As</button>'
+			+ '<button id="send" type="button" onClick="publishWalktoServer(this.form);">Publish</button>'
 			+ '<button type="button" onClick="closeWalkDetailsBox(this.form);">Close</button></p>'
 			+ '</form>';
 	document.getElementById('overlaybox').innerHTML = string;

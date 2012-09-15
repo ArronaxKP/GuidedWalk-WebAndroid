@@ -22,5 +22,6 @@
     <string name="welsh_information">Gwybodaeth</string>
     <string name="welsh_start_walk_again">Dechrau cerdded eto</string> 
     <string name="welsh_next_empty">Mae\'r waypoint nesaf yn wag. Cliciwch OK i fynd i\'r un ar ôl neu ganslo i fynd yn ôl i\'r map.</string>
-
+	<string name="welsh_walk_list_top_text">Tap cerdded i lwytho:</string>
+    
 </resources>

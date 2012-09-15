@@ -18,6 +18,53 @@ function saveWalktoServerNew(form) {
 	this.saveWalktoServer(form);
 }
 
+
+function publishWalktoServer(form) {
+	saveFormDetails(form);
+	if (0 == length) {
+		walkDetailsBox("The walk is empty. Unable to save");
+	} else if (walktitle.replace(/\s/g, "") == "") {
+		walkDetailsBox("Please enter a walk title");
+	} else if (walkdesc.replace(/\s/g, "") == "") {
+		walkDetailsBox("Please enter a walk description");
+	} else {
+		overlay();
+		overridebox();
+		var walkDetailsObject = sendSerializeObject(true);
+		serializePublishSend(walkDetailsObject);
+	}
+}
+
+function serializePublishSend(walkDetailsObject) {
+	var serialized = JSON.stringify(walkDetailsObject);
+	var xmlhttp;
+	if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp = new XMLHttpRequest();
+	} else {// code for IE6, IE5
+		xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+
+	xmlhttp.open("POST", "sendpublish.php", true);
+	xmlhttp.setRequestHeader("Content-type",
+			"application/x-www-form-urlencoded");
+	xmlhttp.onreadystatechange = function() {
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			overridebox();
+			if (0 == xmlhttp.responseText) {
+				walkDetailsBox('Walk file failed to be saved due to server error');
+				overlay();
+			} else {
+				uniqueid = xmlhttp.responseText;
+				walkDetailsBox('Walk file saved');
+				overlay();
+			}
+		}
+	};
+	var str = "serialized=" + serialized;
+	xmlhttp.send(str);
+}
+
+
 /**
  * This function is called when the user clicks Save. or from the
  * saveWalktoServerNew(form). This function firstly saves the walk details
@@ -39,7 +86,8 @@ function saveWalktoServer(form) {
 	} else {
 		overlay();
 		overridebox();
-		sendSerializeObject();
+		var walkDetailsObject = sendSerializeObject(false);
+		serializeSaveSend(walkDetailsObject);
 	}
 }
 
@@ -47,7 +95,7 @@ function saveWalktoServer(form) {
  * This creates a serializable object of the walk data to be send to the server.
  * Once
  */
-function sendSerializeObject() {
+function sendSerializeObject(publish) {
 	var listObj = [];
 	for ( var index = 0; index < length; index++) {
 		var point = waypoints[index];
@@ -58,10 +106,12 @@ function sendSerializeObject() {
 		listObj[index] = tm;
 	}
 	version++;
-	var walkDetailsObject = new walkDetails(uniqueid, walktitle, walkdesc,
-			welshwalktitle, welshwalkdesc, walkdifficulty, version, listObj,
-			length);
-	serializeSaveSend(walkDetailsObject);
+	if(publish){
+		publishversion = version;
+	}
+	var walkDetailsObject = new walkDetails(uniqueid, length, walktitle, walkdesc,
+			welshwalktitle, welshwalkdesc, walkdifficulty, version, publishversion, listObj);
+	return walkDetailsObject;
 }
 
 /**
@@ -115,8 +165,8 @@ function tokenWaypoint(index, title, description, welshtitle, welshdesc,
  *            number of waypoints in the walk
  * @returns the walk details object containing everything in the walk
  */
-function walkDetails(uniqueid, walktitle, walkdesc, welshwalktitle,
-		welshwalkdesc, walkdifficulty, version, route, walklength) {
+function walkDetails(uniqueid, walklength, walktitle, walkdesc, welshwalktitle,
+		welshwalkdesc, walkdifficulty, version, publishversion, route) {
 	this.id = uniqueid;
 	this.walklength = walklength;
 	this.walktitle = walktitle;
@@ -125,6 +175,7 @@ function walkDetails(uniqueid, walktitle, walkdesc, welshwalktitle,
 	this.welshwalkdesc = welshwalkdesc;
 	this.walkdifficulty = walkdifficulty;
 	this.version = version;
+	this.publishversion  = publishversion;
 	this.route = route;
 }
 

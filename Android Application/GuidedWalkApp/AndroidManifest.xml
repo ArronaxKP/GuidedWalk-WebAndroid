@@ -11,6 +11,14 @@
     <uses-library android:name="com.google.android.maps" />
 
     <uses-sdk android:minSdkVersion="10" />
+    <uses-sdk android:targetSdkVersion="15" />
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
 
     <application
         android:icon="@drawable/ic_launcher_cardigan"

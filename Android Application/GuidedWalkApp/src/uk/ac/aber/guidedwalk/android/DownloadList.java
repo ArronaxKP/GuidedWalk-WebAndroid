@@ -35,7 +35,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
+import uk.ac.aber.guidedwalk.log.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -97,8 +97,8 @@ public class DownloadList extends ListActivity {
 	 */
 	private void getWalkList() {
 		LoadXML lxml = new LoadXML();
-		ArrayList<Walk> walk_local = lxml.readXMLMap(this, "map.xml");
-		if (lxml.downloadXML(this, "map.xml", null, true)) {
+		ArrayList<Walk> walk_local = lxml.readXMLMap(this, "publish.xml");
+		if (lxml.downloadXML(this, "publish.xml", null, true)) {
 			ArrayList<Walk> walk_online = lxml.readXMLMap(this, "temp.xml");
 			if (walk_local != null) {
 				boolean needs_to_be_downloaded;
@@ -208,7 +208,7 @@ public class DownloadList extends ListActivity {
 	public void downloadSelectedWalks() {
 		try {
 			Document dom = null;
-			File file = new File(context.getFilesDir() + "map.xml");
+			File file = new File(context.getFilesDir() + "publish.xml");
 			if (file.exists()) {
 				InputStream in = new FileInputStream(file);
 				DocumentBuilderFactory dbf = DocumentBuilderFactory
@@ -233,7 +233,7 @@ public class DownloadList extends ListActivity {
 						} else {
 							LoadXML lxml = new LoadXML();
 							Boolean success = lxml.downloadXML(context,
-									walk.getId() + ".xml", "walks/");
+									walk.getId() + ".xml", "publish/");
 							if (success) {
 								if (walk.isUpdateAvailable()) {
 									this.update(dom, walklist, walk);
@@ -268,7 +268,7 @@ public class DownloadList extends ListActivity {
 					if (walk.isSelected()) {
 						LoadXML lxml = new LoadXML();
 						Boolean success = lxml.downloadXML(context,
-								walk.getId() + ".xml", "walks/");
+								walk.getId() + ".xml", "publish/");
 						if (success) {
 							this.write(dom, walklist, walk);
 							nows++;
@@ -416,7 +416,7 @@ public class DownloadList extends ListActivity {
 	}
 
 	/**
-	 * This function takes a XML DOM document and writes it to the map.xml file.
+	 * This function takes a XML DOM document and writes it to the publish.xml file.
 	 * 
 	 * @param dom
 	 *            XML dom document.
@@ -433,7 +433,7 @@ public class DownloadList extends ListActivity {
 			outFormat.setProperty(OutputKeys.ENCODING, "UTF-8");
 			transformer.setOutputProperties(outFormat);
 			DOMSource domSource = new DOMSource(dom.getDocumentElement());
-			File file = new File(context.getFilesDir() + "map.xml");
+			File file = new File(context.getFilesDir() + "publish.xml");
 			StreamResult result = new StreamResult(file);
 			transformer.transform(domSource, result);
 		} catch (TransformerConfigurationException e) {

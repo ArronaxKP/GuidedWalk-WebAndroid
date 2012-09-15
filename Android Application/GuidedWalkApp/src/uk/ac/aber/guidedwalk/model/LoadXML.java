@@ -26,7 +26,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
-import android.util.Log;
+import uk.ac.aber.guidedwalk.log.Log;
 
 /**
  * This Class implements the Singleton pattern.<!-- --> This class contains the
@@ -38,8 +38,7 @@ import android.util.Log;
  */
 public final class LoadXML {
 
-	// private static final LoadXML instance = new LoadXML();
-	private String path; // "http://users.aber.ac.uk/kdp8/";
+	private String path; 
 	private Walk walk = new Walk();
 
 	public LoadXML() {
