@@ -37,6 +37,7 @@ Class LoadAndSaveFunctions
 		$welshwalkdesc;
 		$walkdifficulty;
 		$version;
+		$publishversion;
 		$route;
 		$id;
 		$index=0;
@@ -72,6 +73,9 @@ Class LoadAndSaveFunctions
 				break;
 				case "version";
 				$version = $item->nodeValue;
+				break;
+				case "publishversion";
+				$publishversion = $item->nodeValue;
 				break;
 				case "route";
 				foreach ($item->childNodes AS $waypoints)
@@ -136,7 +140,7 @@ Class LoadAndSaveFunctions
 				break;
 			}
 		}
-		$object = array('id' => $id, 'walk_length' => $walklength , 'walk_title' => $walktitle , 'walk_desc' => $walkdesc, 'welsh_walk_title' => $welshwalktitle , 'welsh_walk_desc' => $welshwalkdesc, 'walk_difficulty' => $walkdifficulty, 'version' => $version, 'route' => $route);
+		$object = array('id' => $id, 'walk_length' => $walklength , 'walk_title' => $walktitle , 'walk_desc' => $walkdesc, 'welsh_walk_title' => $welshwalktitle , 'welsh_walk_desc' => $welshwalkdesc, 'walk_difficulty' => $walkdifficulty, 'version' => $version, 'publishversion' => $publishversion, 'route' => $route);
 		$jsonobj = json_encode($object);
 		return $jsonobj;
 	}
@@ -191,8 +195,11 @@ Class LoadAndSaveFunctions
 		}
 	}
 
-	
-	
+	/**
+	 * This function is called when you delete a walk. It corrects the map file and removes the entry from it.
+	 *
+	 * @param $uniqueid the ID it uses to locate the walk
+	 */
 	public function correctMap($uniqueid){
 		$doc = new DOMDocument();
 		$doc->formatOutput = true;
@@ -230,6 +237,11 @@ Class LoadAndSaveFunctions
 		fclose($fp);
 	}
 
+	/**
+	 * This function is called when you delete a walk that has been published. It corrects the publish map file and removes the entry from it.
+	 *
+	 * @param $uniqueid the ID it uses to locate the walk
+	 */
 	public function correctPublish($uniqueid){
 		$doc = new DOMDocument();
 		$doc->formatOutput = true;
@@ -266,12 +278,12 @@ Class LoadAndSaveFunctions
 		fwrite($fp,$xml_string);
 		fclose($fp);
 	}
-	
+
 	/**
-	* This function delets the xml file that matches the $uniqueid.
-	*
-	* @param $uniqueid the uniqueid of the walk being deleted
-	*/
+	 * This function delets the xml file that matches the $uniqueid.
+	 *
+	 * @param $uniqueid the uniqueid of the walk being deleted
+	 */
 	public function deleteWalk($uniqueid){
 		unlink(getcwd().'/walks/'.$uniqueid.'.xml');
 		$this->correctMap($uniqueid);
@@ -280,7 +292,19 @@ Class LoadAndSaveFunctions
 			$this->correctPublish($uniqueid);
 		}
 	}
-	
+
+	/**
+	 * This function removes all special chars from a string specifically:
+	 * " < > & '.
+	 *
+	 * @param $string the string to be sanatised
+	 */
+	public function sanatiseString($string){
+		$search  = array('"', "'", '<', '>');
+		$replace = array('&quot;', '&apos;', '&lt;', '&gt;');
+		return str_replace($search, $replace, $string);
+	}
+
 	/**
 	 * This updats the XML Map file, updating the
 	 * entry for the walk and replaces the old title
@@ -310,25 +334,25 @@ Class LoadAndSaveFunctions
 							{
 								switch($item->nodeName){
 									case "title";
-									$item->replaceChild($doc->createTextNode($walktitle),$item->firstChild);
+									$item->replaceChild($doc->createTextNode($this->sanatiseString($walktitle)),$item->firstChild);
 									break;
 									case "desc";
-									$item->replaceChild($doc->createTextNode($walkdesc),$item->firstChild);
+									$item->replaceChild($doc->createTextNode($this->sanatiseString($walkdesc)),$item->firstChild);
 									break;
 									case "welshtitle";
-									$item->replaceChild($doc->createTextNode($welshwalktitle),$item->firstChild);
+									$item->replaceChild($doc->createTextNode($this->sanatiseString($welshwalktitle)),$item->firstChild);
 									break;
 									case "welshdesc";
-									$item->replaceChild($doc->createTextNode($welshwalkdesc),$item->firstChild);
+									$item->replaceChild($doc->createTextNode($this->sanatiseString($welshwalkdesc)),$item->firstChild);
 									break;
 									case "difficulty";
-									$item->replaceChild($doc->createTextNode($walkdifficulty),$item->firstChild);
+									$item->replaceChild($doc->createTextNode($this->sanatiseString($walkdifficulty)),$item->firstChild);
 									break;
 									case "version";
-									$item->replaceChild($doc->createTextNode($version),$item->firstChild);
+									$item->replaceChild($doc->createTextNode($this->sanatiseString($version)),$item->firstChild);
 									break;
 									case "publishversion";
-									$item->replaceChild($doc->createTextNode($publishversion),$item->firstChild);
+									$item->replaceChild($doc->createTextNode($this->sanatiseString($publishversion)),$item->firstChild);
 									break;
 								}
 							}
@@ -364,7 +388,7 @@ Class LoadAndSaveFunctions
 		{
 			$count = intval($noms->nodeValue);
 			$count++;
-			$noms->replaceChild($doc->createTextNode($count),$noms->firstChild);
+			$noms->replaceChild($doc->createTextNode($this->sanatiseString($count)),$noms->firstChild);
 		}
 		$walklist = $x->getElementsByTagName('walklist');
 		$walk = $doc->createElement('walk');
@@ -375,29 +399,29 @@ Class LoadAndSaveFunctions
 			$walk->setIdAttribute('id',true);
 			$id = $doc->createElement('id');
 			$walk->appendChild($id);
-			$id->appendChild($doc->createTextNode($uniqueid));
+			$id->appendChild($doc->createTextNode($this->sanatiseString($uniqueid)));
 			$title = $doc->createElement('title');
 			$walk->appendChild($title);
-			$title->appendChild($doc->createTextNode($walktitle));
+			$title->appendChild($doc->createTextNode($this->sanatiseString($walktitle)));
 			$desc = $doc->createElement('desc');
 			$walk->appendChild($desc);
-			$desc->appendChild($doc->createTextNode($walkdesc));
+			$desc->appendChild($doc->createTextNode($this->sanatiseString($walkdesc)));
 			$welshtitle = $doc->createElement('welshtitle');
 			$walk->appendChild($welshtitle);
-			$welshtitle->appendChild($doc->createTextNode($welshwalktitle));
+			$welshtitle->appendChild($doc->createTextNode($this->sanatiseString($welshwalktitle)));
 			$welshdesc = $doc->createElement('welshdesc');
 			$walk->appendChild($welshdesc);
-			$welshdesc->appendChild($doc->createTextNode($welshwalkdesc));
+			$welshdesc->appendChild($doc->createTextNode($this->sanatiseString($welshwalkdesc)));
 			$difficulty = $doc->createElement('difficulty');
 			$walk->appendChild($difficulty);
-			$difficulty->appendChild($doc->createTextNode($walkdifficulty));
+			$difficulty->appendChild($doc->createTextNode($this->sanatiseString($walkdifficulty)));
 			$ver = $doc->createElement('version');
 			$walk->appendChild($ver);
-			$ver->appendChild($doc->createTextNode($version));
+			$ver->appendChild($doc->createTextNode($this->sanatiseString($version)));
 			$pubver = $doc->createElement('publishversion');
 			$walk->appendChild($pubver);
-			$pubver->appendChild($doc->createTextNode($publishversion));
-			
+			$pubver->appendChild($doc->createTextNode($this->sanatiseString($publishversion)));
+				
 			//fixes formatting in XML file
 			$xml_string = $doc->saveXML();
 			$doc = new DOMDocument();
@@ -509,39 +533,39 @@ Class LoadAndSaveFunctions
 
 		$unique_id = $doc->createElement('id');
 		$walk->appendChild($unique_id);
-		$unique_id->appendChild($doc->createTextNode($uniqueid));
+		$unique_id->appendChild($doc->createTextNode($this->sanatiseString($uniqueid)));
 
 		$walk_length = $doc->createElement('walk_length');
 		$walk->appendChild($walk_length);
-		$walk_length->appendChild($doc->createTextNode($walklength));
+		$walk_length->appendChild($doc->createTextNode($this->sanatiseString($walklength)));
 
 		$walk_title = $doc->createElement('walk_title');
 		$walk->appendChild($walk_title);
-		$walk_title->appendChild($doc->createTextNode($walktitle));
+		$walk_title->appendChild($doc->createTextNode($this->sanatiseString($walktitle)));
 
 		$walk_desc = $doc->createElement('walk_desc');
 		$walk->appendChild($walk_desc);
-		$walk_desc->appendChild($doc->createTextNode($walkdesc));
-		
+		$walk_desc->appendChild($doc->createTextNode($this->sanatiseString($walkdesc)));
+
 		$welsh_walk_title = $doc->createElement('welsh_walk_title');
 		$walk->appendChild($welsh_walk_title);
-		$welsh_walk_title->appendChild($doc->createTextNode($welshwalktitle));
-		
+		$welsh_walk_title->appendChild($doc->createTextNode($this->sanatiseString($welshwalktitle)));
+
 		$welsh_walk_desc = $doc->createElement('welsh_walk_desc');
 		$walk->appendChild($welsh_walk_desc);
-		$welsh_walk_desc->appendChild($doc->createTextNode($welshwalkdesc));
+		$welsh_walk_desc->appendChild($doc->createTextNode($this->sanatiseString($welshwalkdesc)));
 
 		$walk_difficulty = $doc->createElement('walk_difficulty');
 		$walk->appendChild($walk_difficulty);
-		$walk_difficulty->appendChild($doc->createTextNode($walkdifficulty));
+		$walk_difficulty->appendChild($doc->createTextNode($this->sanatiseString($walkdifficulty)));
 
 		$ver = $doc->createElement('version');
 		$walk->appendChild($ver);
-		$ver->appendChild($doc->createTextNode($version));
-		
+		$ver->appendChild($doc->createTextNode($this->sanatiseString($version)));
+
 		$pubver = $doc->createElement('publishversion');
 		$walk->appendChild($pubver);
-		$pubver->appendChild($doc->createTextNode($publishversion));
+		$pubver->appendChild($doc->createTextNode($this->sanatiseString($publishversion)));
 
 		//Start Route loop
 		$route_xml = $doc->createElement('route');
@@ -564,35 +588,35 @@ Class LoadAndSaveFunctions
 			//add waypoint details
 			$waypoint_index = $doc->createElement('waypoint_index');
 			$waypoint->appendChild($waypoint_index);
-			$waypoint_index->appendChild($doc->createTextNode($index));
+			$waypoint_index->appendChild($doc->createTextNode($this->sanatiseString($index)));
 
 			$waypoint_title = $doc->createElement('waypoint_title');
 			$waypoint->appendChild($waypoint_title);
-			$waypoint_title->appendChild($doc->createTextNode($waypointtitle));
+			$waypoint_title->appendChild($doc->createTextNode($this->sanatiseString($waypointtitle)));
 
 			$waypoint_desc = $doc->createElement('waypoint_desc');
 			$waypoint->appendChild($waypoint_desc);
-			$waypoint_desc->appendChild($doc->createTextNode($waypointdesc));
-			
+			$waypoint_desc->appendChild($doc->createTextNode($this->sanatiseString($waypointdesc)));
+				
 			$welsh_waypoint_title = $doc->createElement('welsh_waypoint_title');
 			$waypoint->appendChild($welsh_waypoint_title);
-			$welsh_waypoint_title->appendChild($doc->createTextNode($welshwaypointtitle));
-			
+			$welsh_waypoint_title->appendChild($doc->createTextNode($this->sanatiseString($welshwaypointtitle)));
+				
 			$welsh_waypoint_desc = $doc->createElement('welsh_waypoint_desc');
 			$waypoint->appendChild($welsh_waypoint_desc);
-			$welsh_waypoint_desc->appendChild($doc->createTextNode($welshwaypointdesc));
+			$welsh_waypoint_desc->appendChild($doc->createTextNode($this->sanatiseString($welshwaypointdesc)));
 
 			$lat_xml = $doc->createElement('lat');
 			$waypoint->appendChild($lat_xml);
-			$lat_xml->appendChild($doc->createTextNode($lat));
+			$lat_xml->appendChild($doc->createTextNode($this->sanatiseString($lat)));
 
 			$lng_xml = $doc->createElement('lng');
 			$waypoint->appendChild($lng_xml);
-			$lng_xml->appendChild($doc->createTextNode($lng));
+			$lng_xml->appendChild($doc->createTextNode($this->sanatiseString($lng)));
 
 			$number_of_images = $doc->createElement('number_of_images');
 			$waypoint->appendChild($number_of_images);
-			$number_of_images->appendChild($doc->createTextNode($numberOfImages));
+			$number_of_images->appendChild($doc->createTextNode($this->sanatiseString($numberOfImages)));
 
 			if(0 != $numberOfImages){
 				$images_xml = $doc->createElement('images');
@@ -626,7 +650,7 @@ Class LoadAndSaveFunctions
 		fwrite($fp,$xml_string);
 		fclose($fp);
 	}
-	
+
 	/**
 	 * This function saves a walk. If the $uniqueid already exists
 	 * on the server it rewrites the file. Otherwise it creates a new file.
@@ -648,7 +672,7 @@ Class LoadAndSaveFunctions
 			$this->publishAddWalk($uniqueid, $walktitle, $walkdesc, $welshwalktitle, $welshwalkdesc, $walkdifficulty, $version, $publishversion);
 		}
 	}
-	
+
 	/**
 	 * This function checks if a file already exists
 	 * that matches the $uniqueid parameter. If file exists return
@@ -666,7 +690,7 @@ Class LoadAndSaveFunctions
 			return false;
 		}
 	}
-	
+
 	/**
 	 * This updats the XML Map file, updating the
 	 * entry for the walk and replaces the old title
@@ -696,25 +720,25 @@ Class LoadAndSaveFunctions
 							{
 								switch($item->nodeName){
 									case "title";
-									$item->replaceChild($doc->createTextNode($walktitle),$item->firstChild);
+									$item->replaceChild($doc->createTextNode($this->sanatiseString($walktitle)),$item->firstChild);
 									break;
 									case "desc";
-									$item->replaceChild($doc->createTextNode($walkdesc),$item->firstChild);
+									$item->replaceChild($doc->createTextNode($this->sanatiseString($walkdesc)),$item->firstChild);
 									break;
 									case "welshtitle";
-									$item->replaceChild($doc->createTextNode($welshwalktitle),$item->firstChild);
+									$item->replaceChild($doc->createTextNode($this->sanatiseString($welshwalktitle)),$item->firstChild);
 									break;
 									case "welshdesc";
-									$item->replaceChild($doc->createTextNode($welshwalkdesc),$item->firstChild);
+									$item->replaceChild($doc->createTextNode($this->sanatiseString($welshwalkdesc)),$item->firstChild);
 									break;
 									case "difficulty";
-									$item->replaceChild($doc->createTextNode($walkdifficulty),$item->firstChild);
+									$item->replaceChild($doc->createTextNode($this->sanatiseString($walkdifficulty)),$item->firstChild);
 									break;
 									case "version";
-									$item->replaceChild($doc->createTextNode($version),$item->firstChild);
+									$item->replaceChild($doc->createTextNode($this->sanatiseString($version)),$item->firstChild);
 									break;
 									case "publishversion";
-									$item->replaceChild($doc->createTextNode($publishversion),$item->firstChild);
+									$item->replaceChild($doc->createTextNode($this->sanatiseString($publishversion)),$item->firstChild);
 									break;
 								}
 							}
@@ -723,7 +747,7 @@ Class LoadAndSaveFunctions
 				}
 			}
 		}
-	
+
 		$xml_string = $doc->saveXML();
 		$fp = @fopen(getcwd().'/publish.xml','w');
 		if(!$fp) {
@@ -732,7 +756,7 @@ Class LoadAndSaveFunctions
 		fwrite($fp,$xml_string);
 		fclose($fp);
 	}
-	
+
 	/**
 	 * This function adds the new walk to the XML map file.
 	 *
@@ -750,7 +774,7 @@ Class LoadAndSaveFunctions
 		{
 			$count = intval($noms->nodeValue);
 			$count++;
-			$noms->replaceChild($doc->createTextNode($count),$noms->firstChild);
+			$noms->replaceChild($doc->createTextNode($this->sanatiseString($count)),$noms->firstChild);
 		}
 		$walklist = $x->getElementsByTagName('walklist');
 		$walk = $doc->createElement('walk');
@@ -761,29 +785,29 @@ Class LoadAndSaveFunctions
 			$walk->setIdAttribute('id',true);
 			$id = $doc->createElement('id');
 			$walk->appendChild($id);
-			$id->appendChild($doc->createTextNode($uniqueid));
+			$id->appendChild($doc->createTextNode($this->sanatiseString($uniqueid)));
 			$title = $doc->createElement('title');
 			$walk->appendChild($title);
-			$title->appendChild($doc->createTextNode($walktitle));
+			$title->appendChild($doc->createTextNode($this->sanatiseString($walktitle)));
 			$desc = $doc->createElement('desc');
 			$walk->appendChild($desc);
-			$desc->appendChild($doc->createTextNode($walkdesc));
+			$desc->appendChild($doc->createTextNode($this->sanatiseString($walkdesc)));
 			$welshtitle = $doc->createElement('welshtitle');
 			$walk->appendChild($welshtitle);
-			$welshtitle->appendChild($doc->createTextNode($welshwalktitle));
+			$welshtitle->appendChild($doc->createTextNode($this->sanatiseString($welshwalktitle)));
 			$welshdesc = $doc->createElement('welshdesc');
 			$walk->appendChild($welshdesc);
-			$welshdesc->appendChild($doc->createTextNode($welshwalkdesc));
+			$welshdesc->appendChild($doc->createTextNode($this->sanatiseString($welshwalkdesc)));
 			$difficulty = $doc->createElement('difficulty');
 			$walk->appendChild($difficulty);
-			$difficulty->appendChild($doc->createTextNode($walkdifficulty));
+			$difficulty->appendChild($doc->createTextNode($this->sanatiseString($walkdifficulty)));
 			$ver = $doc->createElement('version');
 			$walk->appendChild($ver);
-			$ver->appendChild($doc->createTextNode($version));
+			$ver->appendChild($doc->createTextNode($this->sanatiseString($version)));
 			$pubver = $doc->createElement('publishversion');
 			$walk->appendChild($pubver);
-			$pubver->appendChild($doc->createTextNode($publishversion));
-	
+			$pubver->appendChild($doc->createTextNode($this->sanatiseString($publishversion)));
+
 			//fixes formatting in XML file
 			$xml_string = $doc->saveXML();
 			$doc = new DOMDocument();
@@ -791,8 +815,8 @@ Class LoadAndSaveFunctions
 			$doc->formatOutput = true;
 			$doc->loadXML($xml_string);
 			$xml_string = $doc->saveXML();
-	
-	
+
+
 			$fp = @fopen(getcwd()."/publish.xml",'w');
 			if(!$fp) {
 				die('Error cannot edit publish XML file');
@@ -801,7 +825,7 @@ Class LoadAndSaveFunctions
 			fclose($fp);
 		}
 	}
-	
+
 	/**
 	 * This function creates a new XML document and
 	 * converts the parameters into an XML walk file.
@@ -815,53 +839,53 @@ Class LoadAndSaveFunctions
 	public function publishSaveWalk($uniqueid, $walklength, $walktitle, $walkdesc, $welshwalktitle, $welshwalkdesc, $walkdifficulty, $version, $publishversion, $route){
 		$doc = new DOMDocument();
 		$doc->formatOutput = true;
-	
+
 		$walk = $doc->createElement('walk');
 		$doc->appendChild($walk);
-	
+
 		$walk->setAttribute('id', $uniqueid);
 		$walk->setIdAttribute('id',true);
-	
+
 		$unique_id = $doc->createElement('id');
 		$walk->appendChild($unique_id);
-		$unique_id->appendChild($doc->createTextNode($uniqueid));
-	
+		$unique_id->appendChild($doc->createTextNode($this->sanatiseString($uniqueid)));
+
 		$walk_length = $doc->createElement('walk_length');
 		$walk->appendChild($walk_length);
-		$walk_length->appendChild($doc->createTextNode($walklength));
-	
+		$walk_length->appendChild($doc->createTextNode($this->sanatiseString($walklength)));
+
 		$walk_title = $doc->createElement('walk_title');
 		$walk->appendChild($walk_title);
-		$walk_title->appendChild($doc->createTextNode($walktitle));
-	
+		$walk_title->appendChild($doc->createTextNode($this->sanatiseString($walktitle)));
+
 		$walk_desc = $doc->createElement('walk_desc');
 		$walk->appendChild($walk_desc);
-		$walk_desc->appendChild($doc->createTextNode($walkdesc));
-	
+		$walk_desc->appendChild($doc->createTextNode($this->sanatiseString($walkdesc)));
+
 		$welsh_walk_title = $doc->createElement('welsh_walk_title');
 		$walk->appendChild($welsh_walk_title);
-		$welsh_walk_title->appendChild($doc->createTextNode($welshwalktitle));
-	
+		$welsh_walk_title->appendChild($doc->createTextNode($this->sanatiseString($welshwalktitle)));
+
 		$welsh_walk_desc = $doc->createElement('welsh_walk_desc');
 		$walk->appendChild($welsh_walk_desc);
-		$welsh_walk_desc->appendChild($doc->createTextNode($welshwalkdesc));
-	
+		$welsh_walk_desc->appendChild($doc->createTextNode($this->sanatiseString($welshwalkdesc)));
+
 		$walk_difficulty = $doc->createElement('walk_difficulty');
 		$walk->appendChild($walk_difficulty);
-		$walk_difficulty->appendChild($doc->createTextNode($walkdifficulty));
-	
+		$walk_difficulty->appendChild($doc->createTextNode($this->sanatiseString($walkdifficulty)));
+
 		$ver = $doc->createElement('version');
 		$walk->appendChild($ver);
-		$ver->appendChild($doc->createTextNode($version));
-	
+		$ver->appendChild($doc->createTextNode($this->sanatiseString($version)));
+
 		$pubver = $doc->createElement('publishversion');
 		$walk->appendChild($pubver);
-		$pubver->appendChild($doc->createTextNode($publishversion));
-	
+		$pubver->appendChild($doc->createTextNode($this->sanatiseString($publishversion)));
+
 		//Start Route loop
 		$route_xml = $doc->createElement('route');
 		$walk->appendChild($route_xml);
-	
+
 		$index = 0;
 		foreach ($route as $waypoint) {
 			$waypointtitle = $waypoint['title'];
@@ -875,40 +899,40 @@ Class LoadAndSaveFunctions
 			//create waypoint
 			$waypoint = $doc->createElement('waypoint');
 			$route_xml->appendChild($waypoint);
-	
+
 			//add waypoint details
 			$waypoint_index = $doc->createElement('waypoint_index');
 			$waypoint->appendChild($waypoint_index);
-			$waypoint_index->appendChild($doc->createTextNode($index));
-	
+			$waypoint_index->appendChild($doc->createTextNode($this->sanatiseString($index)));
+
 			$waypoint_title = $doc->createElement('waypoint_title');
 			$waypoint->appendChild($waypoint_title);
-			$waypoint_title->appendChild($doc->createTextNode($waypointtitle));
-	
+			$waypoint_title->appendChild($doc->createTextNode($this->sanatiseString($waypointtitle)));
+
 			$waypoint_desc = $doc->createElement('waypoint_desc');
 			$waypoint->appendChild($waypoint_desc);
-			$waypoint_desc->appendChild($doc->createTextNode($waypointdesc));
-	
+			$waypoint_desc->appendChild($doc->createTextNode($this->sanatiseString($waypointdesc)));
+
 			$welsh_waypoint_title = $doc->createElement('welsh_waypoint_title');
 			$waypoint->appendChild($welsh_waypoint_title);
-			$welsh_waypoint_title->appendChild($doc->createTextNode($welshwaypointtitle));
-	
+			$welsh_waypoint_title->appendChild($doc->createTextNode($this->sanatiseString($welshwaypointtitle)));
+
 			$welsh_waypoint_desc = $doc->createElement('welsh_waypoint_desc');
 			$waypoint->appendChild($welsh_waypoint_desc);
-			$welsh_waypoint_desc->appendChild($doc->createTextNode($welshwaypointdesc));
-	
+			$welsh_waypoint_desc->appendChild($doc->createTextNode($this->sanatiseString($welshwaypointdesc)));
+
 			$lat_xml = $doc->createElement('lat');
 			$waypoint->appendChild($lat_xml);
-			$lat_xml->appendChild($doc->createTextNode($lat));
-	
+			$lat_xml->appendChild($doc->createTextNode($this->sanatiseString($lat)));
+
 			$lng_xml = $doc->createElement('lng');
 			$waypoint->appendChild($lng_xml);
-			$lng_xml->appendChild($doc->createTextNode($lng));
-	
+			$lng_xml->appendChild($doc->createTextNode($this->sanatiseString($lng)));
+
 			$number_of_images = $doc->createElement('number_of_images');
 			$waypoint->appendChild($number_of_images);
-			$number_of_images->appendChild($doc->createTextNode($numberOfImages));
-	
+			$number_of_images->appendChild($doc->createTextNode($this->sanatiseString($numberOfImages)));
+
 			if(0 != $numberOfImages){
 				$images_xml = $doc->createElement('images');
 				$waypoint->appendChild($images_xml);
@@ -933,7 +957,7 @@ Class LoadAndSaveFunctions
 		$doc->formatOutput = true;
 		$doc->loadXML($xml_string);
 		$xml_string = $doc->saveXML();
-	
+
 		$fp = @fopen(getcwd().'/publish/'.$uniqueid.'.xml','w');
 		if(!$fp) {
 			die('Error cannot create XML publish/walk.xml file');

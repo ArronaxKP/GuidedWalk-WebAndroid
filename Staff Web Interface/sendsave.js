@@ -18,7 +18,6 @@ function saveWalktoServerNew(form) {
 	this.saveWalktoServer(form);
 }
 
-
 function publishWalktoServer(form) {
 	saveFormDetails(form);
 	if (0 == length) {
@@ -64,7 +63,6 @@ function serializePublishSend(walkDetailsObject) {
 	xmlhttp.send(str);
 }
 
-
 /**
  * This function is called when the user clicks Save. or from the
  * saveWalktoServerNew(form). This function firstly saves the walk details
@@ -100,17 +98,18 @@ function sendSerializeObject(publish) {
 	for ( var index = 0; index < length; index++) {
 		var point = waypoints[index];
 		var latlng = point.marker.getPosition();
-		var tm = new tokenWaypoint(index, point.title, point.desc,
-				point.welshtitle, point.welshdesc, latlng.lat(), latlng.lng(),
-				point.images, point.numberofimages);
+		var tm = new tokenWaypoint(""+index, ""+point.title, ""+point.desc,
+				""+point.welshtitle, ""+point.welshdesc, ""+latlng.lat(), ""+latlng.lng(),
+				point.images, ""+point.numberofimages);
 		listObj[index] = tm;
 	}
 	version++;
-	if(publish){
+	if (publish) {
 		publishversion = version;
 	}
-	var walkDetailsObject = new walkDetails(uniqueid, length, walktitle, walkdesc,
-			welshwalktitle, welshwalkdesc, walkdifficulty, version, publishversion, listObj);
+	var walkDetailsObject = new walkDetails(""+uniqueid, ""+length, ""+walktitle,
+			""+walkdesc, ""+welshwalktitle, ""+welshwalkdesc, ""+walkdifficulty, ""+version,
+			""+publishversion, listObj);
 	return walkDetailsObject;
 }
 
@@ -137,15 +136,25 @@ function sendSerializeObject(publish) {
  */
 function tokenWaypoint(index, title, description, welshtitle, welshdesc,
 		latitude, longitude, images, numberofimages) {
-	this.index = index;
-	this.title = title;
-	this.desc = description;
-	this.welshtitle = welshtitle;
-	this.welshdesc = welshdesc;
-	this.lat = latitude;
-	this.lng = longitude;
+	this.index = sanatiseString(index);
+	this.title = sanatiseString(title);
+	this.desc = sanatiseString(description);
+	this.welshtitle = sanatiseString(welshtitle);
+	this.welshdesc = sanatiseString(welshdesc);
+	this.lat = sanatiseString(latitude);
+	this.lng = sanatiseString(longitude);
 	this.images = images;
-	this.numberofimages = numberofimages;
+	this.numberofimages = sanatiseString(numberofimages);
+}
+
+/**
+ * Function sanatises the string removing special characters
+ * 
+ * @param string
+ *            the string to be sanatized
+ */
+function sanatiseString(string) {
+	return string.replace(/&/g, ' and ').replace(/  /g, ' ');
 }
 
 /**
@@ -167,15 +176,15 @@ function tokenWaypoint(index, title, description, welshtitle, welshdesc,
  */
 function walkDetails(uniqueid, walklength, walktitle, walkdesc, welshwalktitle,
 		welshwalkdesc, walkdifficulty, version, publishversion, route) {
-	this.id = uniqueid;
-	this.walklength = walklength;
-	this.walktitle = walktitle;
-	this.walkdesc = walkdesc;
-	this.welshwalktitle = welshwalktitle;
-	this.welshwalkdesc = welshwalkdesc;
-	this.walkdifficulty = walkdifficulty;
-	this.version = version;
-	this.publishversion  = publishversion;
+	this.id = sanatiseString(uniqueid);
+	this.walklength = sanatiseString(walklength);
+	this.walktitle = sanatiseString(walktitle);
+	this.walkdesc = sanatiseString(walkdesc);
+	this.welshwalktitle = sanatiseString(welshwalktitle);
+	this.welshwalkdesc = sanatiseString(welshwalkdesc);
+	this.walkdifficulty = sanatiseString(walkdifficulty);
+	this.version = sanatiseString(version);
+	this.publishversion = sanatiseString(publishversion);
 	this.route = route;
 }
 

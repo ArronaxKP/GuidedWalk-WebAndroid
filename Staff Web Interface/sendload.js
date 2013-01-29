@@ -58,14 +58,16 @@ function loadWalkList(object) {
 		}
 		string += '</select><div id="walk_desc_box" style="text-align:left;">'
 				+ '<table border="0" align="center"><tr>'
-				+ '<td><p"><b>Title: </b></p><p">'
+				+ '<td><p><b>Title: </b></p><p>'
 				+ listofwalks[0].title.substring(0,200)
-				+ '</p><p"><b>Description: </b></p><p">'
+				+ '</p></td>'
+				+ '<td><p><b>Welsh Title: </b></p><p>'
+				+ listofwalks[0].welshtitle.substring(0,200)
+				+ '</p></td></tr>'
+				+'<tr><td><p><b>Description: </b></p><p>'
 				+ listofwalks[0].desc.substring(0,500)
 				+ '</p></td>'
-				+ '<td><p"><b>Welsh Title: </b></p><p">'
-				+ listofwalks[0].welshtitle.substring(0,200)
-				+ '</p><p"><b>Welsh Description: </b></p><p">'
+				+ '<td><p><b>Welsh Description: </b></p><p>'
 				+ listofwalks[0].welshdesc.substring(0,500) + '</p></td>' 
 				+ '</tr><tr><td> Version: '+listofwalks[0].version+' |</td>'
 				+ '<td>| Published Version: '+listofwalks[0].publishversion+' </td></tr></table>'
@@ -109,14 +111,16 @@ function updateDisplay() {
 		difficulty = 'Hard';
 	}
 	document.getElementById("walk_desc_box").innerHTML = '<table border="0" align="center"><tr>'
-			+ '<td><p "><b>Title: </b></p><p">'
+			+ '<td><p><b>Title: </b></p><p>'
 			+ listofwalks[index].title.substring(0,200)
-			+ '</p><p"><b>Description: </b></p><p">'
+			+ '</p></td>'
+			+ '<td><p><b>Welsh Title: </b></p><p>'
+			+ listofwalks[index].welshtitle.substring(0,200)
+			+ '</p></td></tr>'
+			+ '<tr><td><p><b>Description: </b></p><p>'
 			+ listofwalks[index].desc.substring(0,500)
 			+ '</p></td>'
-			+ '<td><p"><b>Welsh Title: </b></p><p">'
-			+ listofwalks[index].welshtitle.substring(0,200)
-			+ '</p><p"><b>Welsh Description: </b></p><p">'
+			+ '<td><p><b>Welsh Description: </b></p><p>'
 			+ listofwalks[index].welshdesc.substring(0,500)
 			+ '</p></td>'
 			+ '</tr><tr><td> Version: '+listofwalks[index].version+' |</td>'
@@ -306,6 +310,7 @@ function deleteSend() {
 			version=0;
 			publishversion=0;
 			overridebox();
+			aler(xmlhttp.responseText);
 			alertbox('Deleted walk with id: ' + xmlhttp.responseText);
 		}
 	};

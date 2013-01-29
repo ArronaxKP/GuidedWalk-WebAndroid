@@ -1,16 +1,17 @@
 <?xml version="1.0"?>
 <walks>
-  <numberofwalks>1</numberofwalks>
+  <numberofwalks>0</numberofwalks>
   <walklist>
-    <walk id="4832">
-      <id>4832</id>
-      <title>sd</title>
-      <desc>das</desc>
-      <welshtitle>asdas</welshtitle>
-      <welshdesc>dsada</welshdesc>
-      <difficulty>1</difficulty>
-      <version>1</version>
-      <publishversion>0</publishversion>
-    </walk>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
   </walklist>
 </walks>
