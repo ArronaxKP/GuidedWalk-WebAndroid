@@ -38,7 +38,7 @@ import uk.ac.aber.guidedwalk.log.Log;
  */
 public final class LoadXML {
 
-	private String path; 
+	private String path;
 	private Walk walk = new Walk();
 
 	public LoadXML() {
@@ -82,7 +82,7 @@ public final class LoadXML {
 			String directory) {
 		return downloadXML(context, filename, directory, false);
 	}
-	
+
 	public boolean downloadXML(Context context, String filename,
 			String directory, boolean temp) {
 		if (context == null) {
@@ -103,7 +103,7 @@ public final class LoadXML {
 			BufferedInputStream bin = new BufferedInputStream(
 					ucon.getInputStream());
 			File file;
-			if(temp){
+			if (temp) {
 				file = new File(context.getFilesDir() + "temp.xml");
 			} else {
 				file = new File(context.getFilesDir() + filename);
@@ -156,19 +156,20 @@ public final class LoadXML {
 		try {
 			int noms = 0;
 			File file = new File(context.getFilesDir() + filename);
-			if(file.exists()){
+			if (file.exists()) {
 				InputStream in = new FileInputStream(file);
-				DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+				DocumentBuilderFactory dbf = DocumentBuilderFactory
+						.newInstance();
 				DocumentBuilder db = dbf.newDocumentBuilder();
 				Document document = db.parse(in, null);
 				Element root = document.getDocumentElement();
 				NodeList rootnodelist = root.getChildNodes();
-	
+
 				for (int i = 0; i < rootnodelist.getLength(); i++) {
 					Node item = rootnodelist.item(i);
 					if (item.getNodeName().equalsIgnoreCase("numberofwalks")) {
-						noms = Integer
-								.parseInt(item.getFirstChild().getNodeValue());
+						noms = Integer.parseInt(item.getFirstChild()
+								.getNodeValue());
 					} else if (item.getNodeName().equalsIgnoreCase("walklist")) {
 						NodeList walks = item.getChildNodes();
 						for (int j = 0; j < walks.getLength(); j++) {
@@ -178,35 +179,61 @@ public final class LoadXML {
 								Walk each_walk = new Walk();
 								for (int k = 0; k < walk.getLength(); k++) {
 									Node walk_item = walk.item(k);
-									if (walk_item.getNodeName().equalsIgnoreCase(
-											"id")) {
-										each_walk.setId(walk_item.getFirstChild()
-												.getNodeValue());
+									if (walk_item.getNodeName()
+											.equalsIgnoreCase("id")) {
+										each_walk
+												.setId(walk_item
+														.getFirstChild()
+														.getNodeValue());
 									} else if (walk_item.getNodeName()
 											.equalsIgnoreCase("title")) {
-										each_walk.setWalkTitle(walk_item
-												.getFirstChild().getNodeValue());
+										try {
+											each_walk.setWalkTitle(walk_item
+													.getFirstChild()
+													.getNodeValue());
+										} catch (NullPointerException e) {
+											each_walk.setWalkTitle("");
+										}
 									} else if (walk_item.getNodeName()
 											.equalsIgnoreCase("desc")) {
-										each_walk.setWalkDesc(walk_item
-												.getFirstChild().getNodeValue());
+										try {
+											each_walk.setWalkDesc(walk_item
+													.getFirstChild()
+													.getNodeValue());
+										} catch (NullPointerException e) {
+											each_walk.setWalkDesc("");
+										}
 									} else if (walk_item.getNodeName()
 											.equalsIgnoreCase("welshtitle")) {
-										each_walk.setWelshWalkTitle(walk_item
-												.getFirstChild().getNodeValue());
+										try {
+											each_walk
+													.setWelshWalkTitle(walk_item
+															.getFirstChild()
+															.getNodeValue());
+										} catch (NullPointerException e) {
+											each_walk.setWelshWalkTitle("");
+										}
 									} else if (walk_item.getNodeName()
 											.equalsIgnoreCase("welshdesc")) {
-										each_walk.setWelshWalkDesc(walk_item
-												.getFirstChild().getNodeValue());
-									}else if (walk_item.getNodeName()
+										try {
+											each_walk
+													.setWelshWalkDesc(walk_item
+															.getFirstChild()
+															.getNodeValue());
+										} catch (NullPointerException e) {
+											each_walk.setWelshWalkDesc("");
+										}
+									} else if (walk_item.getNodeName()
 											.equalsIgnoreCase("difficulty")) {
 										each_walk.setWalkDifficulty(Integer
-												.parseInt(walk_item.getFirstChild()
+												.parseInt(walk_item
+														.getFirstChild()
 														.getNodeValue()));
 									} else if (walk_item.getNodeName()
 											.equalsIgnoreCase("version")) {
 										each_walk.setVersion(Integer
-												.parseInt(walk_item.getFirstChild()
+												.parseInt(walk_item
+														.getFirstChild()
 														.getNodeValue()));
 									}
 								}
@@ -221,7 +248,7 @@ public final class LoadXML {
 				} else {
 					return null;
 				}
-			}else {
+			} else {
 				return null;
 			}
 		} catch (NullPointerException e) {
@@ -284,19 +311,37 @@ public final class LoadXML {
 				if (name.equalsIgnoreCase("id")) {
 					walk.setId(item.getFirstChild().getNodeValue());
 				} else if (name.equalsIgnoreCase("walk_title")) {
-					walk.setWalkTitle(item.getFirstChild().getNodeValue());
+					try {
+						walk.setWalkTitle(item.getFirstChild().getNodeValue());
+					} catch (NullPointerException e) {
+						walk.setWalkTitle("");
+					}
 				} else if (name.equalsIgnoreCase("walk_desc")) {
-					walk.setWalkDesc(item.getFirstChild().getNodeValue());
+					try {
+						walk.setWalkDesc(item.getFirstChild().getNodeValue());
+					} catch (NullPointerException e) {
+						walk.setWalkDesc("");
+					}
 				} else if (name.equalsIgnoreCase("welsh_walk_title")) {
-					walk.setWelshWalkTitle(item.getFirstChild().getNodeValue());
+					try {
+						walk.setWelshWalkTitle(item.getFirstChild()
+								.getNodeValue());
+					} catch (NullPointerException e) {
+						walk.setWelshWalkTitle("");
+					}
 				} else if (name.equalsIgnoreCase("welsh_walk_desc")) {
-					walk.setWelshWalkDesc(item.getFirstChild().getNodeValue());
+					try {
+						walk.setWelshWalkDesc(item.getFirstChild()
+								.getNodeValue());
+					} catch (NullPointerException e) {
+						walk.setWelshWalkDesc("");
+					}
 				} else if (name.equalsIgnoreCase("walk_difficulty")) {
 					walk.setWalkDifficulty(Integer.parseInt(item
 							.getFirstChild().getNodeValue()));
 				} else if (name.equalsIgnoreCase("version")) {
-					walk.setVersion(Integer.parseInt(item
-							.getFirstChild().getNodeValue()));
+					walk.setVersion(Integer.parseInt(item.getFirstChild()
+							.getNodeValue()));
 				} else if (name.equalsIgnoreCase("walk_length")) {
 					walk.setWalklength(Integer.parseInt(item.getFirstChild()
 							.getNodeValue()));
@@ -321,26 +366,46 @@ public final class LoadXML {
 								} else if (markerName
 										.equalsIgnoreCase("waypoint_title")) {
 									if (null != nodeMarker.getFirstChild()) {
-										waypoint.setTitle(nodeMarker
-												.getFirstChild().getNodeValue());
+										try {
+											waypoint.setTitle(nodeMarker
+													.getFirstChild()
+													.getNodeValue());
+										} catch (NullPointerException e) {
+											waypoint.setTitle("");
+										}
 									}
 								} else if (markerName
 										.equalsIgnoreCase("waypoint_desc")) {
 									if (null != nodeMarker.getFirstChild()) {
-										waypoint.setDescription(nodeMarker
-												.getFirstChild().getNodeValue());
+										try {
+											waypoint.setDescription(nodeMarker
+													.getFirstChild()
+													.getNodeValue());
+										} catch (NullPointerException e) {
+											waypoint.setDescription("");
+										}
 									}
 								} else if (markerName
 										.equalsIgnoreCase("welsh_waypoint_title")) {
 									if (null != nodeMarker.getFirstChild()) {
-										waypoint.setWelshTitle(nodeMarker
-												.getFirstChild().getNodeValue());
+										try {
+											waypoint.setWelshTitle(nodeMarker
+													.getFirstChild()
+													.getNodeValue());
+										} catch (NullPointerException e) {
+											waypoint.setWelshTitle("");
+										}
 									}
 								} else if (markerName
 										.equalsIgnoreCase("welsh_waypoint_desc")) {
 									if (null != nodeMarker.getFirstChild()) {
-										waypoint.setWelshDescription(nodeMarker
-												.getFirstChild().getNodeValue());
+										try {
+											waypoint.setWelshDescription(nodeMarker
+													.getFirstChild()
+													.getNodeValue());
+										} catch (NullPointerException e) {
+											waypoint.setWelshDescription("");
+										}
 									}
 								} else if (markerName.equalsIgnoreCase("lat")) {
 									waypoint.setLat(Double
