@@ -151,10 +151,14 @@ function tokenWaypoint(index, title, description, welshtitle, welshdesc,
  * Function sanatises the string removing special characters
  * 
  * @param string
- *            the string to be sanatized
+ *            the string to be sanatised
  */
 function sanatiseString(string) {
-	return string.replace(/&/g, ' and ').replace(/  /g, ' ');
+	//return string.replace(/&/g, '&amp;');
+	//			.replace(/</g, '&lt;')
+	//			.replace(/>/g, '&gt;')
+	//			.replace(/"/g, '&quot;');
+	return string;
 }
 
 /**
@@ -197,7 +201,7 @@ function walkDetails(uniqueid, walklength, walktitle, walkdesc, welshwalktitle,
  *            to the server with a AJAX POST.
  */
 function serializeSaveSend(walkDetailsObject) {
-	var serialized = JSON.stringify(walkDetailsObject);
+	var serialized = encodeURIComponent(JSON.stringify(walkDetailsObject));
 	var xmlhttp;
 	if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
 		xmlhttp = new XMLHttpRequest();

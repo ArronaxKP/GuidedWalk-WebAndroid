@@ -12,7 +12,7 @@ ini_set('display_errors', '1');
 */
 
 include 'loadandsavefunctions.php';
-	$myobject = json_decode( $_POST['serialized'], true );
+	$myobject = json_decode( $_POST['serialized'], true );	
 	$uniqueid = $myobject['id'];
 	$walklength = $myobject['walklength'];
 	$walktitle = $myobject['walktitle'];

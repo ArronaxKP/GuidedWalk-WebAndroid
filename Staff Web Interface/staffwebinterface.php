@@ -61,17 +61,7 @@ if (isset($_POST["password"]) && ($_POST["password"]=="$password")) {
 		<button id="sidebarbutton" type="button" onClick="hideShowSideBar();">Side
 			Bar</button>
 	</div>
-	<div id="side_bar">
-		<table border='1px' align='center' style='text-align: center;'>
-			<tr>
-				<td><span>No</span></td>
-				<td><span>ET</span></td>
-				<td><span>ED</span></td>
-				<td><span>WT</span></td>
-				<td><span>WD</span></td>
-				<td><span>I</span></td>
-			</tr>
-		</table>
+	<div id="side_bar" style="display:none;">
 	</div>
 
 	<div id="map_canvas"></div>

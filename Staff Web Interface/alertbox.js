@@ -28,21 +28,21 @@ function walkDetailsBox(text) {
 	string += '<p>Type Walk Details below</p>'
 			+ '<form id="walk_info" name="walk_info">'
 			+ '<table border="0" align="center"><tr>'
-			+ '<td><p>Walk Title: </p><textarea rows="4" cols="33" name="title" id="title">'
+			+ '<td>Walk Title: <textarea rows="4" cols="33" name="title" id="title">'
 			+ walktitle
 			+ '</textarea></td>'
 			
-			+ '<td><p>Welsh Walk Title: </p><textarea rows="4" cols="33" name="welshtitle" id="welshtitle">'
+			+ '<td>Welsh Walk Title: <textarea rows="4" cols="33" name="welshtitle" id="welshtitle">'
 			+ welshwalktitle
 			+ '</textarea></td>'
 			
 			+ '</tr><tr>'
 			
-			+ '<td><p>Walk Description: </p><textarea rows="8" cols="33" name="desc" id="desc">'
+			+ '<td>Walk Description: <textarea rows="8" cols="33" name="desc" id="desc">'
 			+ walkdesc
 			+ '</textarea></td>'
 			
-			+ '<td><p>Welsh Walk Description: </p><textarea rows="8" cols="33" name="welshdesc" id="welshdesc">'
+			+ '<td>Welsh Walk Description: <textarea rows="8" cols="33" name="welshdesc" id="welshdesc">'
 			+ welshwalkdesc
 			+ '</textarea></td>'
 			+ '</tr></table>'
@@ -152,7 +152,7 @@ function alertbox(text) {
 			+ '<p>'
 			+ text
 			+ '</p>'
-			+ '<p><button type="button" onClick="overlay();">Close</button></p>'
+			+ '<button type="button" onClick="overlay();">Close</button>'
 			+ '</form>';
 	document.getElementById('overlaybox').innerHTML = string;
 	overlay();

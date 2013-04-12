@@ -4,10 +4,13 @@ function hideShowSideBar() {
 	sidebar = document.getElementById('side_bar');
 	topbar = document.getElementById('map_canvas');
 	if (visible) {
+		document.getElementById("side_bar").style.display="none";
 		sidebar.style.width = "0%";
 		topbar.style.width = "100%";
 		visible = false;		
 	} else {
+		updateSideBar();
+		document.getElementById("side_bar").style.display="block";
 		sidebar.style.width = "20%";
 		topbar.style.width = "80%";
 		visible = true;
@@ -16,8 +19,8 @@ function hideShowSideBar() {
 
 function updateSideBar() {
 	sidebar = document.getElementById('side_bar');
-	var tempHTML = "<table border ='1px' align='center' style='text-align: center;'>";
-	tempHTML += "<tr><td><span>No</span></td><td><span>ET</span></td><td><span>ED</span></td><td><span>WT</span></td><td><span>WD</span></td><td><span>I</span></td></tr>";
+	var tempHTML = "<table border ='1px' align='center' style='text-align: center; table-layout: fixed;' >";
+	tempHTML += "<tr><td width='16%'><span>No</span></td><td width='16%'><span>ET</span></td><td width='16%'><span>ED</span></td><td width='16%'><span>WT</span></td><td width='16%'><span>WD</span></td><td width='16%'><span>I</span></td></tr>";
 	for (var i = 0; i<length ; i++){
 		var marker = waypoints[i];
 		var a = "",b = "",c = "",d = "",e = "";
