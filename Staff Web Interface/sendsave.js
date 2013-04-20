@@ -15,6 +15,8 @@
  */
 function saveWalktoServerNew(form) {
 	uniqueid = 0;
+	version = 0;
+	publishversion = 0;
 	this.saveWalktoServer(form);
 }
 
@@ -27,8 +29,7 @@ function publishWalktoServer(form) {
 	} else if (walkdesc.replace(/\s/g, "") == "") {
 		walkDetailsBox("Please enter a walk description");
 	} else {
-		overlay();
-		overridebox();
+		loadingbox("local");
 		var walkDetailsObject = sendSerializeObject(true);
 		serializePublishSend(walkDetailsObject);
 	}
@@ -48,19 +49,19 @@ function serializePublishSend(walkDetailsObject) {
 			"application/x-www-form-urlencoded");
 	xmlhttp.onreadystatechange = function() {
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-			overridebox();
+			parsingresponse(xmlhttp.responseText);
 			if (0 == xmlhttp.responseText) {
 				walkDetailsBox('Walk file failed to be saved due to server error');
-				overlay();
 			} else {
 				uniqueid = xmlhttp.responseText;
 				walkDetailsBox('Walk file saved');
-				overlay();
 			}
+			alertbox("Failed to save correctly", xmlhttp.responseText);
 		}
 	};
 	var str = "serialized=" + serialized;
 	xmlhttp.send(str);
+	loadingbox();
 }
 
 /**
@@ -82,8 +83,7 @@ function saveWalktoServer(form) {
 	} else if (walkdesc.replace(/\s/g, "") == "") {
 		walkDetailsBox("Please enter a walk description");
 	} else {
-		overlay();
-		overridebox();
+		loadingbox("local");
 		var walkDetailsObject = sendSerializeObject(false);
 		serializeSaveSend(walkDetailsObject);
 	}
@@ -136,29 +136,15 @@ function sendSerializeObject(publish) {
  */
 function tokenWaypoint(index, title, description, welshtitle, welshdesc,
 		latitude, longitude, images, numberofimages) {
-	this.index = sanatiseString(index);
-	this.title = sanatiseString(title);
-	this.desc = sanatiseString(description);
-	this.welshtitle = sanatiseString(welshtitle);
-	this.welshdesc = sanatiseString(welshdesc);
-	this.lat = sanatiseString(latitude);
-	this.lng = sanatiseString(longitude);
+	this.index = index;
+	this.title = title;
+	this.desc = description;
+	this.welshtitle = welshtitle;
+	this.welshdesc = welshdesc;
+	this.lat = latitude;
+	this.lng = longitude;
 	this.images = images;
-	this.numberofimages = sanatiseString(numberofimages);
-}
-
-/**
- * Function sanatises the string removing special characters
- * 
- * @param string
- *            the string to be sanatised
- */
-function sanatiseString(string) {
-	//return string.replace(/&/g, '&amp;');
-	//			.replace(/</g, '&lt;')
-	//			.replace(/>/g, '&gt;')
-	//			.replace(/"/g, '&quot;');
-	return string;
+	this.numberofimages = numberofimages;
 }
 
 /**
@@ -180,15 +166,15 @@ function sanatiseString(string) {
  */
 function walkDetails(uniqueid, walklength, walktitle, walkdesc, welshwalktitle,
 		welshwalkdesc, walkdifficulty, version, publishversion, route) {
-	this.id = sanatiseString(uniqueid);
-	this.walklength = sanatiseString(walklength);
-	this.walktitle = sanatiseString(walktitle);
-	this.walkdesc = sanatiseString(walkdesc);
-	this.welshwalktitle = sanatiseString(welshwalktitle);
-	this.welshwalkdesc = sanatiseString(welshwalkdesc);
-	this.walkdifficulty = sanatiseString(walkdifficulty);
-	this.version = sanatiseString(version);
-	this.publishversion = sanatiseString(publishversion);
+	this.id = uniqueid;
+	this.walklength = walklength;
+	this.walktitle = walktitle;
+	this.walkdesc = walkdesc;
+	this.welshwalktitle = welshwalktitle;
+	this.welshwalkdesc = welshwalkdesc;
+	this.walkdifficulty = walkdifficulty;
+	this.version = version;
+	this.publishversion = publishversion;
 	this.route = route;
 }
 
@@ -214,17 +200,21 @@ function serializeSaveSend(walkDetailsObject) {
 			"application/x-www-form-urlencoded");
 	xmlhttp.onreadystatechange = function() {
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-			overridebox();
-			if (0 == xmlhttp.responseText) {
-				walkDetailsBox('Walk file failed to be saved due to server error');
-				overlay();
+			parsingresponse(xmlhttp.responseText);
+			var newIndex = parseInt(xmlhttp.responseText);
+			if(isNaN(newIndex)){
+				alertbox("Error occured somehere", xmlhttp.responseText);
 			} else {
-				uniqueid = xmlhttp.responseText;
-				walkDetailsBox('Walk file saved');
-				overlay();
+				if (0 == xmlhttp.responseText) {
+					walkDetailsBox('Walk file failed to be saved due to server error');
+				} else {
+					uniqueid = newIndex;
+					walkDetailsBox('Walk file saved');
+				}				
 			}
 		}
 	};
 	var str = "serialized=" + serialized;
 	xmlhttp.send(str);
+	loadingbox();
 }

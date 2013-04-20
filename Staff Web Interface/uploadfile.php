@@ -53,7 +53,6 @@ ini_set('display_errors', '1');
 	
 ?>
     <script language="javascript" type="text/javascript">
-    window.top.window.overlay();
     window.top.window.uploadStatus(<?php echo $results; ?>);
     </script>
 	

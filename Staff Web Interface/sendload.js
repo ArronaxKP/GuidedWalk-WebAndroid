@@ -15,6 +15,7 @@ var listofwalks;
  * to load
  */
 function loadXMLMap() {
+	loadingbox("local");
 	var xmlhttp;
 	if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
 		xmlhttp = new XMLHttpRequest();
@@ -25,13 +26,13 @@ function loadXMLMap() {
 	xmlhttp.open("GET", "getxmlmap.php", true);
 	xmlhttp.onreadystatechange = function() {
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-			overridebox();
+			parsingresponse(xmlhttp.responseText);
 			var myobject = eval('('+xmlhttp.responseText+')');
 			loadWalkList(myobject);
 		}
 	};
-	overridebox();
 	xmlhttp.send();
+	loadingbox();
 }
 
 /**
@@ -50,27 +51,26 @@ function loadWalkList(object) {
 		for ( var i = 0; i < numberofwalks; i++) {
 			if(listofwalks[0].version>listofwalks[0].publishversion){
 				string += '<option  value="' + i + '">**' + listofwalks[i].id
-				+ ' : Title: ' + desanatiseString(listofwalks[i].title.substring(0,50)); + '</option>';
+				+ ' : Title: ' + listofwalks[i].title.substring(0,50); + '</option>';
 			} else {
 				string += '<option  value="' + i + '">' + listofwalks[i].id
-				+ ' : Title: ' + desanatiseString(listofwalks[i].title.substring(0,50)); + '</option>';
+				+ ' : Title: ' + listofwalks[i].title. substring(0,50); + '</option>';
 			}
 		}
 		string += '</select><div id="walk_desc_box" style="text-align:left;">'
 				+ '<table border="0" align="center"><tr>'
 				+ '<td><b>Title: </b><textarea readonly="readonly" rows="4" cols="33">'
-				+ desanatiseString(listofwalks[0].title.substring(0,200))
+				+ listofwalks[0].title
 				+ '</textarea></td>'
 				+ '<td><b>Welsh Title: </b><textarea readonly="readonly" rows="4" cols="33">'
-				+ desanatiseString(listofwalks[0].welshtitle.substring(0,200))
+				+ listofwalks[0].welshtitle
 				+ '</textarea></td></tr>'
 				+'<tr><td><b>Description: </b><textarea readonly="readonly" rows="8" cols="33">'
-				+ desanatiseString(listofwalks[0].desc.substring(0,500))
+				+ listofwalks[0].desc
 				+ '</textarea></td>'
 				+ '<td><b>Welsh Description: </b><textarea readonly="readonly" rows="8" cols="33">'
-				+ desanatiseString(listofwalks[0].welshdesc.substring(0,500)) + '</textarea></td></tr></table>' 
-				+ '<p align="center"> Version: '+listofwalks[0].version+' || Published Version: '+listofwalks[0].publishversion+'</p>'
-				+ '<p align="center"><b>Difficulty: </b>';
+				+ listofwalks[0].welshdesc + '</textarea></td></tr></table>' 
+				+ '<p align="center"> <b>Version:</b> '+listofwalks[0].version+' || <b>Published Version:</b> '+listofwalks[0].publishversion+' || <b>Difficulty: </b>';
 
 		if (listofwalks[0].difficulty == 0) {
 			string += 'Easy';
@@ -110,21 +110,19 @@ function updateDisplay() {
 		difficulty = 'Hard';
 	}
 	document.getElementById("walk_desc_box").innerHTML = '<table border="0" align="center"><tr>'
-			+ '<td><p><b>Title: </b></p><p>'
-			+ desanatiseString(listofwalks[index].title.substring(0,200))
-			+ '</p></td>'
-			+ '<td><p><b>Welsh Title: </b></p><p>'
-			+ desanatiseString(listofwalks[index].welshtitle.substring(0,200))
-			+ '</p></td></tr>'
-			+ '<tr><td><p><b>Description: </b></p><p>'
-			+ desanatiseString(listofwalks[index].desc.substring(0,500))
-			+ '</p></td>'
-			+ '<td><p><b>Welsh Description: </b></p><p>'
-			+ desanatiseString(listofwalks[index].welshdesc.substring(0,500))
-			+ '</p></td>'
-			+ '</tr><tr><td> Version: '+listofwalks[index].version+' |</td>'
-			+ '<td>| Published Version: '+listofwalks[index].publishversion+' </td></tr></table>'
-			+ '<p align="center"><b>Difficulty: </b>' + difficulty + '</p>';
+			+ '<td><b>Title: </b><textarea readonly="readonly" rows="4" cols="33">'
+			+ listofwalks[index].title
+			+ '</textarea></td>'
+			+ '<td><b>Welsh Title: </b><textarea readonly="readonly" rows="4" cols="33">'
+			+ listofwalks[index].welshtitle
+			+ '</textarea></td></tr>'
+			+ '<tr><td><b>Description: </b><textarea readonly="readonly" rows="8" cols="33">'
+			+ listofwalks[index].desc
+			+ '</textarea></td>'
+			+ '<td><b>Welsh Description: </b><textarea readonly="readonly" rows="8" cols="33">'
+			+ listofwalks[index].welshdesc
+			+ '</textarea></td></tr></table>'
+			+ '<p align="center"> <b>Version:</b> '+listofwalks[index].version+' || <b>Published Version:</b> '+listofwalks[index].publishversion+' || <b>Difficulty:</b> '+ difficulty + '</p>';
 }
 
 /**
@@ -140,10 +138,10 @@ function dejson(jsonobj) {
 	var myObject = eval('(' + jsonobj + ')');
 	clearMap();
 	uniqueid = myObject.id;
-	walktitle = desanatiseString(myObject.walk_title);
-	walkdesc = desanatiseString(myObject.walk_desc);
-	welshwalktitle = desanatiseString(myObject.welsh_walk_title);
-	welshwalkdesc = desanatiseString(myObject.welsh_walk_desc);
+	walktitle = myObject.walk_title;
+	walkdesc = myObject.walk_desc;
+	welshwalktitle = myObject.welsh_walk_title;
+	welshwalkdesc = myObject.welsh_walk_desc;
 
 	walkdifficulty = myObject.walk_difficulty;
 	version = myObject.version;
@@ -155,13 +153,13 @@ function dejson(jsonobj) {
 	for ( var i = 0; i < len; i++) {
 
 		var waypointDetails = listofwaypoints[i];
-		waypoint = new createWaypoint(desanatiseString(waypointDetails.lat), desanatiseString(waypointDetails.lng));
+		waypoint = new createWaypoint(waypointDetails.lat, waypointDetails.lng);
 		waypoint.index = i;
-		waypoint.title = desanatiseString(waypointDetails.waypoint_title);
-		waypoint.desc = desanatiseString(waypointDetails.waypoint_desc);
+		waypoint.title = waypointDetails.waypoint_title;
+		waypoint.desc = waypointDetails.waypoint_desc;
 
-		waypoint.welshtitle = desanatiseString(waypointDetails.welsh_waypoint_title);
-		waypoint.welshdesc = desanatiseString(waypointDetails.welsh_waypoint_desc);
+		waypoint.welshtitle = waypointDetails.welsh_waypoint_title;
+		waypoint.welshdesc = waypointDetails.welsh_waypoint_desc;
 
 		if ("" != waypoint.title || "" != waypoint.desc
 				|| "" != waypoint.welshtitle || "" != waypoint.welshdesc
@@ -235,7 +233,7 @@ function createWaypoint(latitude, longitude) {
 		title : '' + length,
 		map : map,
 		draggable : true,
-		icon : image,
+		icon : image
 	};
 
 	var marker = new google.maps.Marker(markerOptions);
@@ -263,6 +261,9 @@ function createWaypoint(latitude, longitude) {
  * method with the returned server results.
  */
 function serializeLoadSend() {
+	var index = document.getElementById("listofwalks").options[document
+			.getElementById("listofwalks").selectedIndex].value;
+	loadingbox("local");
 	var xmlhttp;
 	if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
 		xmlhttp = new XMLHttpRequest();
@@ -275,17 +276,14 @@ function serializeLoadSend() {
 			"application/x-www-form-urlencoded");
 	xmlhttp.onreadystatechange = function() {
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			parsingresponse(xmlhttp.responseText);
 			dejson(xmlhttp.responseText);
-			overlay();
 			updateSideBar();
 			walkDetailsBox("Walk loaded successfully");
 		}
 	};
-	var index = document.getElementById("listofwalks").options[document
-			.getElementById("listofwalks").selectedIndex].value;
-	overlay();
-	overridebox();
 	xmlhttp.send('selectedwalk=' + listofwalks[index].id);
+	loadingbox();
 }
 
 /**
@@ -294,42 +292,26 @@ function serializeLoadSend() {
  * saying which walk was deleted
  */
 function deleteSend() {
+	var index = document.getElementById("listofwalks").options[document
+			.getElementById("listofwalks").selectedIndex].value;
+	loadingbox("local");
 	var xmlhttp;
 	if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
 		xmlhttp = new XMLHttpRequest();
 	} else {// code for IE6, IE5
 		xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
 	}
-
 	xmlhttp.open("POST", "sendelete.php", true);
 	xmlhttp.setRequestHeader("Content-type",
 			"application/x-www-form-urlencoded");
 	xmlhttp.onreadystatechange = function() {
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			parsingresponse(xmlhttp.responseText);
 			version=0;
 			publishversion=0;
-			overridebox();
-			aler(xmlhttp.responseText);
 			alertbox('Deleted walk with id: ' + xmlhttp.responseText);
 		}
 	};
-	var index = document.getElementById("listofwalks").options[document
-			.getElementById("listofwalks").selectedIndex].value;
-	overlay();
-	overridebox();
 	xmlhttp.send('selectedwalk=' + listofwalks[index].id);
-}
-
-/**
- * Function de-sanatises the string adding the special special characters back in
- * 
- * @param string
- *            the string to be de-sanatised
- */
-function desanatiseString(string){
-	//return string.replace(/&amp;/g, '&');
-	//			   .replace(/&quot;/g, '"');
-	//			   .replace(/&gt;/g, '>')
-	//			   .replace(/&lt;/g, '<')
-	return string;
+	loadingbox();
 }

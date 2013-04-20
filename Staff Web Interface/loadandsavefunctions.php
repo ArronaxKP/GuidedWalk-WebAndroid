@@ -605,24 +605,31 @@ Class LoadAndSaveFunctions
 			$waypoint->appendChild($lng_xml);
 			$lng_xml->appendChild($doc->createTextNode($lng));
 
+			if(0 != $numberOfImages){
+				$flag = true;
+				$images_xml = $doc->createElement('images');
+				foreach ($images as $img) {
+					if ($img) {
+						if(file_exists(getcwd().'/upload/'.$img)){
+							$image_xml = $doc->createElement('image');
+							$images_xml->appendChild($image_xml);
+							$imgbinary = fread(fopen(getcwd().'/upload/'.$img, "r"), filesize(getcwd().'/upload/'.$img));
+							$img_base64 = base64_encode($imgbinary);
+							$image_base64 = $doc->createElement('image_base64');
+							$image_xml->appendChild($image_base64);
+							$image_base64->appendChild($doc->createTextNode($img_base64));
+						} else {
+							$numberOfImages = $numberOfImages - 1;
+						}
+					}
+				}
+			}
+			
 			$number_of_images = $doc->createElement('number_of_images');
 			$waypoint->appendChild($number_of_images);
 			$number_of_images->appendChild($doc->createTextNode($numberOfImages));
-
 			if(0 != $numberOfImages){
-				$images_xml = $doc->createElement('images');
 				$waypoint->appendChild($images_xml);
-				foreach ($images as $img) {
-					if ($img) {
-						$image_xml = $doc->createElement('image');
-						$images_xml->appendChild($image_xml);
-						$imgbinary = fread(fopen(getcwd().'/upload/'.$img, "r"), filesize(getcwd().'/upload/'.$img));
-						$img_base64 = base64_encode($imgbinary);
-						$image_base64 = $doc->createElement('image_base64');
-						$image_xml->appendChild($image_base64);
-						$image_base64->appendChild($doc->createTextNode($img_base64));
-					}
-				}
 			}
 			$index++;
 		}

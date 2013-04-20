@@ -8,9 +8,11 @@
  * This function clears the map.
  */
 function clearMap(){
+	loadingbox("local");
 	for ( var index = length - 1; index >= 0; index--) {
 		var waypoint = waypoints[index];
 		removePointForced2(waypoint);
+		loadingbox("local","Loop: "+index);
 	}
 	uniqueid = 0;
 	walktitle = "";
@@ -19,6 +21,7 @@ function clearMap(){
 	welshwalkdesc = "";
 	walkdifficulty = "1";
 	version = "0";
+	alertbox("Clear map completed");
 }
 
 /**

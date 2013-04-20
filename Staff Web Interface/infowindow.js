@@ -104,6 +104,7 @@ function openInfoWindow(waypoint) {
 	if (waypoint.infoWindow == null) {
 		this.createInfoWindow(waypoint);
 	}
+	waypoint.infoOpen = true;
 	waypoint.infoWindow.open(map, waypoint.marker);
 
 }
@@ -112,7 +113,67 @@ function closeSave(index) {
 	var div = document.getElementById("infoForm" + index);
 	var form = div.firstChild;
 	saveDetails(form);
+	waypoints[index].infoOpen = false;
 }
+
+function changeView(index, view, event, form){
+	if(event != null){
+		// http://www.mappingsupport.com/forum_post/context_menu.html#
+		if (event.stopPropagation) {
+			event.stopPropagation();
+		} else {
+			event.cancelBubble = true;
+		}	
+		// Next line is for IE
+		event.returnValue = false;
+	}
+	if(view == 'english'){
+		var el = document.getElementById("waypointEnglish"+index);
+		el.style.display = "block";
+		var e2 = document.getElementById("waypointWelsh"+index);
+		e2.style.display = "none";
+		var e3 = document.getElementById("waypointImages"+index);
+		e3.style.display = "none";
+	} else if(view == 'welsh'){
+		var el = document.getElementById("waypointEnglish"+index);
+		el.style.display = "none";
+		var e2 = document.getElementById("waypointWelsh"+index);
+		e2.style.display = "block";
+		var e3 = document.getElementById("waypointImages"+index);
+		e3.style.display = "none";
+	} else if(view == 'images'){
+		var el = document.getElementById("waypointEnglish"+index);
+		el.style.display = "none";
+		var e2 = document.getElementById("waypointWelsh"+index);
+		e2.style.display = "none";
+		var e3 = document.getElementById("waypointImages"+index);
+		e3.style.display = "block";
+	}
+	redrawInfoWindow(index,form);
+}
+
+function redrawInfoWindow(index,form){
+	var waypoint = waypoints[index];
+	if(form!=null){
+		var title = form.elements["title"].value;
+		var desc = form.elements["desc"].value;
+		var welshtitle = form.elements["welshtitle"].value;
+		var welshdesc = form.elements["welshdesc"].value;
+		var waypoint = waypoints[index];
+		waypoint.title = title;
+		waypoint.desc = desc;
+		waypoint.welshtitle = welshtitle;
+		waypoint.welshdesc = welshdesc;
+	} else {
+		waypoint.infoOpen = false;
+		waypoint.infoWindow.close();
+	}
+	updateSideBar();
+	waypoint.infoOpen = false;
+	openInfoWindowIndex(index);
+}
+
+
 /**
  * This create the the HTML syntax that is put into the information window's
  * contents. This is then rendered what an inforamtion window opens.
@@ -129,36 +190,57 @@ function assembleInfoWindow(waypoint) {
 			+ waypoint.index
 			+ '" method="post" enctype="multipart/form-data" action="uploadfile.php" target = '
 			+ '"upload_target" onSubmit="return checkForm(this)">'
+		
+		
+			+ '<div id="waypointEnglish'+ waypoint.index +'" style="display:block">'
+			+ '<input type="button" value="English" onClick="changeView('+ waypoint.index +', \'english\',event,this.form)">'
+			+ '<input type="button" value="Welsh" onClick="changeView('+ waypoint.index +', \'welsh\',event,this.form)">'	
+			+ '<input type="button" value="Images" onClick="changeView('+ waypoint.index +', \'images\',event,this.form)">'		
+			+ '<br />'
 			+ '<table border="0"><tr>'
-
-			+ '<td><p>Title: <br /><textarea rows="2" cols="25" name="title" id="title">'
+			+ '<td>English Title: <br /><textarea rows="4" cols="53" name="title" id="title">'
 			+ waypoint.title
-			+ '</textarea></p></td>'
-
-			+ '<td><p>Welsh Title: <br /><textarea rows="2" cols="25" name="welshtitle" id="welshtitle">'
-			+ waypoint.welshtitle
-			+ '</textarea></p></td>'
-
+			+ '</textarea></td>'
 			+ '</tr><tr>'
-
-			+ '<td><p>Description: <br /><textarea rows="5" cols="25" name="desc" id="desc">'
+			+ '<td>English Description: <br /><textarea rows="7" cols="53" name="desc" id="desc">'
 			+ waypoint.desc
-			+ '</textarea></p></td>'
-
-			+ '<td><p>Welsh Description: <br /><textarea rows="5" cols="25" name="welshdesc" id="welshdesc">'
-			+ waypoint.welshdesc
-			+ '</textarea></p></td>'
+			+ '</textarea></td>'
 			+ '</tr></table>'
+			+ '</div>'
 
-			+ '<p><input type="button" value="Submit" onClick="getInfoDetails(event,this.form)">'
-			+ '</input><input type="button" value="Delete" onClick="deleteInfoWindow(event,this.form)">'
-			+ '</input></p>'
-			+ '<input type=hidden name="text" id="text" value="'
-			+ waypoint.index
-			+ '" style="visibility:hidden" />'
+			
+			+ '<div id="waypointWelsh'+ waypoint.index +'" style="display:none">'
+			+ '<input type="button" value="English" onClick="changeView('+ waypoint.index +', \'english\',event,this.form)">'
+			+ '<input type="button" value="Welsh" onClick="changeView('+ waypoint.index +', \'welsh\',event,this.form)">'	
+			+ '<input type="button" value="Images" onClick="changeView('+ waypoint.index +', \'images\',event,this.form)">'		
+			+ '<br />'
+			+ '<table border="0"><tr>'
+			+ '<td>Welsh Title: <br /><textarea rows="4" cols="53" name="welshtitle" id="welshtitle">'
+			+ waypoint.welshtitle
+			+ '</textarea></td>'
+			+ '</tr><tr>'
+			+ '<td>Welsh Description: <br /><textarea rows="7" cols="53" name="welshdesc" id="welshdesc">'
+			+ waypoint.welshdesc
+			+ '</textarea></td>'
+			+ '</tr></table>'
+			+ '</div>'
+
+			+ '<div id="waypointImages'+ waypoint.index +'" style="display:none">'
+			+ '<input type="button" value="English" onClick="changeView('+ waypoint.index +', \'english\',event,this.form)">'
+			+ '<input type="button" value="Welsh" onClick="changeView('+ waypoint.index +', \'welsh\',event,this.form)">'	
+			+ '<input type="button" value="Images" onClick="changeView('+ waypoint.index +', \'images\',event,this.form)">'		
+			+ '<br />'			
 			+ '<input name="file" id="file" size="10" type="file" />'
 			+ '<input type="submit" name="action" value="Upload Image" /> <br />'
-			+ imgLinks + '</form>' + '</div>';
+			+ imgLinks 
+			+ '</div>'
+			
+			
+			+ '<input type="button" value="Submit" onClick="getInfoDetails(event,this.form)">'
+			+ '</input><input type="button" value="Delete" onClick="deleteInfoWindow(event,this.form)">'
+			+ '</input>'
+			+ '<input type=hidden name="text" id="text" value="'+waypoint.index+'" style="visibility:hidden" />'
+			+ '</form></div>';
 
 	return newContent;
 }
@@ -185,10 +267,11 @@ function setInfoWindow(index, title, desc, welshtitle, welshdesc) {
 	var infoWindowContent = assembleInfoWindow(waypoint);
 	var div = document.createElement('div');
 	div.setAttribute("id", "infoForm" + waypoint.index);
-	div.setAttribute("style", "width:465px; display: block;text-align:center;");
+	div.setAttribute("style", "width:465px; display: block; text-align:center;");
 	div.innerHTML = infoWindowContent;
 
 	waypoint.infoWindow.setContent(div);
+	waypoint.infoOpen = false;
 	waypoint.infoWindow.close();
 	updateSideBar();
 }
@@ -204,7 +287,8 @@ function saveDetails(form) {
 			&& welshtitle.replace(/\s/g, "") == ""
 			&& welshdesc.replace(/\s/g, "") == ""
 			&& waypoint.numberofimages == 0) {
-		infoWindow = waypoints[index].infoWindow;
+		infoWindow = waypoint.infoWindow;
+		waypoint.infoOpen = false;
 		infoWindow.close();
 		waypoint.infoWindow = null;
 		waypoint.title = '';
@@ -262,6 +346,7 @@ function getInfoDetails(event, form) {
 			&& welshdesc.replace(/\s/g, "") == ""
 			&& waypoint.numberofimages == 0) {
 		infoWindow = waypoints[index].infoWindow;
+		waypoint.infoOpen = false;
 		infoWindow.close();
 		waypoint.infoWindow = null;
 		waypoint.title = '';
@@ -325,4 +410,15 @@ function assembleImgLinks(waypoint) {
 		results = '';
 	}
 	return results;
+}
+
+function openInfoWindowIndex(index){
+	var marker = waypoints[index];
+	if(marker.infoOpen){
+		marker.infoOpen = false;
+		closeSave(index);
+	} else {
+		marker.infoOpen = true;
+		openInfoWindow(marker);
+	}
 }

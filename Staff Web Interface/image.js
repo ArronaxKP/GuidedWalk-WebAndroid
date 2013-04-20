@@ -55,6 +55,7 @@ function removeImg(index, imgIndex) {
 	div.setAttribute("id", "infoForm" + waypoint.index);
 	div.setAttribute("style", "width:465px; display: block;text-align:center;");
 	div.innerHTML = infoWindowContent;
+	changeView(index,'images');
 	waypoint.infoWindow.setContent(div);
 }
 
@@ -77,6 +78,7 @@ function addImg(location, index) {
 	div.setAttribute("style", "width:465px; display: block;text-align:center;");
 	div.innerHTML = infoWindowContent;
 	waypoint.infoWindow.setContent(div);
+	changeView(index,'images');
 	updateSideBar();
 }
 
@@ -94,6 +96,7 @@ function addImg(location, index) {
  *            waypoint if it was a success
  */
 function uploadStatus(status, location, message) {
+	loadingbox("local");
 	if (status == '0') {
 		if (location == '0') {
 			alertbox('An error occured during upload please try again.');
@@ -105,8 +108,8 @@ function uploadStatus(status, location, message) {
 			alertbox('' + message);
 		}
 	} else if (status == '1') {
-		alertbox("Uplaod Successful");
 		addImg(location, message);
+		alertbox("Uplaod Successful");
 	}
 }
 
@@ -126,9 +129,9 @@ function uploadStatus(status, location, message) {
  *            is redrawn
  */
 function deleteFile(filename, index, imageIndex, form) {
+	loadingbox("local");
 	var waypoint = waypoints[index];
 	if(null!=form){
-		overridebox();
 		waypoint.title = form.title.value;
 		waypoint.desc = form.desc.value;
 		waypoint.welshtitle = form.welshtitle.value;
@@ -152,13 +155,14 @@ function deleteFile(filename, index, imageIndex, form) {
 				{
 					if(null!=form){
 						var results = xmlhttp.responseText;
-						overlay();
 						if (parseInt(results) == 0) {
+							removeImg(index, imageIndex);
+							updateSideBar();
 							alertbox("File not found on server. Link removed");
-							removeImg(index, imageIndex);
 						} else if (parseInt(results) == 1) {
-							alertbox("File deleted on server. Link removed");
 							removeImg(index, imageIndex);
+							updateSideBar();
+							alertbox("File deleted on server. Link removed");
 						} else if (parseInt(results) == 2) {
 							alertbox("File error on server. Please try again");
 						}
@@ -167,8 +171,24 @@ function deleteFile(filename, index, imageIndex, form) {
 			}
 		};
 		xmlhttp.send(parms);
+	} else {
+		alertbox("Unable to delete: ERROR INDEX OF FAILURE");
 	}
-	updateSideBar();
+}
+
+function confirmServerClear() {
+	var string;
+	string = '<form id="confrim_info" name="confrim_info">'
+			+ '<p>If you do this it will empty the upload folder on the server. If you are in '
+			+ 'the middle of a walk I would highly suggest you click <b>no</b>. Then when you have '
+			+ 'completed and <b>saved</b> walk then you can clear the server\'s images. </p>'
+			+ '<p> If you do click yes any walks currently open with images uploaded to the '
+			+ 'server will loose all images when you save</p>'
+			+ '<p><button type="button" onClick="clearUploadedFiles();hidePopup();">'
+			+ 'Yes</button><button type="button" onClick="hidePopup();">No</button></p>'
+			+ '</form>';
+	document.getElementById('overlaybox').innerHTML = string;
+	showPopup();
 }
 
 /**
@@ -183,7 +203,6 @@ function clearUploadedFiles() {
 	} else {// code for IE6, IE5
 		xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
 	}
-
 	xmlhttp.open("POST", "clearUploads.php", true);
 	xmlhttp.setRequestHeader("Content-type",
 			"application/x-www-form-urlencoded");

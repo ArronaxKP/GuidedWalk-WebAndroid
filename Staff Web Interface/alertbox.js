@@ -22,27 +22,28 @@ function walkDetailsBox(text) {
 	var string = '';
 	if (text) {
 		string += '<p style="color:red;"><b>' + text + '</b></p>';
+	} else {
+		string += '<p><b>Walk Details</b></p>'
 	}
 	var difficultystring = walkDifficultyString();
 
-	string += '<p>Type Walk Details below</p>'
-			+ '<form id="walk_info" name="walk_info">'
+	string += '<form id="walk_info" name="walk_info">'
 			+ '<table border="0" align="center"><tr>'
-			+ '<td>Walk Title: <textarea rows="4" cols="33" name="title" id="title">'
+			+ '<td><b>Englsih Title:</b> <textarea rows="4" cols="33" name="title" id="title">'
 			+ walktitle
 			+ '</textarea></td>'
 			
-			+ '<td>Welsh Walk Title: <textarea rows="4" cols="33" name="welshtitle" id="welshtitle">'
+			+ '<td><b>Welsh Title:</b> <textarea rows="4" cols="33" name="welshtitle" id="welshtitle">'
 			+ welshwalktitle
 			+ '</textarea></td>'
 			
 			+ '</tr><tr>'
 			
-			+ '<td>Walk Description: <textarea rows="8" cols="33" name="desc" id="desc">'
+			+ '<td><b>English Description:</b> <textarea rows="8" cols="33" name="desc" id="desc">'
 			+ walkdesc
 			+ '</textarea></td>'
 			
-			+ '<td>Welsh Walk Description: <textarea rows="8" cols="33" name="welshdesc" id="welshdesc">'
+			+ '<td><b>Welsh Description:</b> <textarea rows="8" cols="33" name="welshdesc" id="welshdesc">'
 			+ welshwalkdesc
 			+ '</textarea></td>'
 			+ '</tr></table>'
@@ -55,10 +56,7 @@ function walkDetailsBox(text) {
 			+ '<button type="button" onClick="closeWalkDetailsBox(this.form);">Close</button></p>'
 			+ '</form>';
 	document.getElementById('overlaybox').innerHTML = string;
-
-	if (!text) {
-		overlay();
-	}
+	showPopup();
 }
 
 /**
@@ -97,7 +95,7 @@ function walkDifficultyString() {
  */
 function closeWalkDetailsBox(form) {
 	saveFormDetails(form);
-	overlay();
+	hidePopup();
 }
 
 /**
@@ -146,16 +144,23 @@ function getDifficultyValue(form) {
  *            </p>
  *            tags
  */
-function alertbox(text) {
+function alertbox(text,error) {
+	var errorButton = '';
+	if(error != null) {
+		fullResponse = error;
+		errorButton = '<button type="button" onClick="responseBox();">View server reponse</button>';
+	}
+	
 	var string;
 	string = '<form id="alert_info" name="alert_info">'
 			+ '<p>'
 			+ text
 			+ '</p>'
-			+ '<button type="button" onClick="overlay();">Close</button>'
+			+ '<button type="button" onClick="hidePopup();">Close</button>'
+			+ errorButton
 			+ '</form>';
 	document.getElementById('overlaybox').innerHTML = string;
-	overlay();
+	showPopup();
 }
 
 /**
@@ -175,30 +180,70 @@ function confirmbox(index) {
 			+ 'will also be removed from the server.</p>'
 			+ '<p><button type="button" onClick="removePointForcedIndex('
 			+ index
-			+ ');">Yes</button><button type="button" onClick="overlay();">No</button></p>'
+			+ ');hidePopup();">Yes</button><button type="button" onClick="hidePopup();">No</button></p>'
 			+ '</form>';
 	document.getElementById('overlaybox').innerHTML = string;
-	overlay();
+	showPopup();
+}
+
+function responseBox(){
+	var element = document.getElementById('responsebox');
+	element.innerHTML = '<button type="button" onClick="closeResponseBox();">Close response</button> <br /><p>' + fullResponse +'</p>';
+	element.style.display = 'block';
+}
+var fullResponse = '';
+function closeResponseBox(){
+	var element = document.getElementById('responsebox');
+	element.style.display = 'none';
+}
+
+function parsingresponse(response) {
+	var responseButton = '';
+	if(response != null) {
+		fullResponse = response;
+		responseButton = ' <br /><button type="button" onClick="responseBox();">View server reponse</button>';
+	}
+
+	var string;
+	string = '<p>Please wait while we parse the response from the server</p>'
+		+ '<img align="center" src="images/ajax-loader.gif" alt="Loading Icon" />'
+		+ responseButton;
+	
+	document.getElementById('overlaybox').innerHTML = string;
+	showPopup();
 }
 
 /**
  * This create an overlay box that prevents people from doing anything until the
  * action is completed.
  */
-function overridebox() {
+function loadingbox(system, text) {
 	var string;
-	string = '<p>Please wait while server works</p>'
+	if(system == null){
+		string = '<p>Please wait while server works</p>'
 			+ '<img align="center" src="images/ajax-loader.gif" alt="Loading Icon" />';
-
+	} else if (system == 'local') {
+		if(text !=null){
+			string = '<p>Please wait while we work locally: '+ text +'</p>'
+				+ '<img align="center" src="images/ajax-loader.gif" alt="Loading Icon" />';
+		}else {
+			string = '<p>Please wait while we work locally</p>'
+				+ '<img align="center" src="images/ajax-loader.gif" alt="Loading Icon" />';
+		}
+	} else {
+		string = '<p>Loading in unknown location</p>'
+			+ '<img align="center" src="images/ajax-loader.gif" alt="Loading Icon" />';
+	}
 	document.getElementById('overlaybox').innerHTML = string;
-	overlay();
+	showPopup();
 }
-/**
- * This function flips the overlay. So therefore if it is visible and you call
- * this method it goes invisible and vice versa.
- */
-function overlay() {
+
+function showPopup() {
 	el = document.getElementById("overlay");
-	el.style.visibility = (el.style.visibility == "visible") ? "hidden"
-			: "visible";
+	el.style.display = "block";
+}
+
+function hidePopup() {
+	el = document.getElementById("overlay");
+	el.style.display = "none";
 }

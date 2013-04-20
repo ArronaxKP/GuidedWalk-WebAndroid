@@ -37,6 +37,7 @@ var welshwalkdesc = "";
  */
 function waypointObject(marker, index) {
 	this.marker = marker;
+	this.infoOpen = false;
 	this.infoWindow = null;
 	this.index = index;
 	this.title = '';
@@ -59,15 +60,15 @@ function initialize() {
 	var myOptions = {
 		zoom : 16,
 		center : myLatlng,
-		mapTypeId : google.maps.MapTypeId.HYBRID,
+		mapTypeId : google.maps.MapTypeId.HYBRID
 	};
-	map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 	var routeOptions = {
 		strokeColor : '#000000',
 		strokeOpacity : 1.0,
-		strokeWeight : 3,
+		strokeWeight : 3
 	};
 	route = new google.maps.Polyline(routeOptions);
+	map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 	route.setMap(map);
 	google.maps.event.addListener(map, 'click', addMarker);
 }
@@ -119,7 +120,7 @@ function addMarker(event) {
 		title : '' + length,
 		map : map,
 		draggable : true,
-		icon : image,
+		icon : image
 	};
 
 	var marker = new google.maps.Marker(markerOptions);

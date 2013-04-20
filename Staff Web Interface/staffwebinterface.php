@@ -48,7 +48,6 @@ session_start();
 if (isset($_POST["password"]) && ($_POST["password"]=="$password")) {
 	?>
 	<!-- START OF HIDDEN HTML - PLACE YOUR CONTENT HERE -->
-
 	<div id="top_bar">
 		<button id="walkdetailsbutton" type="button"
 			onClick="walkDetailsBox();">Walk details</button>
@@ -57,19 +56,20 @@ if (isset($_POST["password"]) && ($_POST["password"]=="$password")) {
 		<button id="loadXMLbutton" type="button" onClick="clearMap();">Clear
 			Map</button>
 		<button id="clearuploadbutton" type="button"
-			onClick="clearUploadedFiles();">Clear Uploads Folder</button>
+			onClick="confirmServerClear();">Clear Uploads Folder</button>
 		<button id="sidebarbutton" type="button" onClick="hideShowSideBar();">Side
 			Bar</button>
 	</div>
-	<div id="side_bar" style="display:none;">
-	</div>
-
-	<div id="map_canvas"></div>
-	<div id="hidden_frame">
-		<iframe id="upload_target" name="upload_target" src=""></iframe>
+	<div id="side_bar" style="display:none;"></div>
+	<div id="mainlayer">
+		<div id="map_canvas"></div>
+		<div id="hidden_frame">
+			<iframe id="upload_target" name="upload_target" src=""></iframe>
+		</div>
 	</div>
 	<div id="overlay">
 		<div id="overlaybox"></div>
+		<div id="responsebox"></div>
 	</div>
 
 	<!-- END OF HIDDEN HTML -->
@@ -92,7 +92,6 @@ if (isset($_POST['password']) || $password == "") {
   print "<input name=\"password\" type=\"password\" size=\"25\" maxlength=\"10\"><input value=\"Login\" type=\"submit\"></p></form>";
 }
 ?>
-<BR>
 
 
 

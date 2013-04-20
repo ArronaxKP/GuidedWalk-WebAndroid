@@ -2,17 +2,17 @@ var visible = false;
 
 function hideShowSideBar() {
 	sidebar = document.getElementById('side_bar');
-	topbar = document.getElementById('map_canvas');
+	mainlayer = document.getElementById('mainlayer');
 	if (visible) {
 		document.getElementById("side_bar").style.display="none";
-		sidebar.style.width = "0%";
-		topbar.style.width = "100%";
+		sidebar.style.width = "0px";
+		mainlayer.style.right = "0px";
 		visible = false;		
 	} else {
 		updateSideBar();
 		document.getElementById("side_bar").style.display="block";
-		sidebar.style.width = "20%";
-		topbar.style.width = "80%";
+		sidebar.style.width = "200px";
+		mainlayer.style.right = "200px";
 		visible = true;
 	}
 }
@@ -43,9 +43,4 @@ function updateSideBar() {
 	}
 	tempHTML += "</table>";
 	sidebar.innerHTML = tempHTML;
-}
-
-function openInfoWindowIndex(index){
-	var marker = waypoints[index];
-	openInfoWindow(marker);
 }

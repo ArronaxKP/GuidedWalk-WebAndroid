@@ -24,11 +24,10 @@ function removePoint(waypoint) {
  *            the index of the waypoint to be deleted
  */
 function removePointForcedIndex(index) {
+	loadingbox("local");
 	var waypoint = waypoints[index]; 
 	removePointForced(waypoint);
 	updateSideBar();
-	overlay();
-	
 }
 
 /**
