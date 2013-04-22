@@ -230,6 +230,11 @@ function loadingbox(system, text) {
 			string = '<p>Please wait while we work locally</p>'
 				+ '<img align="center" src="images/ajax-loader.gif" alt="Loading Icon" />';
 		}
+	} else if (system == 'send') {
+		fullResponse = text;
+		string = '<p>Please wait while the server works. Click button below to see send data</p>'
+			+ '<img align="center" src="images/ajax-loader.gif" alt="Loading Icon" />'
+			+ '<br /><button type="button" onClick="responseBox();">View server reponse</button>';
 	} else {
 		string = '<p>Loading in unknown location</p>'
 			+ '<img align="center" src="images/ajax-loader.gif" alt="Loading Icon" />';

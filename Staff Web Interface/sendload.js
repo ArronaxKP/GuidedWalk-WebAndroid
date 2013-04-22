@@ -283,7 +283,7 @@ function serializeLoadSend() {
 		}
 	};
 	xmlhttp.send('selectedwalk=' + listofwalks[index].id);
-	loadingbox();
+	loadingbox('send', 'selectedwalk='+listofwalks[index].id);
 }
 
 /**
@@ -313,5 +313,5 @@ function deleteSend() {
 		}
 	};
 	xmlhttp.send('selectedwalk=' + listofwalks[index].id);
-	loadingbox();
+	loadingbox('send', 'selectedwalk='+listofwalks[index].id);
 }

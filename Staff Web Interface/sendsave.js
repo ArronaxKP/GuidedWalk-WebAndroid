@@ -61,7 +61,7 @@ function serializePublishSend(walkDetailsObject) {
 	};
 	var str = "serialized=" + serialized;
 	xmlhttp.send(str);
-	loadingbox();
+	loadingbox('send', str);	
 }
 
 /**
@@ -216,5 +216,5 @@ function serializeSaveSend(walkDetailsObject) {
 	};
 	var str = "serialized=" + serialized;
 	xmlhttp.send(str);
-	loadingbox();
+	loadingbox('send', str);
 }
