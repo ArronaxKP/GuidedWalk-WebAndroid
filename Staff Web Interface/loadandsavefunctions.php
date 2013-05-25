@@ -210,7 +210,11 @@ Class LoadAndSaveFunctions
 		{
 			$count = intval($nows->nodeValue);
 			$count--;
-			$nows->replaceChild($doc->createTextNode($count),$nows->firstChild);
+			if($nows->firstChild!=null){
+				$nows->replaceChild($doc->createTextNode($count),$nows->firstChild);
+			} else {
+				$nows->appendChild($doc->createTextNode($count));
+			}
 		}
 		foreach ($x->childNodes AS $elements)
 		{
@@ -231,7 +235,7 @@ Class LoadAndSaveFunctions
 		$xml_string = $doc->saveXML();
 		$fp = @fopen(getcwd().'/map.xml','w');
 		if(!$fp) {
-			die('Error cannot create XML file');
+			die('Error cannot correct map.xml file');
 		}
 		fwrite($fp,$xml_string);
 		fclose($fp);
@@ -252,7 +256,11 @@ Class LoadAndSaveFunctions
 		{
 			$count = intval($nows->nodeValue);
 			$count--;
-			$nows->replaceChild($doc->createTextNode($count),$nows->firstChild);
+			if($nows->firstChild!=null){
+				$nows->replaceChild($doc->createTextNode($count),$nows->firstChild);
+			} else {
+				$nows->appendChild($doc->createTextNode($count));
+			}
 		}
 		foreach ($x->childNodes AS $elements)
 		{
@@ -273,7 +281,7 @@ Class LoadAndSaveFunctions
 		$xml_string = $doc->saveXML();
 		$fp = @fopen(getcwd().'/publish.xml','w');
 		if(!$fp) {
-			die('Error cannot create XML file');
+			die('Error cannot correct publish.xml file');
 		}
 		fwrite($fp,$xml_string);
 		fclose($fp);
@@ -285,8 +293,10 @@ Class LoadAndSaveFunctions
 	 * @param $uniqueid the uniqueid of the walk being deleted
 	 */
 	public function deleteWalk($uniqueid){
-		unlink(getcwd().'/walks/'.$uniqueid.'.xml');
-		$this->correctMap($uniqueid);
+		if (file_exists(getcwd().'/walks/'.$uniqueid.'.xml')){
+			unlink(getcwd().'/walks/'.$uniqueid.'.xml');
+			$this->correctMap($uniqueid);
+		}
 		if (file_exists(getcwd().'/publish/'.$uniqueid.'.xml')){
 			unlink(getcwd().'/publish/'.$uniqueid.'.xml');
 			$this->correctPublish($uniqueid);
@@ -322,25 +332,53 @@ Class LoadAndSaveFunctions
 							{
 								switch($item->nodeName){
 									case "title";
-									$item->replaceChild($doc->createTextNode($walktitle),$item->firstChild);
+										if($item->firstChild!=null){
+											$item->replaceChild($doc->createTextNode($walktitle),$item->firstChild);
+										} else {
+											$item->appendChild($doc->createTextNode($walktitle));
+										}
 									break;
 									case "desc";
-									$item->replaceChild($doc->createTextNode($walkdesc),$item->firstChild);
+										if($item->firstChild!=null){
+											$item->replaceChild($doc->createTextNode($walkdesc),$item->firstChild);
+										} else {
+											$item->appendChild($doc->createTextNode($walkdesc));
+										}
 									break;
 									case "welshtitle";
-									$item->replaceChild($doc->createTextNode($welshwalktitle),$item->firstChild);
+										if($item->firstChild!=null){
+											$item->replaceChild($doc->createTextNode($welshwalktitle),$item->firstChild);
+										} else {
+											$item->appendChild($doc->createTextNode($welshwalktitle));
+										}
 									break;
 									case "welshdesc";
-									$item->replaceChild($doc->createTextNode($welshwalkdesc),$item->firstChild);
+										if($item->firstChild!=null){
+											$item->replaceChild($doc->createTextNode($welshwalkdesc),$item->firstChild);
+										} else {
+											$item->appendChild($doc->createTextNode($welshwalkdesc));
+										}
 									break;
 									case "difficulty";
-									$item->replaceChild($doc->createTextNode($walkdifficulty),$item->firstChild);
+										if($item->firstChild!=null){
+											$item->replaceChild($doc->createTextNode($walkdifficulty),$item->firstChild);
+										} else {
+											$item->appendChild($doc->createTextNode($walkdifficulty));
+										}
 									break;
 									case "version";
-									$item->replaceChild($doc->createTextNode($version),$item->firstChild);
+										if($item->firstChild!=null){
+											$item->replaceChild($doc->createTextNode($version),$item->firstChild);
+										} else {
+											$item->appendChild($doc->createTextNode($version));
+										}
 									break;
 									case "publishversion";
-									$item->replaceChild($doc->createTextNode($publishversion),$item->firstChild);
+										if($item->firstChild!=null){
+											$item->replaceChild($doc->createTextNode($publishversion),$item->firstChild);
+										} else {
+											$item->appendChild($doc->createTextNode($publishversion));
+										}	
 									break;
 								}
 							}
@@ -353,7 +391,7 @@ Class LoadAndSaveFunctions
 		$xml_string = $doc->saveXML();
 		$fp = @fopen(getcwd().'/map.xml','w');
 		if(!$fp) {
-			die('Error cannot create XML file');
+			die('Error cannot update map.xml');
 		}
 		fwrite($fp,$xml_string);
 		fclose($fp);
@@ -376,7 +414,12 @@ Class LoadAndSaveFunctions
 		{
 			$count = intval($noms->nodeValue);
 			$count++;
-			$noms->replaceChild($doc->createTextNode($count),$noms->firstChild);
+			if($noms->firstChild!=null){
+				$noms->replaceChild($doc->createTextNode($count),$noms->firstChild);
+			} else {
+				$noms->appendChild($doc->createTextNode($count));
+			}	
+			
 		}
 		$walklist = $x->getElementsByTagName('walklist');
 		$walk = $doc->createElement('walk');
@@ -421,7 +464,7 @@ Class LoadAndSaveFunctions
 
 			$fp = @fopen(getcwd()."/map.xml",'w');
 			if(!$fp) {
-				die('Error cannot edit map XML file');
+				die('Error cannot add a walk to the map.xml file');
 			}
 			fwrite($fp,$xml_string);
 			fclose($fp);
@@ -643,7 +686,7 @@ Class LoadAndSaveFunctions
 
 		$fp = @fopen(getcwd().'/walks/'.$uniqueid.'.xml','w');
 		if(!$fp) {
-			die('Error cannot create XML file');
+			die('Error cannot save a walk');
 		}
 		fwrite($fp,$xml_string);
 		fclose($fp);
@@ -718,25 +761,53 @@ Class LoadAndSaveFunctions
 							{
 								switch($item->nodeName){
 									case "title";
-									$item->replaceChild($doc->createTextNode($walktitle),$item->firstChild);
+										if($item->firstChild!=null){
+											$item->replaceChild($doc->createTextNode($walktitle),$item->firstChild);
+										} else {
+											$item->appendChild($doc->createTextNode($walktitle));
+										}
 									break;
 									case "desc";
-									$item->replaceChild($doc->createTextNode($walkdesc),$item->firstChild);
+										if($item->firstChild!=null){
+											$item->replaceChild($doc->createTextNode($walkdesc),$item->firstChild);
+										} else {
+											$item->appendChild($doc->createTextNode($walkdesc));
+										}
 									break;
 									case "welshtitle";
-									$item->replaceChild($doc->createTextNode($welshwalktitle),$item->firstChild);
+										if($item->firstChild!=null){
+											$item->replaceChild($doc->createTextNode($welshwalktitle),$item->firstChild);
+										} else {
+											$item->appendChild($doc->createTextNode($welshwalktitle));
+										}
 									break;
 									case "welshdesc";
-									$item->replaceChild($doc->createTextNode($welshwalkdesc),$item->firstChild);
+										if($item->firstChild!=null){
+											$item->replaceChild($doc->createTextNode($welshwalkdesc),$item->firstChild);
+										} else {
+											$item->appendChild($doc->createTextNode($welshwalkdesc));
+										}
 									break;
 									case "difficulty";
-									$item->replaceChild($doc->createTextNode($walkdifficulty),$item->firstChild);
+										if($item->firstChild!=null){
+											$item->replaceChild($doc->createTextNode($walkdifficulty),$item->firstChild);
+										} else {
+											$item->appendChild($doc->createTextNode($walkdifficulty));
+										}
 									break;
 									case "version";
-									$item->replaceChild($doc->createTextNode($version),$item->firstChild);
+										if($item->firstChild!=null){
+											$item->replaceChild($doc->createTextNode($version),$item->firstChild);
+										} else {
+											$item->appendChild($doc->createTextNode($version));
+										}
 									break;
 									case "publishversion";
-									$item->replaceChild($doc->createTextNode($publishversion),$item->firstChild);
+										if($item->firstChild!=null){
+											$item->replaceChild($doc->createTextNode($publishversion),$item->firstChild);
+										} else {
+											$item->appendChild($doc->createTextNode($publishversion));
+										}
 									break;
 								}
 							}
@@ -749,7 +820,7 @@ Class LoadAndSaveFunctions
 		$xml_string = $doc->saveXML();
 		$fp = @fopen(getcwd().'/publish.xml','w');
 		if(!$fp) {
-			die('Error cannot create publish XML file');
+			die('Error cannot update publish.xml file');
 		}
 		fwrite($fp,$xml_string);
 		fclose($fp);
@@ -772,7 +843,11 @@ Class LoadAndSaveFunctions
 		{
 			$count = intval($noms->nodeValue);
 			$count++;
-			$noms->replaceChild($doc->createTextNode($count),$noms->firstChild);
+			if($noms->firstChild!=null){
+				$noms->replaceChild($doc->createTextNode($count),$noms->firstChild);
+			} else {
+				$noms->appendChild($doc->createTextNode($count));
+			}
 		}
 		$walklist = $x->getElementsByTagName('walklist');
 		$walk = $doc->createElement('walk');
@@ -784,24 +859,31 @@ Class LoadAndSaveFunctions
 			$id = $doc->createElement('id');
 			$walk->appendChild($id);
 			$id->appendChild($doc->createTextNode($uniqueid));
+			
 			$title = $doc->createElement('title');
 			$walk->appendChild($title);
 			$title->appendChild($doc->createTextNode($walktitle));
+			
 			$desc = $doc->createElement('desc');
 			$walk->appendChild($desc);
 			$desc->appendChild($doc->createTextNode($walkdesc));
+			
 			$welshtitle = $doc->createElement('welshtitle');
 			$walk->appendChild($welshtitle);
 			$welshtitle->appendChild($doc->createTextNode($welshwalktitle));
+			
 			$welshdesc = $doc->createElement('welshdesc');
 			$walk->appendChild($welshdesc);
 			$welshdesc->appendChild($doc->createTextNode($welshwalkdesc));
+			
 			$difficulty = $doc->createElement('difficulty');
 			$walk->appendChild($difficulty);
 			$difficulty->appendChild($doc->createTextNode($walkdifficulty));
+			
 			$ver = $doc->createElement('version');
 			$walk->appendChild($ver);
 			$ver->appendChild($doc->createTextNode($version));
+			
 			$pubver = $doc->createElement('publishversion');
 			$walk->appendChild($pubver);
 			$pubver->appendChild($doc->createTextNode($publishversion));
@@ -814,10 +896,9 @@ Class LoadAndSaveFunctions
 			$doc->loadXML($xml_string);
 			$xml_string = $doc->saveXML();
 
-
 			$fp = @fopen(getcwd()."/publish.xml",'w');
 			if(!$fp) {
-				die('Error cannot edit publish XML file');
+				die('Error cannot add walk to publish.xml file');
 			}
 			fwrite($fp,$xml_string);
 			fclose($fp);
@@ -958,7 +1039,7 @@ Class LoadAndSaveFunctions
 
 		$fp = @fopen(getcwd().'/publish/'.$uniqueid.'.xml','w');
 		if(!$fp) {
-			die('Error cannot create XML publish/walk.xml file');
+			die('Error cannot publish a walk XML file');
 		}
 		fwrite($fp,$xml_string);
 		fclose($fp);

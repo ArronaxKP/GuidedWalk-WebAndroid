@@ -1,8 +1,26 @@
 <?xml version="1.0"?>
 <walks>
-  <numberofwalks>0</numberofwalks>
+  <numberofwalks>2</numberofwalks>
   <walklist>
-    
-    
+    <walk id="11044">
+      <id>11044</id>
+      <title>dsa</title>
+      <desc>as</desc>
+      <welshtitle>dasd</welshtitle>
+      <welshdesc>dasd</welshdesc>
+      <difficulty>1</difficulty>
+      <version>2</version>
+      <publishversion>2</publishversion>
+    </walk>
+    <walk id="19837">
+      <id>19837</id>
+      <title>gasdfg kgh jkasdhgjk hasdjkgk sdsgdj</title>
+      <desc>dhkhs jkhg sdjkhgjksdgjksdg jksdgksdbg hsdg sdsd</desc>
+      <welshtitle>jdshgjk dhjkhsdjk gsag khg</welshtitle>
+      <welshdesc>jsdhvkhsdkhfjksdahfjkhdskf</welshdesc>
+      <difficulty>1</difficulty>
+      <version>2</version>
+      <publishversion>2</publishversion>
+    </walk>
   </walklist>
 </walks>

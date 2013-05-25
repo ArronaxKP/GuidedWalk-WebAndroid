@@ -50,13 +50,17 @@ function serializePublishSend(walkDetailsObject) {
 	xmlhttp.onreadystatechange = function() {
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 			parsingresponse(xmlhttp.responseText);
-			if (0 == xmlhttp.responseText) {
-				walkDetailsBox('Walk file failed to be saved due to server error');
+			var newIndex = parseInt(xmlhttp.responseText);
+			if(isNaN(newIndex)){
+				alertbox("Error occured somehere", xmlhttp.responseText);
 			} else {
-				uniqueid = xmlhttp.responseText;
-				walkDetailsBox('Walk file saved');
+				if (0 == xmlhttp.responseText) {
+					walkDetailsBox('Walk file failed to be saved due to server error');
+				} else {
+					uniqueid = newIndex;
+					walkDetailsBox('Walk file published successfully');
+				}				
 			}
-			alertbox("Failed to save correctly", xmlhttp.responseText);
 		}
 	};
 	var str = "serialized=" + serialized;
