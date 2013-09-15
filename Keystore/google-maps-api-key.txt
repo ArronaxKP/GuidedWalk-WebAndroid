@@ -1,0 +1,18 @@
+Your key is:
+
+0fGjuY_WpYooyK-S6UnURN8nozavJ-E_5SMy4zA
+
+This key will work for all apps signed with your certificate whose fingerprint is:
+
+86:2E:FA:82:01:16:77:E2:D2:5E:B6:FB:9A:33:52:36
+
+Here is a sample xml layout to get you started on your way to mapping glory:
+
+              <com.google.android.maps.MapView
+                 android:layout_width="fill_parent"
+                 android:layout_height="fill_parent"
+                 android:apiKey="0fGjuY_WpYooyK-S6UnURN8nozavJ-E_5SMy4zA"
+                 />
+            
+
+Have a look at the API documentation for more information.

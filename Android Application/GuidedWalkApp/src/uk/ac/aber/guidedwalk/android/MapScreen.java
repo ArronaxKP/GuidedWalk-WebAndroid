@@ -69,7 +69,6 @@ public class MapScreen extends MapActivity {
 				});
 				MapView mapView = (MapView) findViewById(R.id.map_view);
 				mapView.setBuiltInZoomControls(true);
-				mapView.setSatellite(true);
 				List<Overlay> mapOverlays = mapView.getOverlays();
 				me = new MyLocationOverlay(mapscreen, mapView);
 				me.enableCompass();

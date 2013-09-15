@@ -9,10 +9,6 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Path;
-import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.preference.PreferenceManager;
 import android.text.method.ScrollingMovementMethod;
@@ -21,12 +17,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.OverlayItem;
-import com.google.android.maps.Projection;
 
 /**
  * This Class extends the ItermizedOverlay Class.<!-- --> This class is
@@ -522,30 +516,6 @@ public class SpecialMapOverlay extends ItemizedOverlay<OverlayItem> {
 	@Override
 	public void draw(Canvas canvas, MapView mapv, boolean shadow) {
 		super.draw(canvas, mapv, shadow);
-
-		Paint mPaint = new Paint();
-		mPaint.setDither(true);
-		mPaint.setColor(Color.RED);
-		mPaint.setStyle(Paint.Style.STROKE);
-		mPaint.setStrokeJoin(Paint.Join.ROUND);
-		mPaint.setStrokeCap(Paint.Cap.ROUND);
-		mPaint.setStrokeWidth(2);
-
-		Projection projection = mapv.getProjection();
-		Path path = new Path();
-		Boolean firstTime = true;
-		for (OverlayItem item : mapOverlays) {
-			GeoPoint marker = item.getPoint();
-			Point point = new Point();
-			projection.toPixels(marker, point);
-			if (firstTime) {
-				path.moveTo(point.x, point.y);
-				firstTime = false;
-			} else {
-				path.lineTo(point.x, point.y);
-			}
-		}
-		canvas.drawPath(path, mPaint);
 	}
 
 	/**
